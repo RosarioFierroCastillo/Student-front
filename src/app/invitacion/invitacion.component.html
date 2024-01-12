@@ -1,0 +1,86 @@
+<mat-toolbar color="black" class="example-toolbar">
+	<!-- <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button> -->
+	<!--<h2><img src="./assets/logo2.png" id="logo"><img></h2>-->
+  </mat-toolbar>
+  
+  <body> 
+
+	<div class="derecha">
+		<h2>
+          {{invitacion[0].nombre_admin}} te ha invitado a formar parte de su comunidad!
+		</h2>
+		<h2>
+			{{invitacion[0].nombre_fraccionamiento}}.
+		</h2>
+		<h3>
+		  Por favor, llena los datos del formulario para crear tu cuenta en Arboleda.
+		</h3>
+	</div>
+
+	<div class="contenedor">
+	  <div class="form">
+		
+  
+		<form id="formCrear" class="Formulario" #form="ngForm" [formGroup]="UserGroup">
+		  <h2 class="titulo">Configura tu cuenta</h2>
+		  <p>
+			<input type="text" formControlName="nombre" name="nombre" placeholder="Nombre" [(ngModel)]="usuario.nombre">
+		  </p>
+		  <p>
+			<input type="text" id="apellidoP" formControlName="apellido_pat" name="apellido_pat" placeholder="Apellido paterno" [(ngModel)]="usuario.apellido_pat">
+		  </p>
+		  <p>
+			<input type="text" id="apellidoM" formControlName="apellido_mat" name="apellido_mat" placeholder="Apellido materno" [(ngModel)]="usuario.apellido_mat">
+		  </p>
+		  <p>
+			<input type="text" id="telefono" formControlName="telefono" name="telefono" placeholder="Teléfono" [(ngModel)]="usuario.telefono">
+		  </p>
+		  <p>
+			<input type="date" id="fechaNacimiento" name="fecha_nacimiento" formControlName="fecha_nacimiento" placeholder="Fecha de nacimiento" [(ngModel)]="usuario.fecha_nacimiento" required ngModel>
+		  </p>
+		  <p>
+			<input type="text" id="correo" name="correo" formControlName="correo" placeholder=""  required  readonly>
+		</p>
+		<p>
+			<input type="text" id="id_fraccionamiento" name="id_fraccionamiento" formControlName="id_fraccionamiento" placeholder=""  required  readonly>
+		</p>
+		<p>
+			<input type="text" id="id_lote" name="id_lote" formControlName="id_lote" placeholder=""  required  readonly>
+		</p>
+		<p>
+			<input type="text" id="tipo_usuario" name="tipo_usuario" formControlName="tipo_usuario" placeholder=""  required  readonly>
+		</p>
+		  <p>
+			<input type="password" id="Contrasenia" name="contrasenia" formControlName="contrasenia" placeholder="Contraseña" [(ngModel)]="usuario.correo" required ngModel>
+		</p>
+		<p>
+		  <input type="password" id="confirmarContrasena" name="confirmarContrasena" formControlName="confirmarContrasena" placeholder="Confirmar contraseña" [(ngModel)]="usuario.confirmarContrasena" required ngModel>
+		</p>
+		<div class="botones-container">
+		  <button class="boton-verde" (click)="agregar_usuario(form.value)">Enviar</button>
+		</div>
+		</form>
+	  </div>
+
+	</div>
+   
+  
+  </body>
+  
+  
+  <footer class="footer-distributed">
+	<div class="footer-right">
+	</div>
+	<div class="footer-left">
+	  <p class="footer-links">
+		<a class="link-1" href="#">Home</a>
+		<a href="#">Blog</a>
+		<a href="#">Sobre nosotros</a>
+		<a href="#">Preguntas frecuentes</a>
+		<a href="#">Contactanos</a>
+	  </p>
+	  <p>ARBOLEDA &copy; 2022</p>
+	</div>
+  
+  </footer>
+  

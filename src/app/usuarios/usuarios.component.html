@@ -1,0 +1,131 @@
+<body> 
+  <div class="contenedor">
+ 
+    <div class="form">
+      <h2 class="titulo">Usuario</h2>
+
+      <form id="formCrear" class="Formulario" #form="ngForm" [formGroup]="UserGroup">
+
+        <p>
+          <label for="nombre">Nombre: </label>
+          <input type="text" formControlName="nombre" name="nombre" [(ngModel)]="usuario.nombre">
+        </p>
+        <p>
+          <label for="direccion">Apellido paterno: </label>
+          <input type="text" id="apellidoP" formControlName="apellido_pat" name="apellido_pat" [(ngModel)]="usuario.apellido_pat">
+        </p>
+        <p>
+          <label for="coordenadas">Apellido materno: </label>
+          <input type="text" id="apellidoM" formControlName="apellido_mat" name="apellido_mat" [(ngModel)]="usuario.apellido_mat">
+        </p>
+        <!--
+        <p>
+          <label for="id_fraccionamiento">Fraccionamiento: </label>
+          <select id="id_fraccionamiento" name="id_fraccionamiento" formControlName="id_fraccionamiento" [(ngModel)]="usuario.id_fraccionamiento" required ngModel>
+            <option value={{fraccionamiento.id_fraccionamiento}} *ngFor="let fraccionamiento of fraccionamientos">{{fraccionamiento.nombre}}</option>
+          </select>
+        </p>
+        -->
+        <!--
+        <p>
+          <label for="lote">Tesorero: </label>
+          <select id="id_lote" name="id_lote" formControlName="id_lote" [(ngModel)]="usuario.id_lote" required ngModel>
+            <option value={{usuario.id_persona}} *ngFor="let usuario of usuarios">Sí</option>
+            <option value=0 *ngFor="let usuario of usuarios">No</option>
+          </select>
+        </p>
+      -->
+
+      <p>
+        <label for="lote">Tesorero: </label>
+        <select id="tipo_usuario" name="tipo_usuario" formControlName="tipo_usuario" [(ngModel)]="usuario.tipo_usuario" required ngModel>
+          <option value="tesorero">Sí</option>
+          <option value="usuario">No</option>
+        </select>
+      </p>
+        <div class="botones-container">
+          <button class="boton-verde" (click)="agregar_usuario(form.value)">Agregar</button>
+        </div>
+        <p>
+          <label for="idTesorero">Teléfono: </label>
+          <input type="text" id="telefono" formControlName="telefono" name="telefono" [(ngModel)]="usuario.telefono">
+        </p>
+        <p>
+          <label for="fechaNacimiento">Fecha de Nacimiento: </label>
+          <input type="date" id="fechaNacimiento" name="fecha_nacimiento" formControlName="fecha_nacimiento" [(ngModel)]="usuario.fecha_nacimiento" required ngModel>
+        </p>
+        <p>
+          <label for="correo">Correo: </label>
+          <input type="email" id="correo" name="correo" formControlName="correo" [(ngModel)]="usuario.correo" required ngModel>
+        </p>
+        <p>
+          <label for="contrasena">Contraseña: </label>
+          <input type="password" id="Contrasenia" name="contrasenia" formControlName="contrasenia" [(ngModel)]="usuario.contrasenia" required ngModel>
+      </p>
+      <p>
+        <label for="confirmarContrasena">Confirmar Contraseña: </label>
+        <input type="password" id="confirmarContrasena" name="confirmarContrasena" formControlName="confirmarContrasena" [(ngModel)]="usuario.confirmarContrasena" required ngModel>
+      </p>
+
+        <div class="botones-container">
+          <button class="boton-azul" (click)="actualizar_usuario(form.value)">Actualizar
+           </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido paterno</th>
+        <th>Apellido materno</th>
+        <th>Teléfono</th>
+        <th>Fecha de nacimiento</th>
+        <th>Tipo de usuario</th>
+        <th>Correo</th>
+        <th>Contraseña</th>
+        <th style="text-align:center;width:500px;">
+          Editar usuario
+        </th>
+        <th style="text-align:center;width:500px;">
+          Borrar usuario
+        </th>
+      </tr>
+    </thead> 
+    <tbody>
+      <tr mat-row matRowDef="columns: displayedcolumns;" *ngFor="let usuario of usuarios" (click)="onRowClicked(usuario)">
+        <th scope="row">{{usuario.id_persona}}</th>
+        <td>{{usuario.nombre}}</td>
+        <td>{{usuario.apellido_pat}}</td>
+        <td>{{usuario.apellido_mat}}</td>
+        <td>{{usuario.telefono}}</td>
+        <td>{{usuario.fecha_nacimiento}}</td>
+        <td>{{usuario.tipo_usuario}}</td>
+     
+        <td>{{usuario.correo}}</td>
+        <td>{{usuario.contrasenia}}</td>
+        <td><a class="btn btn-sm text-white btn-success" style="margin-right: auto;">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true" (click)="edit(usuario)"></span>
+          </a>
+          </td>
+          <td>
+          <a class="btn btn-sm text-white btn-danger" style="margin-left: auto;">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="delete(usuario)"></span>
+          </a>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+</body>
+

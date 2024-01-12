@@ -1,0 +1,50 @@
+<body>
+
+<div class="contenedor1">
+    <form id="buscar">
+        
+        <input type="text" name="filtrar" placeholder="buscar" [(ngModel)]="filtroNotificaciones">
+
+        <div class="select-container">
+            <select id="tipoNotificacion" (change)="filtrarPorTipo($event)" formControlName="tipoNotificacion">
+                <option [ngValue]="undefined" [disabled]="true">-- tipo de notificación --</option>
+                <option value="General">General</option>
+                <option value="Individual">Individual</option>
+            </select>
+        </div>
+    </form>
+
+
+
+    <div class="contenedor2">
+
+        <table  class="table" cellspacing="20" width="100%">
+            <thead>
+                <tr>
+
+                    <th scope="col" style=" font: 1em sans-serif;">Asunto</th>
+                    <th scope="col">Detalles</th>
+                    <th scope="col">Destinatario</th>
+                    <th scope="col" style="text-align:center;width:200px;">
+                        Borrar
+                    </th>
+                </tr>
+            </thead>  
+            <tbody>
+                <tr tr mat-row matRowDef="columns: displayedcolumns;"
+                *ngFor="let notificacion of notificaciones | filtroNotificaciones: 'asunto': filtroNotificaciones">
+                    <td style=" font: 1em sans-serif;">{{ notificacion.asunto }}</td>
+                    <td>{{ notificacion.mensaje }}</td>
+                    <td>{{ notificacion.id_destinatario }}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    </td>
+                </tr>
+            </tbody> 
+        </table>
+    </div>
+
+    </div>
+    </body>

@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #daffc4;
+}
+
+.titulo {
+    text-align: center;
+    color: #333;
+}
+
+.select-container {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.acuerdos-lista {
+    list-style-type: none;
+    padding: 0;
+}
+
+.acuerdo-info {
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.acuerdo-info h3 {
+    color: #333;
+    margin-top: 0;
+}
+
+.acuerdo-info p {
+    margin: 8px 0;
+}
+
+.acuerdo-info p.remitente {
+    text-align: right;
+    color: #555; /* Color de texto del remitente */
+}

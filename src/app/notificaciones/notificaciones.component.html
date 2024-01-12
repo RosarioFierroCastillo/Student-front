@@ -1,0 +1,112 @@
+<body>
+    <div class="contenedor"> 
+        <h2 class="titulo">Notificaciones</h2>
+       <div class="form"> 
+           
+            <!-- Formulario para agregar un nuevo acuerdo -->
+            <form id="formCrear" class="Formulario" #form="ngForm" (ngSubmit)="agregarNotificacion(form.value)" >
+                <!-- ... Otros campos del formulario ... -->
+    
+                <!--
+                <div class="form-group">
+                   
+                    <label for="fraccionamiento">Fraccionamiento:</label>
+                    <select id="fraccionamiento" name="fraccionamiento" required ngModel>
+                        <option [ngValue]="undefined" [disabled]="true">-- Selecciona un tipo de propiedad --</option>
+                        <option value="fraccionamiento1">Fraccionamiento 1</option>
+                        <option value="fraccionamiento2">Fraccionamiento 2</option>
+    
+                    </select>
+               
+                </div>
+     -->
+                
+
+                
+                <div class="form-group">
+                    <select id="tipo" name="tipo" required ngModel>
+                        <option value="general" disabled>-- tipo de notificación --</option>
+                        <option value="general" >General</option>
+                        <option value="individual" >Individual</option>
+                    </select>
+                </div>
+    
+    
+     
+    
+                <div class="form-group">
+                    <select id="destinatario" name="destinatario"  required ngModel> 
+                        <option [ngValue]="undefined" [disabled]="true">-- Selecciona un destinatario --</option>
+                        <option value={{usuario.id_persona}} *ngFor="let usuario of personas">
+                            {{usuario.id_persona}}- {{usuario.nombre}} {{usuario.apellido_pat}} {{usuario.apellido_mat}}
+                        </option>
+                    </select>
+                </div>
+    
+    
+                <div class="form-group">
+                    <input type="text" id="asunto" name="asunto" placeholder="asunto"  required ngModel>
+                </div>
+    
+    
+                <div class="form-group">
+                    <textarea id="mensaje" name="mensaje"  placeholder="mensaje"  required ngModel></textarea>
+                </div>
+    
+            <!--
+                <div class="form-group">
+                    <label for="id_notificacion">ID de Notificación:</label>
+                    <input type="number" id="id_notificacion" name="id_notificacion" [(ngModel)]="idNotificacion">
+                </div>
+    
+    -->
+                <div class="botones-container">
+                    <button class="boton-verde" type="submit">Agregar</button>
+                  </div>
+            </form>
+        </div>
+     <!--
+    
+        <div class="contenedor1">
+            <form id="buscar">
+                <input type="text" name="filtrar" placeholder="buscar" [(ngModel)]="filtroNotificaciones">
+    
+                <div class="select-container">
+                    <select id="tipoNotificacion" (change)="filtrarPorTipo($event)" formControlName="tipoNotificacion">
+                        <option [ngValue]="undefined" [disabled]="true">-- tipo de notificación --</option>
+                        <option value="General">General</option>
+                        <option value="Individual">Individual</option>
+                    </select>
+                </div>
+            </form>
+    
+    
+    
+            <div class="contenedor2">
+     
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Asunto</th>
+                            <th>Detalles</th>
+                            <th>Fecha</th>
+                            <th>Borrar acuerdo</th>
+                        </tr>
+                    </thead> 
+                    <tbody>
+                        <tr *ngFor="let notificacion of notificaciones | filtroNotificaciones: 'asunto': filtroNotificaciones">
+                            <td>{{ notificacion.id_notificacion }}</td>
+                            <td>{{ notificacion.asunto }}</td>
+                            <td>{{ notificacion.mensaje }}</td>
+                            <td>{{ notificacion.id_destinatario }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+-
+            </div>
+            
+            </div>
+            -->
+        </div>
+        
+    </body>

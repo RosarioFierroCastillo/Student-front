@@ -1,0 +1,24 @@
+<div class="container">
+    <h2 class="titulo">Lista de Acuerdos</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Fraccionamiento</th>
+                <th>Asunto</th>
+                <th>Detalles</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let acuerdo of acuerdos">
+                <td>{{ acuerdo.id_acuerdo }}</td>
+                <td>{{ acuerdo.id_fraccionamiento}}</td>
+                <td>{{ acuerdo.asunto }}</td>
+                <td>{{ acuerdo.detalles }}</td>
+                <td>{{ acuerdo.fecha }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

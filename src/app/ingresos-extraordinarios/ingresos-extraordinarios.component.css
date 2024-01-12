@@ -1,0 +1,182 @@
+body{
+  background-color: #EDFBE6;
+}
+.contenedor {
+  width: 30%;
+  margin: auto;
+  height: 78%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  position:absolute; top:23px; left:20px;
+  margin-left: 35%;
+  margin-top: 3%;
+}
+
+
+.titulo {
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.Formulario{
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
+  padding: 10px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  
+ 
+}
+
+/*
+label {
+  margin-top: 10px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
+  padding: 10px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+*/
+.boton-verde {
+  background-color: #4CAF50; /* Verde */
+
+  
+  color: white;
+}
+
+.boton-azul {
+  background-color: blue; /* Azul */
+  color: white;
+}
+
+
+table, th ,td, thead, tr {
+  text-align: center;
+  width: 300px; 
+
+}
+
+table{
+  position:absolute; top:23px; left:550px;
+  width: 610px;
+}
+
+.botones-container{
+  margin: auto;
+}
+
+
+/* aqui empieza el css del formulario de ingresos ordinarios*/
+
+.container2 {
+  width: 30%;
+  margin: auto;
+  height: 78%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  position: absolute;
+  top: 23px;
+  left: 20px;
+  margin-left: 35%;
+  margin-top: 3%;
+}
+
+.titulo2 {
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.form2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.Formulario2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.green-button2,
+.yellow-button2,
+.red-button2 {
+  padding: 10px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.green-button2 {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.yellow-button2 {
+  background-color: yellow;
+  color: black;
+}
+
+.red-button2 {
+  background-color: red;
+  color: white;
+}
+
+.form-group2 {
+  margin-top: 10px;
+}
+
+.input2 {
+  width: calc(100% - 20px); /* Restar el padding */
+  padding: 8px;
+  margin-bottom: 10px;
+  margin-left: 10px; /* Añadir margen izquierdo para compensar el padding */
+}
+
+/* Estilo para los select específicos del formulario 2 */
+.Formulario2 select {
+  width: calc(100% - 24px); /* Restar el padding y el ancho del borde */
+  padding: 8px;
+  margin-bottom: 10px;
+  margin-left: 12px; /* Añadir margen izquierdo para compensar el padding */
+}
+
+
+
+.div-opciones-deuda{
+  margin-left: 45%;
+  margin-top: 1%;
+  font-size: 26;
+}
+
+.select-deuda{
+  background-color: #EDFBE6;
+}
+

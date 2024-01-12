@@ -1,0 +1,35 @@
+<body>
+
+    <div class="contenedor1">
+        <form id="buscar">
+            <input type="text" name="filtrar" placeholder="buscar" [(ngModel)]="filtroAcuerdos">
+            <input type="date" name="filtrarFecha" [(ngModel)]="filtroFecha" id="buscar1">
+        </form>
+    
+        <div class="contenedor2">
+        <table id="example" class="table" cellspacing="20" width="100%">
+            <thead>
+                <tr>
+                    <th scope="col">Asunto</th>
+                    <th scope="col">Detalles</th>
+                    <th scope="col">Fecha</th> 
+                    <th scope="col">Borrar acuerdo</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <tr *ngFor="let acuerdo of acuerdos | filtroAcuerdos: 'asunto': filtroAcuerdos | filtroFecha: 'fecha': filtroFecha">
+                    <td>{{ acuerdo.asunto }}</td>
+                    <td>{{ acuerdo.detalles }}</td>
+                    <td>{{ acuerdo.fecha }}</td>
+                    <td>
+                        <a class="btn btn-sm text-white btn-danger" style="margin-left:16px;"
+                            (click)="eliminarAcuerdo(acuerdo.id_acuerdo,acuerdo.id_fraccionamiento)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>    
+</body>
