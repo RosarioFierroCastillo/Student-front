@@ -521,7 +521,7 @@ export class PropiedadesComponent {
           location.reload()
         }, 2000);
 
-      },
+      },      //jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
       (error)=>{
         Swal.fire({
           title: 'Invitacion generada correctamente',
