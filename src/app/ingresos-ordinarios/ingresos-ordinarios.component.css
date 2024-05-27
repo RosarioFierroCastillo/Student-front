@@ -1,182 +1,229 @@
 body{
   background-color: #EDFBE6;
-}
-.contenedor {
-  width: 30%;
-  margin: auto;
-  height: 78%;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  position:absolute; top:23px; left:20px;
-  margin-left: 35%;
-  margin-top: 3%;
+  margin: 0%;
+  background-position: center center;
+
 }
 
-
-.titulo {
-  text-align: center;
-  color: rgb(0, 0, 0);
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
- 
-}
-
-.Formulario{
-  display: flex;
-  flex-direction: column;
- 
-}
-
-.boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
-  padding: 10px;
-  margin: 10px 5px;
+input, p > select, textarea{
+  width: 300px; 
+  margin-bottom: 8px;
+  outline: none;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  
- 
-}
-
-/*
-label {
-  margin-top: 10px;
-}
-
-input {
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-.boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
-  padding: 10px;
-  margin: 10px 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-*/
-.boton-verde {
-  background-color: #4CAF50; /* Verde */
-
-  
-  color: white;
-}
-
-.boton-azul {
-  background-color: blue; /* Azul */
-  color: white;
-}
-
-
-table, th ,td, thead, tr {
+  background-color: transparent;
+  border-bottom: 1px solid #989898;
   text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+}
+ 
+input, select{
+  width: 300px;
+  border: none;
+/*  border: 1px solid transparent; */
+
+  background-color: transparent;
+  border-bottom: 1px solid #989898;
+}
+
+#dias_gracia{
+  width: 300px;
+  border: none;
+/*  border: 1px solid transparent; */
+
+  background-color: transparent;
+  border-bottom: 1px solid #989898;
+}
+
+p > #telefono, p > #fechaNacimiento{
   width: 300px; 
 
-}
-
-table{
-  position:absolute; top:23px; left:550px;
-  width: 610px;
-}
-
-.botones-container{
-  margin: auto;
-}
-
-
-/* aqui empieza el css del formulario de ingresos ordinarios*/
-
-.container2 {
-  width: 30%;
-  margin: auto;
-  height: 78%;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  position: absolute;
-  top: 23px;
-  left: 20px;
-  margin-left: 35%;
-  margin-top: 3%;
-}
-
-.titulo2 {
-  text-align: center;
-  color: rgb(0, 0, 0);
-}
-
-.form2 {
-  display: flex;
-  flex-direction: column;
-}
-
-.Formulario2 {
-  display: flex;
-  flex-direction: column;
-}
-
-.green-button2,
-.yellow-button2,
-.red-button2 {
-  padding: 10px;
-  margin: 10px 5px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  /*  border: 1px solid transparent; */
+  
+    background-color: transparent;
+    border-bottom: 1px solid #989898;
 }
-
-.green-button2 {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.yellow-button2 {
-  background-color: yellow;
-  color: black;
-}
-
-.red-button2 {
-  background-color: red;
-  color: white;
-}
-
-.form-group2 {
-  margin-top: 10px;
-}
-
-.input2 {
-  width: calc(100% - 20px); /* Restar el padding */
-  padding: 8px;
-  margin-bottom: 10px;
-  margin-left: 10px; /* Añadir margen izquierdo para compensar el padding */
-}
-
-/* Estilo para los select específicos del formulario 2 */
-.Formulario2 select {
-  width: calc(100% - 24px); /* Restar el padding y el ancho del borde */
-  padding: 8px;
-  margin-bottom: 10px;
-  margin-left: 12px; /* Añadir margen izquierdo para compensar el padding */
-}
-
 
 
 .div-opciones-deuda{
-  margin-left: 45%;
-  margin-top: 1%;
-  font-size: 26;
+  margin-left: 15%;
+  margin-top: 10px;
 }
 
-.select-deuda{
-  background-color: #EDFBE6;
+
+.contenedor{
+  padding-top: 60px;
+  margin-left: 10%;
+
 }
+
+.mat-toolbar{
+  /*  background-color: #768650;  */
+   background-color: #575d43; 
+  }
+
+  .titulo {
+    
+    color: rgb(0, 0, 0);
+    margin-top: 30px;
+
+    margin-left: 10%;
+    
+   /* text-align: center; */
+
+  }
+   
+  
+  input, select{
+    width: 300px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    border-bottom: 1px solid #989898;
+  }
+
+  p > #telefono, p > #fechaNacimiento{
+    width: 500px; 
+    border: 1px solid transparent;
+    background-color: transparent;
+    border-bottom: 1px solid #989898;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
+
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
+  
+
+  .form {
+
+    display: grid;
+    grid-gap: 1.0rem;
+
+
+ 
+  }
+
+  p{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1.0rem;
+
+  }
+  
+  .imagen-cont{
+    border-color: #000000;
+    border-width: 3px 3px 3px 3px;
+    border-style: solid;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 915px;
+    top: 135px;
+
+  }
+
+  .Formulario{
+
+    display: grid;
+    grid-gap: 1.0rem;
+
+    grid-template-columns: 1fr 1fr;
+  }
+  
+
+
+  .boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
+    padding: 10px;
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background: #4c9c4e;
+    color: #FFFFFF;
+  }
+
+  .boton-verde:hover {
+    background: #317435;
+  }
+  
+
+  .botones-container {
+      position: absolute;
+      left: 640px;
+      top: 340px;
+    
+  }
+  
+  table, th ,td, thead, tr {
+    text-align: center;
+    width: 300px; 
+  
+  }
+  
+/*
+  .Formulario {
+
+    margin-left: 30%;
+    margin-right: 40%;
+    padding-left: 0px;
+    grid-gap: 1.25rem;
+
+    border-radius: 0% 2% 2% 0%;
+    
+    
+  }
+  */
+  select, #fechaNacimiento{
+    width: 180px;
+    height: 26px;
+  }
+  
+  
+  #telefono{
+    width: 210px;
+    height: 26px;
+  }
+  
+  #lote1{
+    display: inline-block;
+  
+  
+  }
+  
+  a {
+    flex-direction: column;
+  }
+
+.imagen{
+position: absolute;
+margin-left: 800px;
+margin-top: -300px;
+}
+ 
+.btn_imagen{
+padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background: #4c9c4e;
+    color: #FFFFFF;
+
+    position: absolute;
+    margin-left: 840px;
+}
+
+
 

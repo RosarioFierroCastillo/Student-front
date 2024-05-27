@@ -10,10 +10,10 @@ export class ImagenService {
   constructor(private http: HttpClient) { }
 
   //private apiUrl = 'https://evaluacionesuas-001-site1.gtempurl.com/Acuerdos';
-  private apiUrl = 'https://localhost:44397/api/Usuarios'; 
+  private apiUrl = 'http://159.54.134.179/api/Usuarios';
 
 
- 
+
 
   PostFile(nombre: string,FileToUpload: File): Observable<object>{
     const formData = new FormData();

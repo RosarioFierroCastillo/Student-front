@@ -31,13 +31,6 @@ export class DeudoresComponent {
 
   constructor(private http: HttpClient, private dataService: DataService, private fb: FormBuilder,private personasService:PersonasService){}
 
-  // fetchDataDeudores() {
-  //   this.dataService.fetchDataDeudores(this.dataService.obtener_usuario(3)).subscribe((deudores: deudores[]) => {
-  //     console.log(deudores);
-  //     this.deudores = deudores;
-  //   });
-  // }
-
   ConsultarDeudores(){
     this.personasService.consultarDeudoresOrdinarios(this.dataService.obtener_usuario(3)).subscribe(
       (deudasUsuario: Deudores[]) => {
@@ -51,8 +44,8 @@ export class DeudoresComponent {
             text: '',
             icon: 'warning',
             confirmButtonText: 'Aceptar'
-          });
-        }
+          }); 
+        } 
        
       },
       (error) => {

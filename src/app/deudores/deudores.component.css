@@ -1,9 +1,11 @@
 body{
-  background-color: #f2f7f0; 
+  background-color: #EDFBE6; 
   margin: 0%;
   background-position: center center;
 
 }
+
+
 
 .contenedor2 {
   height:400px; 
@@ -127,7 +129,7 @@ body{
   }
   
   table{
-    background-color: #f2f7f0;
+
     position:absolute; top:10px;
     width: 910px;
     font: 1em sans-serif;

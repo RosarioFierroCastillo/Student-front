@@ -30,10 +30,10 @@ export class ConsultarPropiedadesComponent {
   lote =new lote();
   inquilinos: inquilinos[] = [];
   inquilino =new inquilino();
-  AbrirMenu: boolean = false; 
+  AbrirMenu: boolean = false;
   fraccionamientos: fraccionamientos[] = [];
   usuario = new usuario();
- 
+
   usuarios: usuarios[] = [];
   id_lote: any;
   id_renta: any;
@@ -57,7 +57,7 @@ export class ConsultarPropiedadesComponent {
     $(function() {
       // Active the first thumb & panel
       $(".tabs-thumb:first-child").addClass("is-active").closest(".tabs").find(".tabs-panel:first-child").show();
-      
+
       $(".tabs-thumb").click(function() {
         // Cancel the siblings
         $(this).siblings(".tabs-thumb").removeClass("is-active").closest(".tabs").find(".tabs-panel").hide();
@@ -65,10 +65,10 @@ export class ConsultarPropiedadesComponent {
         $(this).addClass("is-active").closest(".tabs").find(".tabs-panel").eq($(this).index(".tabs-thumb")).show();
       });
     });
-    
+
   }
 
-   
+
 constructor(private router:Router, private http: HttpClient, private dataService: DataService, private fb: FormBuilder, private fb1: FormBuilder, private fb2: FormBuilder){
 
 
@@ -100,19 +100,6 @@ constructor(private router:Router, private http: HttpClient, private dataService
 
     })
 
-
-/*
-  
-  
-  this.UserGroup1 = this.fb1.group({
-    //   id_fraccionamiento: ['16', Validators.required],
-       id_usuario: ['', Validators.required],
-       nombre: ['', Validators.required],
-       codigo_acceso: ['', Validators.required],
-       intercomunicador: ['', Validators.required],
-      
-     })
-     */
   }
 
   fetchData(id_administrador: any) {
@@ -122,14 +109,14 @@ constructor(private router:Router, private http: HttpClient, private dataService
     });
   }
 
-  
+
   fetchDataUsers(id_administrador: any) {
     this.dataService.fetchDataUsers(id_administrador).subscribe((usuarios: usuarios[]) => {
       console.log("fetch", usuarios);
       this.usuarios = usuarios;
     });
   }
-  
+
   fetchDataPropiedades(id_administrador: any){
     this.dataService.fetchDataPropiedades(id_administrador).subscribe((lotes: lotes[]) => {
       console.log("usuarios:",lotes);
@@ -146,33 +133,13 @@ constructor(private router:Router, private http: HttpClient, private dataService
 
 
   ir_inquilinos(){
-    
+
     this.router.navigate(['/inquilinos']);
   }
 
   id(id_propietario: any){
     console.log("id_propietario: ",id_propietario);
   }
-/*
-  
-  usuarios1 = {
-    nombre: '',
-    telefono: '',
-    correo: '',
-    id_persona: 0,
-    apellido_pat: undefined,
-    apellido_mat: undefined,
-    id_fraccionamiento: undefined,
-    tipo_usuario: undefined,
-    fecha_nacimiento: undefined,
-    contrasenia: undefined,
-    confirmarContrasena: undefined,
-    Intercomunicador: undefined,
-    Codigo_Acceso: undefined,
-    id_lote: undefined
-  }as const;
-
-  */
 
   //type usuarios1 = keyof typeof usuarios1;
 
@@ -181,14 +148,14 @@ constructor(private router:Router, private http: HttpClient, private dataService
       console.log("usuarios1: ", usuarios);
       this.usuarios = usuarios;
      // this.UserGroup1 = usuarios;
-        
+
     //  function editUsers(usuarios) {}
       this.editUsers(usuarios[0].nombre, usuarios[0].telefono, usuarios[0].correo)
 
     });
   }
 
-  
+
   edit(lotes: {
     id_lote: any;
     id_renta: any;
@@ -212,25 +179,6 @@ constructor(private router:Router, private http: HttpClient, private dataService
 
 
 
-
-
-/*
-: {
-    id_persona: any;
-    nombre: any,
-    apellido_pat: any,
-    apellido_mat: any,
-    tipo_usuario: any,
-    telefono: any,
-    fecha_nacimiento: any,
-    correo: any,
-    contrasenia: any,
-    Intercomunicador: any,
-    Codigo_Acceso: any,
-    id_fraccionamiento: any,
-
-  }
-*/ 
 
   editUsers(nombre: any,
   telefono: any,
@@ -267,13 +215,13 @@ constructor(private router:Router, private http: HttpClient, private dataService
 
   agregar_inquilino(inquilino: {
     codigo_acceso: any;
-    intercomunicador: any; 
+    intercomunicador: any;
     nombre: any;
   }) {
-  
-  
+
+
       const params = {
-   
+
         id_usuario: this.usuarios[0].id_persona,
         id_lote: this.usuarios[0].id_lote,
         id_renta: this.usuarios[0].id_persona,
@@ -281,13 +229,13 @@ constructor(private router:Router, private http: HttpClient, private dataService
         codigo_acceso: inquilino.codigo_acceso,
         intercomunicador: inquilino.intercomunicador,
         nombre: inquilino.nombre
-  
+
       };
-  
+
       console.log("params: ",params)
-  
-      let direccion = "https://localhost:44397/api/Usuario_lote/Agregar_inquilino";
-  
+
+      let direccion = "http://159.54.134.179/api/Usuario_lote/Agregar_inquilino";
+
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(
         direccion,
@@ -297,7 +245,7 @@ constructor(private router:Router, private http: HttpClient, private dataService
           Swal.fire({
             title: 'Inquilino agregado correctamente',
             text: '',
-            icon: 'success' 
+            icon: 'success'
           })
          // this.fetchDataPersonasLote( this.usuarios[0].id_persona);
          window.setTimeout( function() {
@@ -306,6 +254,37 @@ constructor(private router:Router, private http: HttpClient, private dataService
          // location.reload(timeInterval(3000));
         //  this.UserGroup2.reset();
         });
-  
+
     }
+
+
+    eliminar_inquilino(id_usuario_lote: any, codigo_acceso: any){
+      this.eliminarAcuerdo(id_usuario_lote, codigo_acceso).subscribe(
+        (respuesta: any) => {
+          console.log('Acuerdo eliminado:', respuesta);
+          Swal.fire({
+            title: 'Inquilino eliminado correctamente',
+            text: '',
+            icon: 'success'
+          })
+          // Vuelve a cargar los acuerdos después de eliminar
+          this.fetchDataPersonasLote(this.usuarios[0].id_persona);
+        },
+        (error) => {
+          Swal.fire({
+            title: 'Error al eliminar inquilino',
+            text: '',
+            icon: 'error'
+          })
+          console.error('Error al eliminar acuerdo:', error);
+          // Manejo de errores
+        }
+      );
+    }
+
+    eliminarAcuerdo(id_usuario_lote: any, codigo_acceso: any) {
+      return this.http.delete(`http://159.54.134.179/api/Usuario_lote/Eliminar_inquilino?id_lote=${id_usuario_lote}&codigo_acceso=${codigo_acceso}`,{ responseType: 'text' });
+    }
+
+
 }

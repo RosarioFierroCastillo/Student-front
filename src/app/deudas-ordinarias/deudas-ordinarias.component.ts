@@ -9,14 +9,14 @@ import { DatePipe } from '@angular/common'
 import { Personas } from '../ingresos-extraordinarios/personas.model';
 import { PersonasService } from '../ingresos-extraordinarios/personas.service';
 import Swal from 'sweetalert2';
- 
+
 @Component({
   selector: 'app-deudas-ordinarias',
   templateUrl: './deudas-ordinarias.component.html',
   styleUrls: ['./deudas-ordinarias.component.css']
 })
 export class DeudasOrdinariasComponent {
-  tipo_formulario: string=''; 
+  tipo_formulario: string='';
   httpclient: any;
   UserGroup: FormGroup;
   UserGroup2: FormGroup;
@@ -42,8 +42,8 @@ export class DeudasOrdinariasComponent {
          recargo: ['', Validators.required],
          proximo_pagoOrdinario: ['', Validators.required],
          destinatario: ['', Validators.required],
-         
-    
+
+
        })
 
        this.UserGroup2 = this.fb.group({
@@ -57,17 +57,17 @@ export class DeudasOrdinariasComponent {
         proximo_pago: ['', Validators.required],
         destinatario2: ['', Validators.required],
         cboxpersonas: ['', Validators.required],
-        
-        
+
+
       })
 
     }
 
     ngOnInit(): void {
-  
+
       this.fetchDataDeudas(this.dataService.obtener_usuario(1));
       this.consultarPersonas(this.dataService.obtener_usuario(3));
-    
+
     }
 
     consultarPersonas(idFraccionamiento: number): void {
@@ -91,7 +91,7 @@ export class DeudasOrdinariasComponent {
 
     onRowClicked(lote: any) {
       this.id_deudas= lote['id_deudas']
-  
+
     }
 
     fetchDataDeudas(id_tesorero: any) {
@@ -99,14 +99,14 @@ export class DeudasOrdinariasComponent {
         //console.log(deudas);
         this.deudas = deudas;
       });
-    } 
+    }
 
     edit(deudas: {
       id_deudas: any;
       monto: any;
       nombre: any;
       descripcion: any;
-      dias_gracia: any; 
+      dias_gracia: any;
       periodicidad: any;
       recargo: any;
       proximo_pago: any;
@@ -120,7 +120,7 @@ export class DeudasOrdinariasComponent {
       this.deuda.recargo= deudas.recargo;
       this.deuda.proximo_pago= deudas.proximo_pago;
     }
-    
+
     fechaProximoPago:string='';
 agregar_deuda(deudas: {monto: number, nombre: string, descripcion: string, dias_gracia:number, periodicidad: number, recargo: number, id_tesorero: number, id_fraccionamiento:number,proximo_pago:string,destinatario:string}){
   deudas.id_fraccionamiento= this.dataService.obtener_usuario(3);
@@ -128,18 +128,18 @@ agregar_deuda(deudas: {monto: number, nombre: string, descripcion: string, dias_
   deudas.proximo_pago=this.fechaProximoPago;
   deudas.destinatario=this.destinatario;
   console.log(deudas);
- 
+
   const headers = new HttpHeaders({'myHeader': 'procademy'});
   this.http.post(
-   "https://localhost:44397/api/Deudas/Agregar_Deuda",
+   "http://159.54.134.179/api/Deudas/Agregar_Deuda",
     deudas, {headers: headers})
-    .subscribe((res) => { 
+    .subscribe((res) => {
       console.log(res);
-    //  this.ngOnInit(); 
+    //  this.ngOnInit();
     this.fetchDataDeudas(this.dataService.obtener_usuario(1));
     this.UserGroup.reset();
     });
- 
+
 }
 
 onChangeOption(event:any){
@@ -152,13 +152,13 @@ onChangeOption2(event:any){
   const selectedValue = event.target.value;
 
   if(selectedValue=='personalizado'){
-    this.especifico=true; 
+    this.especifico=true;
   }else{
     this.especifico=false;
     this.destinatario=selectedValue;
   }
- 
-  
+
+
 }
 
 onChangeUsuario(event: any) {
@@ -168,11 +168,11 @@ onChangeUsuario(event: any) {
 }
 
 
-  
+
 actualizar_deuda(
   deudas: {monto: number, nombre: string, descripcion: string, dias_gracia:number, periodicidad: number, recargo: number, id_deudas: number}
 ){
- 
+
   const params = {
     monto: deudas.monto,
     nombre: deudas.nombre,
@@ -189,11 +189,11 @@ actualizar_deuda(
     headers: new HttpHeaders({
      'Content-Type':  'application/json'
     })
-  }; 
+  };
 
   console.log("actualizar: ",params)
 
-  return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
+  return this.http.put("http://159.54.134.179/api/Deudas/Actualizar_Deuda", params).subscribe(
     (_response) => {
       console.log("actualiza",params)
       this.ngOnInit();
@@ -206,10 +206,10 @@ actualizar_deuda(
 
 
 delete(id_deudas: any){
-  return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+  return this.http.delete("http://159.54.134.179/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
     () => {
       this.fetchDataDeudas(this.dataService.obtener_usuario(1));
- 
+
     })
 
 }
@@ -234,15 +234,15 @@ delete(id_deudas: any){
   console.log(this.fechaCorte_extra);
   const headers = new HttpHeaders({'myHeader': 'procademy'});
   this.http.post(
-   "https://localhost:44397/api/Deudas/Agregar_DeudaExtra",
+   "http://159.54.134.179/api/Deudas/Agregar_DeudaExtra",
     deudas, {headers: headers})
-    .subscribe((res) => { 
+    .subscribe((res) => {
       console.log(res);
-    //  this.ngOnInit(); 
+    //  this.ngOnInit();
     this.fetchDataDeudasExtra(this.dataService.obtener_usuario(1));
     this.UserGroup.reset();
     });
- 
+
 }
 
 
@@ -252,12 +252,12 @@ fetchDataDeudasExtra(id_tesorero: any) {
     console.log(deudas);
     this.deudas = deudas;
   });
-} 
+}
 
 actualizar_deudaExtra(
   deudas: {monto: number, nombre: string, descripcion: string, proximo_pago: Date, id_deudas: number}
 ){
- 
+
   const params = {
     monto: deudas.monto,
     nombre: deudas.nombre,
@@ -272,11 +272,11 @@ actualizar_deudaExtra(
     headers: new HttpHeaders({
      'Content-Type':  'application/json'
     })
-  }; 
+  };
 
   console.log("actualizar: ",params)
 
-  return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
+  return this.http.put("http://159.54.134.179/api/Deudas/Actualizar_Deuda", params).subscribe(
     (_response) => {
       console.log("actualiza",params)
       this.ngOnInit();

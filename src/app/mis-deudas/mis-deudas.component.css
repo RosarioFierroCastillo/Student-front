@@ -3,11 +3,12 @@ body{
   }
   .contenedor {
       height:380px;
-      width:97%;
+      width:900px;
       position:absolute; 
       overflow:scroll;
       top: 120px;
       right:20px;
+      margin-left: 30%;
       
     }
   

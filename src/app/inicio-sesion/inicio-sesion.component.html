@@ -18,15 +18,18 @@
 <div *ngIf="shouldRun" class="example-container" [class.example-is-mobile]="mobileQuery.matches">
 	<mat-toolbar color="black" class="example-toolbar">
 		<!-- <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button> -->
-		<h2><img src="./assets/logo2.png" id="logo"><img></h2>
+		<h2><img src="./assets/logo4.jpeg" id="logo"><img></h2>
 	</mat-toolbar>
 
 
-	<body>
+	<body> 
 
 		
 
 		<!------ Include the above in your HEAD tag ---------->
+
+
+
 
 		<div class="container">
 			<div class="row"> 
@@ -82,14 +85,14 @@
 									<form id="register-form" action="http://phpoll.com/register/process" method="post"
 										role="form" style="display: none;" #form1="ngForm" [formGroup]="UserGroup1">
 										<div class="form-group">
-											<input type="text" name="username" id="username" tabindex="1"
+											<input type="text" name="username" id="username" tabindex="1" 
 												class="form-control" placeholder="Usuario" value="" formControlName="username" [(ngModel)]="sesion.username">
 										</div>
 										<div class="form-group">
 											<input type="email" name="email" id="email" tabindex="1"
 												class="form-control" placeholder="Correo electronico" value="" formControlName="correo" [(ngModel)]="sesion.correo">
 										</div>
-										<div class="form-group">
+										<div class="form-group"> 
 											<input type="password" name="password" id="password" tabindex="2"
 												class="form-control" placeholder="Contraseña" formControlName="password" [(ngModel)]="sesion.password">
 										</div>
@@ -120,25 +123,9 @@
 		</div>
 
 
-
-
 	</body>
 
-	<footer class="footer-distributed">
-		<div class="footer-right">
-		</div>
-		<div class="footer-left">
-			<p class="footer-links">
-				<a class="link-1" href="#">Home</a>
-				<a href="#">Blog</a>
-				<a href="#">Sobre nosotros</a>
-				<a href="#">Preguntas frecuentes</a>
-				<a href="#">Contactanos</a>
-			</p>
-			<p>ARBOLEDA &copy; 2022</p>
-		</div>
-
-	</footer>
+	
 
 
 

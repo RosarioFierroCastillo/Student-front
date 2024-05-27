@@ -1,15 +1,19 @@
+
+
 .example-container {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: 0; 
     right: 0;
     background-image: url("src/assets/fondo.jpg");
     background-position: center center;
     background-size: 1295px 488px;
   }
+
+
   
   img{
     color: aliceblue;
@@ -91,6 +95,8 @@ button{
 
 
 
+
+
 /* FOOTER */
 
 
@@ -104,7 +110,7 @@ button{
 section {
   width: 100%;
   display: inline-block;
-  background: #ffffff;
+  background: rgb(4, 8, 69);
   height: 60vh;
   text-align: center;
   font-size: 22px;
@@ -113,18 +119,21 @@ section {
 }
 
 .footer-distributed {
-  background-color: #575d43; 
+  background-color: rgb(149, 150, 193, 1); 
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;
   text-align: left;
   font: normal 16px sans-serif;
-  padding: 45px 50px;
-  margin-top: 0%;
+  padding: 35px 50px;
+  position: absolute;
+  top:  95%;
+  
+ 
 }
 
 .footer-distributed .footer-left p {
-  color: rgb(255, 255, 255);
+  color: rgb(4, 8, 69);
   font-size: 14px;
  
 }
@@ -170,7 +179,7 @@ section {
 .footer-distributed .footer-right a {
   display: inline-block;
   width: 35px;
-  height: 35px;
+
   background-color: #33383b;
   border-radius: 2px;
   font-size: 20px;

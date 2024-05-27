@@ -8,7 +8,7 @@ import { Acuerdos } from './acuerdos.model'; // Importa el modelo de Acuerdos
 })
 export class AcuerdosService {
 
-  private apiUrl = 'https://localhost:44397/Acuerdos'; // URL base de la API
+  private apiUrl = 'http://159.54.134.179/Acuerdos'; // URL base de la API
 
   constructor(private http: HttpClient) { }
 
@@ -30,5 +30,10 @@ export class AcuerdosService {
 
   consultarAcuerdos(id_fraccionamiento: number): Observable<Acuerdos[]> {
     return this.http.get<Acuerdos[]>(`${this.apiUrl}/Consultar_Acuerdo?id_fraccionamiento=${id_fraccionamiento}`);
+  }
+
+  consultarAcuerdosPaginados(id_fraccionamiento: number, indice: number, rango: number): Observable<Acuerdos[]> {
+
+    return this.http.get<Acuerdos[]>(`${this.apiUrl}/Consultar_Acuerdos_Paginados?id_fraccionamiento=${id_fraccionamiento}&indice=${indice}&rango=${rango}`);
   }
 }

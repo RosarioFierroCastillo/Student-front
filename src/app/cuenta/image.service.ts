@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ImageService {
 
    //private apiUrl = 'https://evaluacionesuas-001-site1.gtempurl.com/Acuerdos';
-   private apiUrl = 'https://localhost:44397/api/Usuarios'; 
+   private apiUrl = 'http://159.54.134.179/api/Usuarios';
 
    constructor(private http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class ImageService {
   }
 
 
-  obtenerImagenPorId(id_Pago: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Consultar_Comprobante?id_Pago=${id_Pago}`, { responseType: 'arraybuffer' });
+  obtenerImagenPorId(id_Persona: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/Consultar_Imagen?id_Persona=${id_Persona}`, { responseType: 'arraybuffer' });
   }
 }

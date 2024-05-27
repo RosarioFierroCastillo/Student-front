@@ -21,7 +21,7 @@ section {
 }
 
 .footer-distributed {
-    background-color: #575d43; 
+    background-color: rgb(149, 150, 193, 1); 
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;

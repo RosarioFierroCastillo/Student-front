@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'; 
 import { AppRoutingModule } from './app-routing.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
@@ -58,6 +58,9 @@ import { ConsultarAcuerdosComponent } from './consultar-acuerdos/consultar-acuer
 import { InquilinosComponent } from './inquilinos/inquilinos.component';
 import { ConsultarDeudasComponent } from './consultar-deudas/consultar-deudas.component';
 import { DeudasComponent } from './deudas/deudas.component';
+import { TesoreroComponent } from './tesorero/tesorero.component';
+import { NoEncontradoDirective } from './no-encontrado/no-encontrado.directive';
+import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +107,10 @@ import { DeudasComponent } from './deudas/deudas.component';
     ConsultarAcuerdosComponent,
     InquilinosComponent,
     ConsultarDeudasComponent,
-    DeudasComponent
+    DeudasComponent,
+    TesoreroComponent,
+    NoEncontradoDirective,
+    PaseTemporalComponent
     
   ],
   imports: [

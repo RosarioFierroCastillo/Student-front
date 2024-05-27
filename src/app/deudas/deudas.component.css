@@ -1,29 +1,63 @@
 body{
-  background-color: #f2f7f0;
+  background-color: #EDFBE6;
   margin: 0%;
   background-position: center center;
 
 }
+
+.Formulario1{
+  display: flex;
+  flex-direction: column;
+
+}
+input, p > select, textarea{
+  width: 300px; 
+  margin-bottom: 8px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #989898;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+}
+ 
+input, select{
+  width: 300px;
+  border: none;
+/*  border: 1px solid transparent; */
+
+  background-color: transparent;
+  border-bottom: 1px solid #989898;
+}
+
+#dias_gracia{
+  width: 300px;
+  border: none;
+/*  border: 1px solid transparent; */
+
+  background-color: transparent;
+  border-bottom: 1px solid #989898;
+}
+
+p > #telefono, p > #fechaNacimiento{
+  width: 300px; 
+
+  border: none;
+  /*  border: 1px solid transparent; */
+  
+    background-color: transparent;
+    border-bottom: 1px solid #989898;
+}
+
 
 .div-opciones-deuda{
   margin-left: 15%;
   margin-top: 10px;
 }
 
-.derecha{
- 
-  background: linear-gradient(rgb(123, 141, 118),rgb(91, 107, 87), rgb(116, 134, 110));
-  display: flex;
-  flex-direction: column;
-  width: 20.5%;
-  height: 387px; 
-  position:absolute;
-  padding-top: 40px;
-  margin-left: 17%;
-  padding: 20px;
-  color: rgb(255, 255, 255);
-  
-}
 
 .contenedor{
   padding-top: 20px;
@@ -74,32 +108,34 @@ body{
   
 
   .form {
-    display: block;
-    flex-direction: column; 
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1.25rem;
+
  
   }
 
   p{
-    display: flex;
-    flex-direction: column;
+
+    grid-gap: 1.25rem;
+
   }
   
   .Formulario{
-    display: block;
-    flex-direction: column;
+    
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1.25rem;
+
+
   }
   
 
 
   .boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
     padding: 10px;
-    border: none;
+    border: none; 
     border-radius: 5px;
     cursor: pointer;
     font-family: "Roboto", sans-serif;
@@ -114,7 +150,9 @@ body{
   
 
   .botones-container {
-      display: flex;
+      position: absolute;
+      left: 640px;
+      top: 340px;
     
   }
   
@@ -130,8 +168,11 @@ body{
     margin-left: 0%;
     margin-right: 13%;
     padding-left: 0px;
+    grid-gap: 1.25rem;
 
     border-radius: 0% 2% 2% 0%;
+
+
     
   }
   

@@ -10,7 +10,7 @@ export class EgresosService {
 
   constructor(private http: HttpClient) { }
 
-  private apiUrl = 'https://localhost:44397/Egresos';
+  private apiUrl = 'http://159.54.134.179/Egresos';
 
   agregarEgreso(idFraccionamiento: number, concepto: string, descripcion: string, proveedor: string, monto: number, fecha: string): Observable<boolean> {
     const url = `${this.apiUrl}/Agregar_Egreso?id_fraccionamiento=${idFraccionamiento}&concepto=${concepto}&descripcion=${descripcion}&proveedor=${proveedor}&monto=${monto}&fecha=${fecha}`;
@@ -19,19 +19,19 @@ export class EgresosService {
 
   eliminarEgreso(idEgreso: number, idFraccionamiento: number): Observable<boolean> {
     const url = `${this.apiUrl}/Eliminar_Egreso?id_egreso=${idEgreso}&id_fraccionamiento=${idFraccionamiento}`;
-    
+
     return this.http.delete<boolean>(url);
   }
 
   actualizarEgreso(idEgreso: number, idFraccionamiento: number, concepto: string, descripcion: string, proveedor: string, monto: number, fecha: string): Observable<boolean> {
     const url = `${this.apiUrl}/Actualizar_Egreso?id_egreso=${idEgreso}&id_fraccionamiento=${idFraccionamiento}&concepto=${concepto}&descripcion=${descripcion}&proveedor=${proveedor}&monto=${monto}&fecha=${fecha}`;
-    
+
     return this.http.patch<boolean>(url, {});
   }
 
   consultarEgresos(idFraccionamiento: number): Observable<Egresos[]> {
     const url = `${this.apiUrl}/Consultar_Egreso?id_fraccionamiento=${idFraccionamiento}`;
-    
+
     return this.http.get<Egresos[]>(url);
   }
 

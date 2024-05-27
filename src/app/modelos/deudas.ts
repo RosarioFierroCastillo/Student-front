@@ -9,7 +9,9 @@ export interface deudas {
     dias_gracia: any,
     periodicidad: any,
     recargo: any,
+    proximo_pago1: any,
     proximo_pago: any,
+
     };
     
     export class deuda {
@@ -22,7 +24,9 @@ export interface deudas {
         dias_gracia: any;
         periodicidad: any;
         recargo: any;
-        proximo_pago: any;
+        proximo_pago1: any;
+        proximo_pago: any
+
         };
 
 
@@ -30,9 +34,11 @@ export interface deudas {
 export interface deudores {
     id_deuda: any;
     concepto: any;
-    persona: any;
+    persona: any; 
     monto: any;
-    proximo_pago: any;
+    proximo_pago1: any;
+    proximo_pago: any,
+
     };
     
     export class deudor {
@@ -40,6 +46,8 @@ export interface deudores {
         concepto: any;
         persona: any;
         monto: any;
-        proximo_pago: any;
+        proximo_pago1: any;
+        proximo_pago: any
+
         };
         

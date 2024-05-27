@@ -1,82 +1,100 @@
+<body *ngIf="tipo_formulario=='ordinario'">
 
-  
-  
-  <body *ngIf="tipo_formulario=='ordinario'"> 
-    
-    <div class="container2">
+    <div class="contenedor" style="height: 700px; width: 700px;">
         <!-- Formulario para agregar un nuevo ingreso ordinario -->
-        <form id="formIngresosOrdinarios" class="Formulario2">
-            <h2 class="titulo2">Ingresos Ordinarios</h2>
-            <div class="form-group2">
-                <label for="usuario">Usuario:</label>
-                <select id="usuario" name="usuario" required ngModel (change)="onChangeUsuario($event)" >
-                  <option  *ngFor="let usuario of personas">
-                      {{usuario.id_persona}}- {{usuario.nombre}} {{usuario.apellido_pat}} {{usuario.apellido_mat}}
-                  </option>
-              </select>
-            </div>
-  
-            <div class="form-group2">
-                <label for="deuda">Deuda:</label>
-                <select id="deuda" name="deuda" required ngModel (change)="onChangeDeuda($event)" >
-                  <option *ngFor="let deuda of deudasDelUsuario">
-                      {{deuda.nombre_deuda}} 
-                  </option>
-              </select>
-            </div>
-  
-            <div class="form-group2">
-                <label for="montoDeuda">Monto de Deuda:</label>
-                <input type="text" id="montoDeuda" name="montoDeuda" value="ValorMontoDeuda" disabled [(ngModel)]="monto">
-            </div>
-  
-            <div class="form-group2">
-              <label for="montoRecargo">Monto de Recargo:</label>
-              <input type="text" id="montoRecargo" name="montoRecargo" value="montoRecargo" disabled [(ngModel)]="recargo">
-          </div>
-  
-          <div class="form-group2">
-            <label for="montoTotal">Monto Total:</label>
-            <input type="text" id="montoTotal" name="montoTotal" value="montoTotal" disabled [(ngModel)]="total">
-        </div>
-  
-            <div class="form-group2">
-                <label for="comprobante">Comprobante:</label>
-                <select id="comprobante" name="comprobante">
+        <h2 class="titulo2">Ingresos Ordinarios</h2>
+
+        <form id="formCrear" class="Formulario">
+
+            <p>
+                <select id="usuario" name="usuario" required ngModel (change)="onChangeUsuario($event)">
+                    <option *ngFor="let usuario of personas">
+                        {{usuario.id_persona}}- {{usuario.nombre}} {{usuario.apellido_pat}} {{usuario.apellido_mat}}
+                    </option>
+                </select>
+            </p>
+
+            <p>
+                <select id="deuda" name="deuda" required ngModel (change)="onChangeDeuda($event)">
+                    <option value="" hidden selected>
+                        -- Selecciona una deuda --
+                    </option>
+                    <option *ngFor="let deuda of deudasDelUsuario">
+                        {{deuda.nombre_deuda}}
+                    </option>
+                </select>
+            </p>
+
+            <p>
+                <input type="text" id="montoDeuda" name="montoDeuda" value="ValorMontoDeuda" disabled
+                    [(ngModel)]="monto">
+
+            </p>
+
+            <p>
+                <input type="text" id="montoRecargo" name="montoRecargo" value="montoRecargo" disabled
+                    [(ngModel)]="recargo">
+            </p>
+
+            <p>
+                <input type="text" id="montoTotal" name="montoTotal" value="montoTotal" disabled [(ngModel)]="total">
+            </p>
+
+            <p>
+                <select  id="comprobante" name="comprobante" [(ngModel)]="tipo_pago">
                     <option value="efectivo">Pago en Efectivo</option>
                     <option value="spei">Comprobante SPEI</option>
                     <option value="ticket">Ticket Bancario</option>
                     <!-- Agrega más opciones según sea necesario -->
                 </select>
-            </div>
-  
-            <div class="form-group2">
-                <label for="fechaCorte">Fecha de ultimo pago:</label>
+            </p>
+
+            <p>
                 <input type="date" id="fechaCorte" name="fechaCorte" disabled [(ngModel)]="fecha_corte">
-            </div>
-  
-            <div class="form-group2">
-              <label for="fechaProximoPago">Fecha del proximo pago:</label>
-              <input type="date" id="fechaProximoPago" name="fechaProximoPago" disabled [(ngModel)]="fechaProximoPago">
-          </div>
-  
-          <div class="form-group2">
-            <label for="diasAtraso">Dias de atraso:</label>
-            <input type="text" id="diasAtraso" name="diasAtraso" disabled [(ngModel)]="diasAtraso">
-        </div>
-  
-            <div class="form-group2">
-                <label for="periodicidad">Periodicidad:</label>
+
+            </p>
+
+            <p>
+                <input type="date" id="fechaProximoPago" name="fechaProximoPago" disabled
+                    [(ngModel)]="fechaProximoPago">
+
+            </p>
+
+            <p>
+                <input type="text" id="diasAtraso" name="diasAtraso" disabled [(ngModel)]="diasAtraso">
+
+            </p>
+
+            <p>
                 <input type="text" id="periodicidad" name="periodicidad" disabled [(ngModel)]="periodicidad">
-            </div>
-  
-            <div class="button-group2">
-                <button class="green-button2" (click)="pagarDeudaOrdinaria()">Pagar</button>
-            </div>
+            </p>
+
+            <p>
+                <input type="file" (change)="handleInputFile($event)" accept="image/*" id="fileInput"
+                    style="display: none;">
+                <button class="boton-verde" onclick="document.getElementById('fileInput').click()">Cargar
+                    Comprobante</button>
+            </p>
+
+            <p>
+                <button class="boton-verde" (click)="pagarDeudaOrdinaria()">Pagar</button>
+            </p>
+
         </form>
+
+        <div class="imagen-cont">
+
+        </div>
+
+        <div>
+
+            <div>
+                <div class="imagen">
+                    <img style="margin-right: 100px;" [src]="imagenSeleccionada" alt="Imagen seleccionada"
+                        *ngIf="imagenSeleccionada" width="270" height="270">
+                </div>
+
+            </div>
+        </div>
     </div>
-  </body>
-  
-  
-  
-  
+</body>

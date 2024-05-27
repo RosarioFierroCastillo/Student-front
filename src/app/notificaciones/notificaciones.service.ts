@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class NotificacionesService {
 
-  
 
-  private apiUrl = 'https://localhost:44397/Notificaciones/'; // URL base de la API
+
+  private apiUrl = 'http://159.54.134.179/Notificaciones/'; // URL base de la API
 
   constructor(private http: HttpClient) {}
 
@@ -34,5 +34,11 @@ export class NotificacionesService {
     return this.http.get<Notificaciones[]>(url);
   }
 
-  
+  consultarNotificacion(idFraccionamiento: number, indice: number, rango: number, id_destinatario: number): Observable<Notificaciones[]> {
+    const url = `${this.apiUrl}Consultar_Notificaciones?id_fraccionamiento=${idFraccionamiento}&indice=${indice}&rango=${rango}&id_destinatario=${id_destinatario}`;
+    //console.log("HOLAAAAA")
+    return this.http.get<Notificaciones[]>(url);
+  }
+
+
 }

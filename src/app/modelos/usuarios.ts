@@ -39,6 +39,7 @@ export class sesion {
             Intercomunicador: string | undefined;
             Codigo_Acceso: string | undefined;
             id_lote: number | undefined;
+            acceso: string | undefined;
 
     
         };
@@ -57,5 +58,6 @@ export class sesion {
             correo: string;
             contrasenia: string;
             id_lote: number;
+            acceso: string;
     
         };

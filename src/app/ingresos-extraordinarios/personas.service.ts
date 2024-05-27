@@ -9,18 +9,18 @@ import { Deudores } from './deudores.model';
 })
 export class PersonasService {
 
-  private apiUrl = 'https://localhost:44397/api'; // Reemplaza con la URL de tu backend
+  private apiUrl = 'http://159.54.134.179/api'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) { }
 
   consultarPersonasPorFraccionamiento(idFraccionamiento: number): Observable<Personas[]> {
-    const url = `${this.apiUrl}/Usuarios/Consultar_Personas_Por_Fraccionamiento?id_fraccionamiento=${idFraccionamiento}`;
+    const url = `${this.apiUrl}/Usuarios/Consultar_Personas_Por_Fraccionamientos?id_fraccionamiento=${idFraccionamiento}`;
     return this.http.get<Personas[]>(url);
   }
 
   consultarDeudoresExtraoridinarios(idFraccionamiento: number,idUsuario:number): Observable<Deudores[]> {
     const url = `${this.apiUrl}/Deudas/Consultar_DeudorExtraordinario?id_fraccionamiento=${idFraccionamiento}&id_usuario=${idUsuario}`;
-    
+
     return this.http.get<Deudores[]>(url);
   }
 
@@ -35,11 +35,11 @@ export class PersonasService {
   }
 
   consultarDeudoresUsuarios(idLote: number): Observable<Deudores[]> {
-    
+
     const url = `${this.apiUrl}/Deudas/Consultar_DeudoresUsuario?id_lote=${idLote}`;
     return this.http.get<Deudores[]>(url);
   }
 
-  
-  
+
+
 }

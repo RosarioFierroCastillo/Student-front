@@ -18,29 +18,32 @@ export class PanelPrincipalAdminComponent {
   mobileQuery: MediaQueryList;
 
   //fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
- 
-   
-  fillerNav=[  
+
+
+  fillerNav=[
     {name:"Home", route:"Home", icon:"home"},
     {name:"Acuerdos", route:"Acuerdos", icon:"assignment", children: [
-      {name: "Agregar", route: "Acuerdos", icon:"assignment_ind"}, 
+      {name: "Agregar", route: "Acuerdos", icon:"assignment_ind"},
       {name: "Consultar", route: "ConsultarAcuerdos", icon:"class"}
     ]},
     {name:"Notificaciones", route:"Notificaciones", icon:"priority_high", children: [
       {name: "Agregar", route: "Notificaciones", icon:"assignment_ind"},
       {name: "Consultar", route: "ConsultarNotificaciones", icon:"class"}
     ]},
-    {name:"Propiedades", route:"Propiedades", icon:"explore", 
+    /*
+    {name:"Propiedades", route:"Propiedades", icon:"explore",
     children: [
       {name:"Agregar", route:"Propiedades", icon:"assignment_ind", children: []},
    //   {name:"Personas", route:"Inquilinos", icon:"assignment_ind", children: []},
-      {name:"Consultar", route:"ConsultarPropiedades", icon:"class"} 
-    ]}, 
-    {name:'Usuarios',route:"Usuarios", icon:"supervised_user_circle", 
+      {name:"Consultar", route:"ConsultarPropiedades", icon:"class"}
+    ]},
+    */
+    {name:'Usuarios',route:"Usuarios", icon:"supervised_user_circle",
     children: [
-      {name:"Agregar", route:"Usuarios", icon:"person_add", 
-      children: []}, 
-      {name:"Consultar", route:"AgregarUsuario", icon:"class"}
+      {name:"Agregar", route:"Usuarios", icon:"person_add",
+      children: []},
+      {name:"Consultar", route:"AgregarUsuario", icon:"class"},
+      {name:"Tesorero", route:"Tesorero", icon:"money", children: []}
     ]},
     {name:"Controlador",route:"Fraccionamientos", icon:"cast_connected"},
     {name:"Configuracion",route:"Settings",icon:"settings"}
@@ -69,16 +72,16 @@ export class PanelPrincipalAdminComponent {
 Nav: any;
 usuario: any;
 
-    
+
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private data: DataService, private imagenService: ImagenService,private router:Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-   
+
   }
 
- 
+
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -93,7 +96,7 @@ usuario: any;
 
 
 
-  imagenURL: string = '../assets/usuario.png';
+  imagenURL: string = './assets/usuario.png';
   Cargar_Imagen(id_persona: number){
     const id_Pago = 3; //  ID correspondiente
     this.imagenService.obtenerImagenPorId(id_persona).subscribe(

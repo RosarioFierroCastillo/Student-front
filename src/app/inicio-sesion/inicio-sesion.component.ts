@@ -49,23 +49,9 @@ export class InicioSesionComponent {
         town: ['', Validators.required],
 
       })
-      
-      
-  }
-/*
-  
-  Definir_Admin() {
-    this.Tipo_usuario = 'Admin';
-  }
 
-  Definir_User() {
-    this.Tipo_usuario = 'User';
-  }
 
-  Definir_Tesorero() {
-    this.Tipo_usuario = 'Tesorero';
   }
-*/
 
   mobileQuery: MediaQueryList;
 
@@ -90,7 +76,7 @@ export class InicioSesionComponent {
   shouldRun = true;
 
   ngOnInit(): void {
-       
+
     $(function () {
 
       $('#login-form-link').click(function (e) {
@@ -122,27 +108,27 @@ export class InicioSesionComponent {
         icon: 'warning',
         confirmButtonText: 'Aceptar'
       })
-      return; 
+      return;
     }
 
     this.data.iniciar_sesion1(sesion).subscribe((sesions) => {
       if (sesions.length > 0) {
         console.log(sesions[0].tipo_usuario);
         console.log(sesions[0]);
-  
+
         // Define el tipo de usuario
         this.Tipo_usuario = sesions[0].tipo_usuario;
-  
+
         if (this.Tipo_usuario === "administrador") {
           this.router.navigate(['PanelAdmin']);
         } else if (this.Tipo_usuario === "tesorero") {
           this.router.navigate(['PanelTesorero']);
-        } else if (this.Tipo_usuario === "propietario" || this.Tipo_usuario === "arrendatario") {
+        } else if (this.Tipo_usuario === "propietario" || this.Tipo_usuario === "arrendatario" || this.Tipo_usuario === "usuario") {
           this.router.navigate(['PanelUser']);
         } else {
           console.log("Tipo de usuario desconocido");
         }
-  
+
         localStorage.setItem("data", JSON.stringify(sesions[0]));
       } else {
         Swal.fire({
@@ -154,11 +140,11 @@ export class InicioSesionComponent {
       }
     });
   }
-  
+
 agregar_administrador(sesion: {
   town: any;username: string, correo: string, password: string, ppassword: string
 }){
-  
+
   if(!sesion.username || !sesion.correo || !sesion.password || !sesion.ppassword || !sesion.town){
     Swal.fire({
       title: 'Por favor no dejes ningun campo vacio',
@@ -166,12 +152,12 @@ agregar_administrador(sesion: {
       icon: 'warning',
       confirmButtonText: 'Aceptar'
     })
-    return; 
+    return;
   }
- 
+
   if(sesion.password == sesion.ppassword){
 
-    let direccion = "https://localhost:44397/api/Personas/Agregar_Administrador?nombre="+sesion.username+"&correo="+sesion.correo+"&contrasenia="+sesion.password+"&town="+sesion.town;
+    let direccion = "http://159.54.134.179/api/Personas/Agregar_Administrador?nombre="+sesion.username+"&correo="+sesion.correo+"&contrasenia="+sesion.password+"&town="+sesion.town;
 
     const headers = new HttpHeaders({'myHeader': 'procademy'});
     this.http.post(direccion, sesion, { headers: headers }).subscribe(
@@ -191,12 +177,12 @@ agregar_administrador(sesion: {
           icon: 'error',
           confirmButtonText: 'Aceptar'
         })
-    
+
   }
 );
 
   }
-  else{ 
+  else{
     console.log("error: intentalo de nuevo");
   }
 

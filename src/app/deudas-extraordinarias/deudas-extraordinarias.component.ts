@@ -5,7 +5,7 @@ import {  deudas, deuda } from "../modelos/deudas"
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
- 
+
 
 @Component({
   selector: 'app-deudas-extraordinarias',
@@ -30,20 +30,20 @@ export class DeudasExtraordinariasComponent {
          nombre: ['', Validators.required],
          descripcion: ['', Validators.required],
          proximo_pago: ['', Validators.required],
-    
+
        })
 
     }
 
     ngOnInit(): void {
-  
+
       this.fetchDataDeudasExtra(this.dataService.obtener_usuario(1));
-    
+
     }
 
     onRowClicked(lote: any) {
       this.id_deudas= lote['id_deudas']
-  
+
     }
 
     fetchDataDeudasExtra(id_tesorero: any) {
@@ -51,7 +51,7 @@ export class DeudasExtraordinariasComponent {
         console.log(deudas);
         this.deudas = deudas;
       });
-    } 
+    }
 
     edit(deudas: {
       id_deudas: any;
@@ -66,30 +66,30 @@ export class DeudasExtraordinariasComponent {
       this.deuda.descripcion= deudas.descripcion;
       this.deuda.proximo_pago= deudas.proximo_pago;
     }
-    
+
 agregar_deuda(deudas: {monto: number, nombre: string, descripcion: string, id_tesorero: number, proximo_pago: Date}){
   console.log(deudas);
   deudas.id_tesorero = this.dataService.obtener_usuario(1)
   const headers = new HttpHeaders({'myHeader': 'procademy'});
   this.http.post(
-   "https://localhost:44397/api/Deudas/Agregar_DeudaExtra",
+   "http://159.54.134.179/api/Deudas/Agregar_DeudaExtra",
     deudas, {headers: headers})
-    .subscribe((res) => { 
+    .subscribe((res) => {
       console.log(res);
-    //  this.ngOnInit(); 
+    //  this.ngOnInit();
     this.fetchDataDeudasExtra(this.dataService.obtener_usuario(1));
     this.UserGroup.reset();
     });
- 
+
 }
 
 
 
-  
+
 actualizar_deuda(
   deudas: {monto: number, nombre: string, descripcion: string, proximo_pago: Date, id_deudas: number}
 ){
- 
+
   const params = {
     monto: deudas.monto,
     nombre: deudas.nombre,
@@ -104,11 +104,11 @@ actualizar_deuda(
     headers: new HttpHeaders({
      'Content-Type':  'application/json'
     })
-  }; 
+  };
 
   console.log("actualizar: ",params)
 
-  return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
+  return this.http.put("http://159.54.134.179/api/Deudas/Actualizar_Deuda", params).subscribe(
     (_response) => {
       console.log("actualiza",params)
       this.ngOnInit();
@@ -121,10 +121,10 @@ actualizar_deuda(
 
 
 delete(id_deudas: any){
-  return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+  return this.http.delete("http://159.54.134.179/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
     () => {
       this.fetchDataDeudasExtra(this.dataService.obtener_usuario(1));
- 
+
     })
 
 }

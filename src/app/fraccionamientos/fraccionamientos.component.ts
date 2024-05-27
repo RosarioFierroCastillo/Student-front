@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as $ from "jquery";
 
- 
+
 @Component({
   selector: 'app-fraccionamientos',
   templateUrl: './fraccionamientos.component.html',
@@ -44,14 +44,15 @@ this.UserGroup = this.fb.group({
 
    })
 }
- 
+
 
 
 ngOnInit(): void {
   this.fetchDataHikvision(this.dataService.obtener_usuario(1));
 
-  
+
   $(function myFunction() {
+    console.log("si entra")
     var x = <HTMLVideoElement>document.getElementById("informacion");
     var y = <HTMLVideoElement>document.getElementById("controlador");
     if (x.style.display === "block") {
@@ -63,7 +64,7 @@ ngOnInit(): void {
     }
   });
 
- 
+
 
 }
 
@@ -79,7 +80,7 @@ onRowClicked(fraccionamiento: any){
 edit(controladores: {
   user: any;
   password: any;
-  ip: any; 
+  ip: any;
   port: any;
 }){
   this.controlador.user= controladores.user;
@@ -106,7 +107,7 @@ fetchData(id_administrador: any) {
 
 /*
 Consultar_fraccionamiento(id_administrador:number):Observable<controladores[]>{
-  let direccion = "https://localhost:44397/Fraccionamientos/Consultar_Fraccionamiento?id_fraccionamiento="+ id_administrador;
+  let direccion = "http://159.54.134.179/Fraccionamientos/Consultar_Fraccionamiento?id_fraccionamiento="+ id_administrador;
   return this.http.get<controladores[]>(direccion);
 }
 */
@@ -115,7 +116,7 @@ Agregar_fraccionamiento(controladores: {
   id_fraccionamiento: any;
   user: any;
   password: any;
-  port: any; 
+  port: any;
   ip: any;}){
 
   console.log(controladores);
@@ -123,7 +124,7 @@ Agregar_fraccionamiento(controladores: {
   //console.log("id_usuario: "+this.dataService.obtener_usuario(1));
   const headers = new HttpHeaders({'myHeader': 'procademy'});
   this.http.post(
-    "https://localhost:44397/Hikvision/Agregar_Hikvision?id_controlador=1&id_fraccionamiento="+controladores.id_fraccionamiento
+    "http://159.54.134.179/Hikvision/Agregar_Hikvision?id_controlador=1&id_fraccionamiento="+controladores.id_fraccionamiento
     +"&user="+controladores.user+
     "&password="+controladores.password+
     "&port="+controladores.port+
@@ -139,11 +140,11 @@ Agregar_fraccionamiento(controladores: {
 }
 /*
   Actualizar_fraccionamiento(products: {nombre: string, direccion: string, coordenadas: string, id_administrador: number, id_tesorero: number, dia_pago: number}){
-   
+
     const params = {
       nombre: products.nombre,
       direccion: products.direccion,
-      coordenadas: products.coordenadas, 
+      coordenadas: products.coordenadas,
       id_tesorero: 0,
       id_fraccionamiento: this.id_fracc,
       id_administrador: this.dataService.obtener_usuario(1),
@@ -155,11 +156,11 @@ Agregar_fraccionamiento(controladores: {
       headers: new HttpHeaders({
        'Content-Type':  'application/json'
       })
-    }; 
+    };
 
     console.log("actualizar: ",params)
 
-    return this.http.put("https://localhost:44397/Fraccionamientos/Actualizar_Fraccionamiento", params).subscribe(
+    return this.http.put("http://159.54.134.179/Fraccionamientos/Actualizar_Fraccionamiento", params).subscribe(
       (_response) => {
         this.ngOnInit();
         this.UserGroup.reset();
@@ -172,12 +173,12 @@ Agregar_fraccionamiento(controladores: {
 */
 /*
   delete(fraccionamiento: any){
-    return this.http.delete("https://localhost:44397/Fraccionamientos/Eliminar_Fraccionamiento?id_fraccionamiento="+this.id_fracc).subscribe(
+    return this.http.delete("http://159.54.134.179/Fraccionamientos/Eliminar_Fraccionamiento?id_fraccionamiento="+this.id_fracc).subscribe(
       () => {
         this.fetchData(this.dataService.obtener_usuario(1))
         console.log("hola");
 
-   
+
       })
 
 

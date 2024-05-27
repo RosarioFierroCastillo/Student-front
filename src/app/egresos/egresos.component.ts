@@ -15,10 +15,14 @@ export class EgresosComponent {
   id_fraccionamiento: number=0;
   proveedores: Proveedor[]=[];
   egresos: Egresos[]=[];
+  egresos1: Egresos[]=[];
   idEgreso: number=0;
+  indice: number = 0;
+  verdaderoRango: number = 6;
+  cont: number = 1;
   //
   egresoModel: Egresos = {
-    id_egreso: 0, 
+    id_egreso: 0,
     concepto: '',
     descripcion: '',
     proveedor: '',
@@ -34,6 +38,27 @@ export class EgresosComponent {
     this.consultarEgresos(this.id_fraccionamiento);
 
   }
+
+
+  paginador_atras() {
+
+    if (this.indice - this.verdaderoRango >= 0) {
+      this.egresos1 = this.egresos.slice(this.indice - this.verdaderoRango, this.indice);
+      this.indice = this.indice - this.verdaderoRango;
+      this.cont--;
+    }
+  }
+
+  paginador_adelante() {
+    if (this.egresos.length - (this.indice + this.verdaderoRango) > 0) {
+      this.indice = this.indice + this.verdaderoRango;
+      this.egresos1 = this.egresos.slice(this.indice, this.indice + this.verdaderoRango);
+      this.cont++;
+     // this.consultarNotificacion
+    }
+
+  }
+
 
   consultarEgresos(idFraccionamiento: number) {
     this.egresoService.consultarEgresos(idFraccionamiento).subscribe(
@@ -56,7 +81,7 @@ export class EgresosComponent {
 
   agregarEgreso() {
     const { concepto, descripcion, proveedor, monto,fecha } = this.egresoModel;
-  
+
     this.egresoService.agregarEgreso(this.id_fraccionamiento, concepto, descripcion, proveedor, monto, fecha).subscribe(
       (result: boolean) => {
         if (result) {
@@ -178,8 +203,8 @@ export class EgresosComponent {
 
 
   limpiarCampos() {
-    this.egresoModel = {  
-      id_egreso:0,      
+    this.egresoModel = {
+      id_egreso:0,
       proveedor: '',
       monto: 0,
       concepto: '',
@@ -190,8 +215,8 @@ export class EgresosComponent {
 
   seleccionarEgreso(EgresoSeleccionado: Egresos){
     const fechaFormateada = this.formatoFecha(EgresoSeleccionado.fecha);
-    this.egresoModel = {  
-      id_egreso:EgresoSeleccionado.id_egreso,      
+    this.egresoModel = {
+      id_egreso:EgresoSeleccionado.id_egreso,
       proveedor: EgresoSeleccionado.proveedor,
       monto: EgresoSeleccionado.monto,
       concepto: EgresoSeleccionado.concepto,

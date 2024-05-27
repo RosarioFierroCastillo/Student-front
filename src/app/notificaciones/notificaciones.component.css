@@ -1,20 +1,25 @@
 body{
-  background-color: #f2f7f0; 
+  background-color: #f2f3f4; 
   margin: 0%;
   background-position: center center;
 
 }
-/*
-.contenedor2 {
-  height:400px;
-  width:600px;
-  position:absolute; 
-  overflow:scroll;
-  left: 500px;
-  top:80px;
-  margin:auto;
+
+.titulo, p {
+  text-align:justify !important;
+  padding-top: 5 px;
+  margin-left: 100px;
+  color: rgb(97, 94, 94) !important;
+  
+}  
+
+hr {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #a7a4a4 inset;
 }
-  */
+
+
 #buscar{
   position:absolute; 
   top:35px; left: 500px;  
@@ -48,7 +53,7 @@ body{
   
   .form {
 
-    /*
+    /* 
     display: flex;
   flex-direction: column;
 
@@ -100,16 +105,38 @@ body{
   textarea{
     height: 100px;
   }
+ 
+
   .boton-verde, .boton-amarillo, .boton-rojo, .boton-azul{
-    padding: 10px;
-    margin: 10px 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  
+    background-color: #242434;
+    outline: none;
+    color: #ffffff;
+    font-size: 14px;
+    height: auto;
+    font-weight: normal;
+    padding: 14px 14px;
+    text-transform: uppercase;
+    border-color: #242434;
     
-   
+
   }
+
+.boton-verde:hover, .boton-amarillo:hover, .boton-rojo:hover, .boton-azul:hover {
+color: #ffffff;
+background-color: #6c5bb8;
+border-color: #6c5bb8;
+}
+
+
+  .botones-container{
+ 
+    display: flex;
+    flex-direction: column;
+    margin-left: 12%;
+    padding-right: 55%;
+  
+  }
+    
   
   /*
   label {
@@ -129,12 +156,7 @@ body{
     cursor: pointer;
   }
   */
-  .boton-verde {
-    background-color: #4CAF50; /* Verde */
-  
-    
-    color: white;
-  }
+
   
   .boton-azul {
     background-color: blue; /* Azul */

@@ -1,8 +1,8 @@
 <body>
     <div class="contenedor1">
-        <h2 class="titulo">Mis Deudas</h2>
+        <h2 class="titulo">Mis Deudas Activas</h2>
         <form>
-            <input type="text" class="form-control" name="filtrar" placeholder="buscar" [(ngModel)]="filtroDeudores">
+            <!-- <input type="text" class="form-control" name="filtrar" placeholder="buscar" [(ngModel)]="filtroDeudores"> -->
         </form>
         <div class="contenedor">
 
@@ -28,7 +28,7 @@
                             <td>{{ deudor.nombre_persona }}</td>
                             <td>{{ deudor.tipo_deuda }}</td>
                             <td>{{ deudor.nombre_deuda }}</td>
-                            <td>{{ deudor.monto }}</td>
+                            <td>{{ deudor.monto | currency: 'MXN'}}</td>
                             <td class="fecha">{{ formatearFecha(deudor.proximo_pago) }}</td>
                             <td>
                                 {{calcularProximoPago(deudor.proximo_pago,deudor.periodicidad)}}
@@ -45,4 +45,6 @@
         </div>
     </div>
 </body>
+
+    
 

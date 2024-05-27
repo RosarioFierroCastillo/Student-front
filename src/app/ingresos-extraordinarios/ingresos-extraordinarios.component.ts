@@ -9,7 +9,7 @@ import { Deudores } from './deudores.model';
 import { deuda } from '../modelos/deudas';
 import { formatDate } from '@angular/common';
 import { Router } from "@angular/router";
-
+ 
 
 @Component({
   selector: 'app-ingresos-extraordinarios',
@@ -30,6 +30,7 @@ export class IngresosExtraordinariosComponent {
   periodicidad:number=0;
   id_deuda:number=0;
   id_deudor:number=0;
+  tipo_pago: string = "";
 
   montoExtra:number=0;
  
@@ -126,17 +127,18 @@ onChangeDeuda(event: any) {
   this.diasAtraso = Math.floor((fechaActual.getTime() - proximoPago.getTime()) / (1000 * 3600 * 24));
 
   // Verificar si los días de atraso son mayores que los días de gracia y agregar recargo
+
+  this.total = deudaSeleccionada.monto
+
   if (this.diasAtraso > deudaSeleccionada.dias_gracia) {
     // Agregar el recargo al monto de la deuda
     
-    this.total = deudaSeleccionada.monto + deudaSeleccionada.recargo ; // Agregar el valor de lote al recargo
+    this.total += deudaSeleccionada.recargo ; // Agregar el valor de lote al recargo
   
   }
  
 
 }
-
-
 onChangeOption(event:any){
   const selectedValue = event.target.value;
 
@@ -151,44 +153,94 @@ onChangeOption(event:any){
 
 //Parte del pago de las deudas
 
-pagarDeudaExtraordinaria() {
+pagarDeudaExtraordinaria(montoDeudaExtra: any) {
   const idDeudor = this.id_deudor // Reemplaza con el ID del deudor correspondiente
   const idDeuda = this.id_deuda; // Reemplaza con el ID de la deuda correspondiente
   const idFraccionamiento = this.dataService.obtener_usuario(3); // Reemplaza con el ID del fraccionamiento correspondiente
   const proximoPago = this.fechaProximoPago; // Reemplaza con la fecha deseada en el formato correcto
+  
+  const monto = this.monto
 
-  this.deudaService.pagarDeudaExtraordinaria(idDeudor, idDeuda, idFraccionamiento, proximoPago).subscribe(
-    (respuesta) => {
-      if (respuesta) {
-        Swal.fire({
-          title: 'La deuda ha sido pagada exitosamente',
-          text: '',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-        console.log('La deuda ha sido pagada exitosamente');
-        this.onChangeDeuda({ target: { selectedIndex: 0 } });
-        this.onChangeUsuario({ target: { selectedIndex: 0 } });
-        
-      } else {
-        console.log('Hubo un problema al pagar la deuda');
+  console.log("monto: ", montoDeudaExtra, "total: ", monto)
+
+  if(montoDeudaExtra<monto){
+    this.tipo_pago = "abono";
+    montoDeudaExtra = monto - montoDeudaExtra;
+  }
+  else{
+    this.tipo_pago = "liquidacion";
+  }
+
+  if(this.archivoSeleccionado){
+    this.deudaService.pagarDeudaExtraordinaria(idDeudor, idDeuda, idFraccionamiento, proximoPago,this.archivoSeleccionado, this.tipo_pago, montoDeudaExtra).subscribe(
+      (respuesta) => {
+        if (respuesta) {
+          Swal.fire({
+            title: 'La deuda ha sido pagada exitosamente',
+            text: '',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          });
+          console.log('La deuda ha sido pagada exitosamente');
+          this.onChangeDeuda({ target: { selectedIndex: 0 } });
+          this.onChangeUsuario({ target: { selectedIndex: 0 } });
+          location.reload;
+        } else {
+          console.log('Hubo un problema al pagar la deuda');
+          Swal.fire({
+            title: 'Hubo un problema al pagar la deuda',
+            text: '',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      },
+      (error) => {
+        console.error('Error al intentar pagar la deuda:', error);
         Swal.fire({
           title: 'Hubo un problema al pagar la deuda',
-          text: '',
+          text: 'Por favor contactese con el administrador de la pagina',
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
       }
-    },
-    (error) => {
-      console.error('Error al intentar pagar la deuda:', error);
-      Swal.fire({
-        title: 'Hubo un problema al pagar la deuda',
-        text: 'Por favor contactese con el administrador de la pagina',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
-    }
-  );
+    );
+  }else{
+    Swal.fire({
+      title: 'Por favor cargue un comprobante de pago',
+      text: '',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    });
+  }
 }
+
+
+imagenSeleccionada: any; // Variable para mostrar la imagen seleccionada en la interfaz
+  archivoSeleccionado: File | null = null;
+  imagenEnBytes: Uint8Array | null = null;
+  
+
+  handleInputFile(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input && input.files && input.files.length > 0) {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagenSeleccionada = reader.result as string;
+          this.archivoSeleccionado = file; // Guardar el archivo seleccionado
+          Swal.fire({
+            title: 'Comprobante cargado correctamente',
+            text: '',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          });
+
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+    input.value = ''; // Limpiar el input de tipo file
+  }
 }

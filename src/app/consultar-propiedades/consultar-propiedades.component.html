@@ -1,4 +1,3 @@
-
 <head>
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
@@ -8,7 +7,7 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
-  </head>
+</head>
 
 <body>
     <div class="contenedor1">
@@ -36,7 +35,8 @@
                     </thead>
                     <tbody>
                         <tr mat-row *ngFor="let lote of lotes;" matRowDef="columns: displayedcolumns;"
-                            (click)="edit(lote)" (click)="fetchDataUserPropierty(lote.id_propietario)" (click)="fetchDataPersonasLote(lote.id_propietario)">
+                            (click)="edit(lote)" (click)="fetchDataUserPropierty(lote.id_propietario)"
+                            (click)="fetchDataPersonasLote(lote.id_propietario)">
                             <td>{{lote.descripcion}}</td>
                             <th style="display: none;">{{lote.id_lote}}</th>
                             <th style="display: none;">{{lote.id_fraccionamiento}}</th>
@@ -147,7 +147,7 @@
                                     <th style="display: none;">codigo_acceso</th>
                                     <th style="display: none;">intercomunicador</th>
                                     <th style="display: none;">id_usuario</th>
-                                  
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -177,42 +177,50 @@
 
 -->
 
-<input type="checkbox" id="modal">
-<label for="modal" class="boton-verde"
-style="margin-left: 370px; position: absolute; top: 70px; width: 100px; height: 40px; text-align: center;">+ Nuevo</label>
-<label for="modal" class="modal-background"></label>
-<div class="modal"  style="height: 300px; width: 300px;">
-    <div class="modal-header">
-        <h3>Agregar inquilino</h3>
-        <label for="modal">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAdVBMVEUAAABNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0N3NIOAAAAJnRSTlMAAQIDBAUGBwgRFRYZGiEjQ3l7hYaqtLm8vsDFx87a4uvv8fP1+bbY9ZEAAAB8SURBVBhXXY5LFoJAAMOCIP4VBRXEv5j7H9HFDOizu2TRFljedgCQHeocWHVaAWStXnKyl2oVWI+kd1XLvFV1D7Ng3qrWKYMZ+MdEhk3gbhw59KvlH0eTnf2mgiRwvQ7NW6aqNmncukKhnvo/zzlQ2PR/HgsAJkncH6XwAcr0FUY5BVeFAAAAAElFTkSuQmCC" width="16" height="16" alt="">
-        </label>
-    </div>
-    <div class="contenedor" style="position: absolute; top: 80px;">
+                <input type="checkbox" id="modal">
+                <label for="modal" class="boton-verde"
+                    style="margin-left: 370px; position: absolute; top: 70px; width: 100px; height: 40px; text-align: center;">+
+                    Nuevo</label>
+                <label for="modal" class="modal-background"></label>
+                <div class="modal" style="height: 300px; width: 300px;">
+                    <div class="modal-header">
+                        <h3>Agregar inquilino</h3>
+                        <label for="modal">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAdVBMVEUAAABNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0N3NIOAAAAJnRSTlMAAQIDBAUGBwgRFRYZGiEjQ3l7hYaqtLm8vsDFx87a4uvv8fP1+bbY9ZEAAAB8SURBVBhXXY5LFoJAAMOCIP4VBRXEv5j7H9HFDOizu2TRFljedgCQHeocWHVaAWStXnKyl2oVWI+kd1XLvFV1D7Ng3qrWKYMZ+MdEhk3gbhw59KvlH0eTnf2mgiRwvQ7NW6aqNmncukKhnvo/zzlQ2PR/HgsAJkncH6XwAcr0FUY5BVeFAAAAAElFTkSuQmCC"
+                                width="16" height="16" alt="">
+                        </label>
+                    </div>
+                    <div class="contenedor" style="position: absolute; top: 80px;">
 
-        <div class="form" style="width: 700px;">
+                        <div class="form" style="width: 700px;">
 
-          <form id="formCrear" class="Formulario" #form2="ngForm" [formGroup]="UserGroup2">
-            <p>
-              <input type="text" formControlName="nombre" name="nombre" placeholder="Nombre" [(ngModel)]="inquilino.nombre">
-            </p>
-            <p> 
-              <input type="text" id="codigo_acceso" formControlName="codigo_acceso" name="codigo_acceso" placeholder="Codigo de acceso" [(ngModel)]="inquilino.codigo_acceso">
-            </p>
-            <p>
-              <input type="text" id="intercomunicador" formControlName="intercomunicador" name="intercomunicador" placeholder="Intercomunicador" [(ngModel)]="inquilino.intercomunicador">
-            </p>
+                            <form id="formCrear" class="Formulario" #form2="ngForm" [formGroup]="UserGroup2">
+                                <p>
+                                    <input type="text" formControlName="nombre" name="nombre" placeholder="Nombre"
+                                        [(ngModel)]="inquilino.nombre">
+                                </p>
+                                <p>
+                                    <input type="text" id="codigo_acceso" formControlName="codigo_acceso"
+                                        name="codigo_acceso" placeholder="Codigo de acceso"
+                                        [(ngModel)]="inquilino.codigo_acceso">
+                                </p>
+                                <p>
+                                    <input type="text" id="intercomunicador" formControlName="intercomunicador"
+                                        name="intercomunicador" placeholder="Intercomunicador"
+                                        [(ngModel)]="inquilino.intercomunicador">
+                                </p>
 
-          </form>
-          <div class="botones-container">
-            <button class="boton-verde" style="position: absolute; left: 50px;" (click)="agregar_inquilino(form2.value)">Enviar</button>
-          </div>
-        </div>
-      </div>
-</div>
+                            </form>
+                            <div class="botones-container">
+                                <button class="boton-verde" style="position: absolute; left: 50px;"
+                                    (click)="agregar_inquilino(form2.value)">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-
+ 
 
 
 
@@ -223,14 +231,15 @@ style="margin-left: 370px; position: absolute; top: 70px; width: 100px; height: 
                             style="width: 400px;">
 
                             <label for="nombre">Inquilino #</label>
-                            <input type="text" formControlName="id_usuario_lote" name="id_usuario_lote" [(ngModel)]="inquilino.id_usuario_lote">
+                            <input type="text" formControlName="id_usuario_lote" name="id_usuario_lote"
+                                [(ngModel)]="inquilino.id_usuario_lote">
 
                             <label for="nombre">Nombre</label>
-                            <input type="text" formControlName="nombre" name="nombre"
-                                [(ngModel)]="inquilino.nombre">
+                            <input type="text" formControlName="nombre" name="nombre" [(ngModel)]="inquilino.nombre">
 
                             <label for="nombre">Codigo de acceso</label>
-                            <input type="text" formControlName="codigo_acceso" name="codigo_acceso" [(ngModel)]="inquilino.codigo_acceso">
+                            <input type="text" formControlName="codigo_acceso" name="codigo_acceso"
+                                [(ngModel)]="inquilino.codigo_acceso">
 
                             <label for="nombre">Intercomunicador</label>
                             <input type="text" formControlName="intercomunicador" name="intercomunicador"
@@ -240,7 +249,8 @@ style="margin-left: 370px; position: absolute; top: 70px; width: 100px; height: 
                                 flex-direction: column; padding-top: 20px;">
                                 <button class="boton-verde" onclick="myFunction()"
                                     style="margin-left: 20px;">Actualizar</button>
-                                <button class="boton-verde" onclick="myFunction()"
+                                <button class="boton-verde"
+                                    (click)="eliminar_inquilino(inquilino.id_usuario_lote, inquilino.codigo_acceso)"
                                     style="margin-left: 20px;">Eliminar</button>
                             </p>
                         </form>
@@ -250,7 +260,7 @@ style="margin-left: 370px; position: absolute; top: 70px; width: 100px; height: 
 
             </li>
         </ul>
-    </div>
+    </div> 
 
 
 

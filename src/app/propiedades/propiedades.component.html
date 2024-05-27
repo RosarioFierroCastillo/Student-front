@@ -3,7 +3,7 @@
         <h2 class="titulo" style="position:absolute; left: 40px;">Datos de la propiedad</h2>
 
         <div class="form">
-            <form id="formCrear" class="Formulario" #form2="ngForm" [formGroup]="UserGroup" style="padding-left: 50px;">
+            <form id="formCrear" class="Formulario" #form2="ngForm"  [formGroup]="UserGroup" style="padding-left: 50px;">
 
                 <p>
                     <input type="text" placeholder="descripción" formControlName="descripcion" name="descripcion"
@@ -157,7 +157,7 @@ $(function () {
 
                                 <p>
                                     <input type="text" formControlName="correo" name="correo"
-                                        placeholder="Correo electrónico" [(ngModel)]="correo_invitado">
+                                        placeholder="Correo electrónico" [(ngModel)]="correo_invitado1">
                                 </p>
                                 <!--
                                 <div class="botones-container">
@@ -175,24 +175,24 @@ $(function () {
                             left: 670px;">
                             <p>
                                 <input type="text" formControlName="nombre" name="nombre"
-                                    placeholder="Nombre del arrendatario" [(ngModel)]="usuario.nombre">
+                                    placeholder="Nombre del arrendatario" [(ngModel)]="usuario1.nombre">
                             </p>
                             <p>
                                 <input type="text" id="apellidoP" formControlName="apellido_pat" name="apellido_pat"
-                                    placeholder="Apellido paterno" [(ngModel)]="usuario.apellido_pat">
+                                    placeholder="Apellido paterno" [(ngModel)]="usuario1.apellido_pat">
                             </p>
                             <p>
                                 <input type="text" id="apellidoM" formControlName="apellido_mat" name="apellido_mat"
-                                    placeholder="Apellido materno" [(ngModel)]="usuario.apellido_mat">
+                                    placeholder="Apellido materno" [(ngModel)]="usuario1.apellido_mat">
                             </p>
                             <p>
                                 <input type="text" id="telefono" formControlName="telefono" name="telefono"
-                                    placeholder="Teléfono" [(ngModel)]="usuario.telefono">
+                                    placeholder="Teléfono" [(ngModel)]="usuario1.telefono">
                             </p>
                             <p>
                                 <input type="date" id="fechaNacimiento" name="fecha_nacimiento"
                                     formControlName="fecha_nacimiento" placeholder="Fecha de nacimiento"
-                                    [(ngModel)]="usuario.fecha_nacimiento" required ngModel>
+                                    [(ngModel)]="usuario1.fecha_nacimiento" required ngModel>
                             </p>
                             <!--
                        <div class="botones-container">

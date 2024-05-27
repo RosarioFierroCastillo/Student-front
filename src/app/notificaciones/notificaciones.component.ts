@@ -100,7 +100,7 @@ export class NotificacionesComponent {
    }
    //console.log(destinatarioId);
    const asunto = formulario.asunto;
-   //console.log(asunto);
+   //console.log(asunto); 
    const mensaje = formulario.mensaje;
    //console.log(mensaje);
 
@@ -147,7 +147,7 @@ export class NotificacionesComponent {
   
 
 
-
+ 
 
 
   actualizarNotificaciones(): void {

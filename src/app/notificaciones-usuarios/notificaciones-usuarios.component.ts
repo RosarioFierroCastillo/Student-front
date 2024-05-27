@@ -9,16 +9,69 @@ import { DataService } from '../data.service';
   styleUrls: ['./notificaciones-usuarios.component.css']
 })
 export class NotificacionesUsuariosComponent {
-  notificaciones: Notificaciones[] = [];
-  tipoSeleccionado: string = 'General';
+  notificaciones: Notificaciones[] = []; 
+  tipoSeleccionado: string = 'General'; 
   idFraccionamiento: number = this.dataService.obtener_usuario(3);
   idUsuario: number = this.dataService.obtener_usuario(1);
-
+  indice: number = 0;
+  verdaderoRango: number = 6;
+  cont: number = 1;
+  notificaciones1: Notificaciones[] = [];
+  filtroNotificaciones: "" | undefined;
+  id_destinatario: number = 0;
+  
   constructor(private notificacionesService: NotificacionesService,private dataService:DataService) {}
 
   ngOnInit(): void {
     this.actualizarNotificaciones();
+    this.consultarNotificacion(this.idFraccionamiento, this.indice, this.verdaderoRango, this.idUsuario);
   }
+
+ 
+
+  paginador_atras() {
+
+    if (this.indice - this.verdaderoRango >= 0) {
+      this.notificaciones1 = this.notificaciones.slice(this.indice - this.verdaderoRango, this.indice);
+      this.indice = this.indice - this.verdaderoRango;
+      this.cont--;
+    }
+  }
+
+  paginador_adelante() {
+    if (this.notificaciones.length - (this.indice + this.verdaderoRango) > 0) {
+      this.indice = this.indice + this.verdaderoRango;
+      this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
+      this.cont++;
+     // this.consultarNotificacion
+    } 
+    
+  }
+
+  onChange(event: any){ 
+
+      const selectedValue = event.target.value;
+    
+      this.id_destinatario=selectedValue;
+     // console.log(this.id_destinatario);
+
+     this.consultarNotificacion(this.dataService.obtener_usuario(1), 0, 100, this.id_destinatario);
+  }
+  
+
+  consultarNotificacion(idFraccionamiento: any, indice: number, verdaderoRango: number, id_destinatario: number) {
+    this.notificacionesService.consultarNotificacion(idFraccionamiento, 0, 100, id_destinatario).subscribe((notificaciones: Notificaciones[]) => {
+      //  console.log("notificaciones: ", valor);
+        this.notificaciones = notificaciones;
+        this.indice = 0;
+        this.verdaderoRango = 6;
+        this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
+
+      });
+  }
+
+
+
 
   actualizarNotificaciones(): void {
     this.notificaciones = []; // Vaciar el arreglo antes de cargar nuevas notificaciones

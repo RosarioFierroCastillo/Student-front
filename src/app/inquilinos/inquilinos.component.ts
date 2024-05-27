@@ -17,9 +17,9 @@ import { Router } from "@angular/router";
 })
 export class InquilinosComponent {
 
-  baseUrl = `https://localhost:44397/Fraccionamientos/Consultar_Fraccionamiento?id_administrador=`;
-  baseUrl1 = `https://localhost:44397/api/Personas/Consultar_Persona?id_administrador=`;
-  baseUrl2 = `https://localhost:44397/Propiedades/Consultar_Propiedades?id_administrador=`;
+  baseUrl = `http://159.54.134.179/Fraccionamientos/Consultar_Fraccionamiento?id_administrador=`;
+  baseUrl1 = `http://159.54.134.179/api/Personas/Consultar_Persona?id_administrador=`;
+  baseUrl2 = `http://159.54.134.179/Propiedades/Consultar_Propiedades?id_administrador=`;
 
   constructor(private http: HttpClient) {}
 
@@ -32,8 +32,8 @@ export class InquilinosComponent {
     codigo_acceso: any;
     intercomunicador: any;
   }) {
-  
-  
+
+
       const params = {
 
         id_usuario: lote.id_usuario,
@@ -43,11 +43,11 @@ export class InquilinosComponent {
         codigo_acceso: "123",
         intercomunicador: "123"
       };
-  
+
       console.log("params: ",params)
-  
-      let direccion = "https://localhost:44397/api/Usuario_lote/Agregar_inquilino";
-  
+
+      let direccion = "http://159.54.134.179/api/Usuario_lote/Agregar_inquilino";
+
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(
         direccion,
@@ -57,9 +57,9 @@ export class InquilinosComponent {
         //  this.lotes.push(this.UserGroup.value);
         //  this.UserGroup.reset();
         });
-  
+
     }
-  
+
 
 
 }

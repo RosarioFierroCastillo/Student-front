@@ -7,6 +7,7 @@ export class CorreoService {
 
   constructor() { }
   Enviar_Correo(correo_destinatario: string, mensaje: string){
+    console.log("destino: ",correo_destinatario, mensaje)
     emailjs.send("service_jw5uhit","template_anvzzmo",{
       from_name: "Arboledas Administración",
       to_name: "A quien corresponda",

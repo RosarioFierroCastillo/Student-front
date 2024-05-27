@@ -36,21 +36,22 @@ export class MisDeudasComponent {
   // }
 
   ConsultarDeudores(){
-    this.personasService.consultarDeudoresUsuarios(this.dataService.obtener_usuario(4)).subscribe(
+    console.log("aaaaaaaa: " + this.dataService.obtener_usuario(4))
+    this.personasService.consultarDeudoresUsuarios(this.dataService.obtener_usuario(1)).subscribe(
       (deudasUsuario: Deudores[]) => {
        this.Deudores_totales = deudasUsuario
-        console.log('deudas de todos los  usuarios', this.Deudores_totales);
+        console.log('deudas', this.Deudores_totales);
         if(this.Deudores_totales.length!=0){
 
         }else{
           Swal.fire({
-            title: 'El usuario seleccionado no tiene deudas extraordinarias vencidas',
+            title: 'El usuario no tiene deudas  vencidas',
             text: '',
             icon: 'warning',
             confirmButtonText: 'Aceptar'
           });
         }
-       
+
       },
       (error) => {
         // Manejo de errores
