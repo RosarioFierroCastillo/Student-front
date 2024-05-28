@@ -1,6 +1,7 @@
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser'; 
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
@@ -62,6 +63,7 @@ import { TesoreroComponent } from './tesorero/tesorero.component';
 import { NoEncontradoDirective } from './no-encontrado/no-encontrado.directive';
 import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,7 +113,7 @@ import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
     TesoreroComponent,
     NoEncontradoDirective,
     PaseTemporalComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -127,7 +129,8 @@ import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
     MatMenuModule,
     HttpClientModule,
     MatExpansionModule,
-    FormsModule
+    FormsModule,
+    CanvasJSAngularChartsModule
 
   ],
   providers: [],

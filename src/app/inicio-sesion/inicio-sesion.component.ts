@@ -130,6 +130,28 @@ export class InicioSesionComponent {
         }
 
         localStorage.setItem("data", JSON.stringify(sesions[0]));
+
+
+
+
+
+    this.data.consultarDeudasPorCobrar().subscribe((graficas) => {
+      if (graficas.length > 0) {
+        console.log(graficas[0].novariables);
+        console.log(graficas[0]);
+
+        localStorage.setItem("graficas", JSON.stringify(graficas[0]));
+      } else {
+        Swal.fire({
+          title: 'Error en inicio de sesion',
+          text: 'Correo o contraseña incorrectos',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    });
+
+
       } else {
         Swal.fire({
           title: 'Error en inicio de sesion',
