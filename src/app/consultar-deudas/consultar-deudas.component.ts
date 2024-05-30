@@ -74,7 +74,7 @@ export class ConsultarDeudasComponent {
   }
 
   delete(id_deudas: any){
-    return this.http.delete("http://159.54.134.179/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+    return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
       () => {
         this.fetchDataDeudas(this.dataService.obtener_usuario(1));
 
@@ -82,7 +82,7 @@ export class ConsultarDeudasComponent {
 
   }
   deleteExtra(id_deudas: any){
-    return this.http.delete("http://159.54.134.179/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+    return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
       () => {
         this.fetchDataDeudasExtra(this.dataService.obtener_usuario(1));
 

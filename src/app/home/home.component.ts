@@ -190,7 +190,7 @@ fetchCuentasPorCobrar() {
       xValueFormatString: "MMM DD, YYYY",
       dataPoints: [
         { x: new Date(2024, 4, 1), y: 63 },
-        { x: new Date(2024, 4, 2), y: 69 },
+        { x: new Date(2024, 4, 2), y: 59 },
         { x: new Date(2024, 4, 3), y: 65 },
         { x: new Date(2024, 4, 4), y: 70 },
         { x: new Date(2024, 4, 5), y: 71 },
@@ -200,7 +200,7 @@ fetchCuentasPorCobrar() {
         { x: new Date(2024, 4, 9), y: 74 },
         { x: new Date(2024, 4, 10), y: 75 },
         { x: new Date(2024, 4, 11), y: 76 },
-        { x: new Date(2024, 4, 12), y: 84 },
+        { x: new Date(2024, 4, 12), y: 94 },
         { x: new Date(2024, 4, 13), y: 87 },
         { x: new Date(2024, 4, 14), y: 76 },
         { x: new Date(2024, 4, 15), y: 79 }
@@ -267,8 +267,8 @@ fetchCuentasPorCobrar() {
 			indexLabelFontColor: "white",
       color: "#25A0BE",
 			dataPoints: [
-				{  y: this.dataService.obtener_graficas(4) , label: "Ingresos ($)" },
-				{  y: 15, label: "Egresos"}
+				{  y: this.dataService.obtener_graficas(4) , label: "Ingresos ($ MXN)" },
+				{  y: 1000, label: "Egresos ($ MXN)"}
 			]
 		}, {
 			type: "stackedColumn100",
@@ -279,8 +279,8 @@ fetchCuentasPorCobrar() {
 			indexLabelFontColor: "white",
       color: "#8A5A9E",
 			dataPoints: [
-				{  y: this.dataService.obtener_graficas(5), label: "Ingresos ($)" },
-				{  y: 25, label: "Egresos"}
+				{  y: this.dataService.obtener_graficas(5), label: "Ingresos ($ MXN)" },
+				{  y: 3000, label: "Egresos ($ MXN)"}
 			]
 		}]
 	}

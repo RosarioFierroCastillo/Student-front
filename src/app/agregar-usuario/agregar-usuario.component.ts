@@ -86,8 +86,8 @@ export class AgregarUsuarioComponent {
       .subscribe(
         response => {
           console.log('Success:', response);
-          this.correoService.Enviar_Correo(correo_invitado, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://159.54.134.179:4200/Invitacion?token=" + token);
-          // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://159.54.134.179:4200/Invitacion?token=" + token);
+          this.correoService.Enviar_Correo(correo_invitado, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
+          // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
           Swal.fire({
             title: 'Invitacion enviada correctamente',
             text: '',
@@ -143,7 +143,7 @@ export class AgregarUsuarioComponent {
         //  Codigo_acceso: "123"
       };
 
-      let direccion = "http://159.54.134.179/api/Usuarios/Agregar_Usuario";
+      let direccion = "https://localhost:44397/api/Usuarios/Agregar_Usuario";
 
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(
@@ -171,7 +171,7 @@ export class AgregarUsuarioComponent {
 
     this.id_fracc = this.id_usuario;
 
-    return this.http.get("http://159.54.134.179/api/Usuario_lote/RestrictedUser?id_usuario=" + this.id_fracc).subscribe(
+    return this.http.get("https://localhost:44397/api/Usuario_lote/RestrictedUser?id_usuario=" + this.id_fracc).subscribe(
       () => {
 
         Swal.fire({
@@ -208,7 +208,7 @@ export class AgregarUsuarioComponent {
     this.id_fracc = this.id_usuario;
     console.log(this.id_usuario);
 
-    return this.http.delete("http://159.54.134.179/api/Usuario_lote/Eliminar_inquilino?id_persona=" + this.id_fracc).subscribe(
+    return this.http.delete("https://localhost:44397/api/Usuario_lote/Eliminar_inquilino?id_persona=" + this.id_fracc).subscribe(
       () => {
 
         Swal.fire({
@@ -245,7 +245,7 @@ export class AgregarUsuarioComponent {
     this.id_fracc = this.id_usuario;
 
 
-    return this.http.get("http://159.54.134.179/api/Usuario_lote/EnableUser?id_usuario=" + this.id_fracc).subscribe(
+    return this.http.get("https://localhost:44397/api/Usuario_lote/EnableUser?id_usuario=" + this.id_fracc).subscribe(
       () => {
         Swal.fire({
           title: 'Usuario agregado correctamente',
@@ -305,7 +305,7 @@ actualizar_tesorero(){
   this.tesorero='tesorero';
 
 
-  return this.http.put("http://159.54.134.179/api/Personas/Actualizar_TipoUsuario?tipo_usuario="+this.tesorero+"&id_persona=" + this.id_fracc,this.id_fracc).subscribe(
+  return this.http.put("https://localhost:44397/api/Personas/Actualizar_TipoUsuario?tipo_usuario="+this.tesorero+"&id_persona=" + this.id_fracc,this.id_fracc).subscribe(
     () => {
       Swal.fire({
         title: 'Tesorero',

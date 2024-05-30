@@ -157,7 +157,7 @@ export class InvitacionComponent {
 
       console.log("params: ",usuario)
 
-      let direccion = "http://159.54.134.179/api/Usuarios/Agregar_Usuario";
+      let direccion = "https://localhost:44397/api/Usuarios/Agregar_Usuario";
 
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(

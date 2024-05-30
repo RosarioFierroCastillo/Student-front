@@ -24,7 +24,7 @@ h1{
  }
 
  .cuadro{
-   border: 1px solid rgb(128, 125, 125); /* Añade bordes para visualizar las columnas */
+  border: 1px solid rgb(128, 125, 125); /* Añade bordes para visualizar las columnas */
    box-shadow: 8px 8px 5px rgba(144, 143, 131, 0.5);
    width: 200px;
    margin-top: 10px;

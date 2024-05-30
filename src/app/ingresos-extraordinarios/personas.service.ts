@@ -9,7 +9,7 @@ import { Deudores } from './deudores.model';
 })
 export class PersonasService {
 
-  private apiUrl = 'http://159.54.134.179/api'; // Reemplaza con la URL de tu backend
+  private apiUrl = 'https://localhost:44397/api'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) { }
 

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ComprobanteService {
 
-  private apiUrl = 'http://159.54.134.179/api/Deudas';
+  private apiUrl = 'https://localhost:44397/api/Deudas';
 
   constructor(private http: HttpClient) {}
 

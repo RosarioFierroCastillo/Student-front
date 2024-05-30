@@ -9,10 +9,10 @@ export class AccesoPuertaService {
 
   constructor(private http: HttpClient) {}
 
-  //http://159.54.134.179/Usuarios/Generar_Token
-  //http://159.54.134.179/Usuarios/Consultar_Correo?id_persona=${userId}
+  //https://localhost:44397/Usuarios/Generar_Token
+  //https://localhost:44397/Usuarios/Consultar_Correo?id_persona=${userId}
   getToken(): Observable<string> {
-    const url = `http://159.54.134.179/api/Whatsapp/Generar_Token`;
+    const url = `https://localhost:44397/api/Whatsapp/Generar_Token`;
     // Indicamos al HttpClient que esperamos un texto en la respuesta
     return this.http.get(url, { responseType: 'text' });
   }
