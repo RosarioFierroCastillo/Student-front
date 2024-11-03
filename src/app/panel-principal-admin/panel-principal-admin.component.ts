@@ -1,80 +1,75 @@
-import { Component } from '@angular/core';
-import {ChangeDetectorRef, OnDestroy, OnInit} from '@angular/core';
-import {MediaMatcher} from '@angular/cdk/layout'
+import { Component, HostBinding } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout'
 import { DataService } from '../data.service'
 import { ImagenService } from './imagen.service';
 import { Router } from "@angular/router";
+import {MatBadgeModule} from '@angular/material/badge';
+import { NotificacionesService } from '../consultar-notificaciones/notificaciones.service';
+import { Notificaciones } from '../modelos/notificaciones';
+
 
 
 @Component({
   selector: 'app-panel-principal-admin',
   templateUrl: './panel-principal-admin.component.html',
-  styleUrls: ['./panel-principal-admin.component.css']
+  styleUrls: ['../panel-principal.css']
 })
 export class PanelPrincipalAdminComponent {
   imagen: any;
+  indice: number = 0;
+  verdaderoRango: number = 6;
+  cont: number = 1;
+  registrosTotales: number = 0;
+  notificaciones1: Notificaciones[] = [];
+  notificaciones: Notificaciones[] = [];
+  id_destinatario: number = 2;
 
 
   mobileQuery: MediaQueryList;
 
+
+  esPanelAdmin(): boolean {
+    return this.router.url === 'Home';
+  }
+
+
+
+
   //fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 
 
-  fillerNav=[
-    {name:"Home", route:"Home", icon:"home"},
-    {name:"Acuerdos", route:"Acuerdos", icon:"assignment", children: [
-      {name: "Agregar", route: "Acuerdos", icon:"assignment_ind"},
-      {name: "Consultar", route: "ConsultarAcuerdos", icon:"class"}
-    ]},
-    {name:"Notificaciones", route:"Notificaciones", icon:"priority_high", children: [
-      {name: "Agregar", route: "Notificaciones", icon:"assignment_ind"},
-      {name: "Consultar", route: "ConsultarNotificaciones", icon:"class"}
-    ]},
-    /*
-    {name:"Propiedades", route:"Propiedades", icon:"explore",
-    children: [
-      {name:"Agregar", route:"Propiedades", icon:"assignment_ind", children: []},
-   //   {name:"Personas", route:"Inquilinos", icon:"assignment_ind", children: []},
-      {name:"Consultar", route:"ConsultarPropiedades", icon:"class"}
-    ]},
-    */
-    {name:'Usuarios',route:"Usuarios", icon:"supervised_user_circle",
-    children: [
-      {name:"Agregar", route:"Usuarios", icon:"person_add",
-      children: []},
-      {name:"Consultar", route:"AgregarUsuario", icon:"class"},
-      {name:"Tesorero", route:"Tesorero", icon:"money", children: []}
-    ]},
-    {name:"Controlador",route:"Fraccionamientos", icon:"cast_connected"},
-    {name:"Configuracion",route:"Settings",icon:"settings"}
-   //{name:'Salir',route:'Home', icon:"exit_to_app"}
+  fillerNav = [
+    { name: "Home", route: "Home", icon: "home" },
+    { name: "Acuerdos", route: "Acuerdos", icon: "assignment" },
+    { name: "Notificaciones", route: "Notificaciones", icon: "priority_high" },
+    { name: 'Usuarios', route: "Usuarios", icon: "supervised_user_circle" },
+    { name: "Controlador", route: "Controlador", icon: "cast_connected" },
+    //{ name: "Contr", route: "Invitacion", icon: "cast_connected" },
 
-   // <font-awesome-icon icon="right-from-bracket" />
+
+    {
+      name: '', route: "", icon: "", children: [
+        { name: '', route: "", icon: "" }
+      ]
+    },
   ]
 
 
-  exit() {
-    //location.reload();
-    this.router.navigate(['../']);
-  }
+  fillerNav1 = [
+    { name: "Configuracion", route: "Configuracion", icon: "settings" },
+    { name: "Salir", route: "../", icon: "exit_to_app" },
 
-  fillerContent = Array.from(
-    {length: 50},
-    () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-  );
+  ]
+
 
   private _mobileQueryListener: () => void;
-Nav: any;
-usuario: any;
+  Nav: any;
+  usuario: any;
 
 
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private data: DataService, private imagenService: ImagenService,private router:Router) {
+  constructor(private NotificacionesService: NotificacionesService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private data: DataService, private imagenService: ImagenService, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -90,14 +85,25 @@ usuario: any;
   shouldRun = true;
 
   ngOnInit(): void {
-    this.usuario = this.data.obtener_usuario(2);
+
+    this.usuario = this.data.obtener_usuario(8);
     this.Cargar_Imagen(this.data.obtener_usuario(1));
+    this.esPanelAdmin();
+    this.consultarNotificacion(this.data.obtener_usuario(1), this.indice, this.verdaderoRango, this.id_destinatario);
+
+    $(document).ready(function() {
+      $(".notification-drop .item").on('click',function() {
+        $(this).find('ul').toggle();
+      });
+    });
+    
+
   }
 
 
 
-  imagenURL: string = './assets/usuario.png';
-  Cargar_Imagen(id_persona: number){
+  imagenURL: string = '../assets/usuario.png';
+  Cargar_Imagen(id_persona: number) {
     const id_Pago = 3; //  ID correspondiente
     this.imagenService.obtenerImagenPorId(id_persona).subscribe(
       (imagen: ArrayBuffer) => {
@@ -129,5 +135,25 @@ usuario: any;
       this.submenuAbierto = index; // Abre el nuevo submenu
     }
   }
+
+
+
+  
+  consultarNotificacion(idFraccionamiento: any, indice: number, verdaderoRango: number, id_destinatario: number) {
+
+
+    this.NotificacionesService.consultarNotificacion(idFraccionamiento, id_destinatario).subscribe((notificaciones: Notificaciones[]) => {
+
+      
+      this.notificaciones = notificaciones;
+      this.indice = 0;
+      this.verdaderoRango = 6;
+      this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
+      console.log(this.notificaciones1)
+
+    });
+  }
+
+
 
 }

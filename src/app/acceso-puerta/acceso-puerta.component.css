@@ -1,13 +1,14 @@
-
 .container {
-    width: 40%;
-    margin: 0 auto;
-    background: linear-gradient(rgb(201, 231, 201),rgb(241, 241, 241), rgb(255, 255, 255));
-    border-radius: 10px;
-    padding: 20px;
-    color: white;
-    margin-top: 50px;
+  width: 40%;
+  margin: 0 auto;
+  background: rgb(255, 255, 255); /* Fondo blanco sólido */
+  border-radius: 10px;
+  padding: 20px;
+  color: black; /* Cambié el color del texto a negro para mejor legibilidad */
+  margin-top: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); /* Sombra suave */
 }
+
 
 .titulo {
     text-align: center;
@@ -56,3 +57,19 @@ img{
     margin:auto;
     color: black;
 }
+
+.overlay {
+  position: absolute; /* Permite superponer el div sobre el contenedor */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex; /* Para centrar el texto */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  color: white; /* Color del texto */
+  font-size: 1.5em; /* Tamaño del texto */
+  border-radius: 10px; /* Opcional: Para que coincida con el contenedor */
+}
+

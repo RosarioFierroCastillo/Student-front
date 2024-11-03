@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { Personas } from './personas.model';
+import { Personas } from '../modelos/personas';
 //import { PersonasService } from './personas.service';
 import { NotificacionesService } from './notificaciones.service';
-import { Notificaciones } from './notificaciones.model';
+import { Notificaciones } from '../modelos/notificaciones';
 import { usuario, usuarios } from "../modelos/usuarios";
 import { NumberFormatStyle } from '@angular/common';
 import { DataService } from '../data.service';
 import Swal from 'sweetalert2';
+import { async } from 'rxjs';
+import { LoadingService } from '../loading-spinner/loading-spinner.service';
 
 @Component({
   selector: 'app-consultar-notificaciones',
@@ -14,16 +16,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./consultar-notificaciones.component.css']
 })
 export class ConsultarNotificacionesComponent {
-  constructor(private NotificacionesService: NotificacionesService,
-    private notificacionesService: NotificacionesService, private dataService: DataService) { }
+  constructor(private NotificacionesService: NotificacionesService, private dataService: DataService, private loadingService: LoadingService) { }
   personas: Personas[] = [];
 
-  id_fraccionamineto: number = 15;
+  id_fraccionamineto: number = this.dataService.obtener_usuario(1);
   respuestaNotificacion: string | null = null;
   idNotificacion: number | undefined;
   notificaciones: Notificaciones[] = [];
   tipoSeleccionado: string = 'General';
-  idFraccionamiento: number = 15;
+  tipo: string = '';
+  idFraccionamiento: number = this.dataService.obtener_usuario(1);
   idUsuario: number = 0;
   filtroNotificaciones: "" | undefined;
   usuarios: usuarios[] = [];
@@ -33,21 +35,27 @@ export class ConsultarNotificacionesComponent {
   registrosTotales: number = 0;
   notificaciones1: Notificaciones[] = [];
   id_destinatario: number = 2;
+  mostrarGrid: boolean = false;
+  mostrarDestinatario: boolean = false;
+
 
 
 
   ngOnInit(): void {
 
-    this.consultarNotificacion(this.dataService.obtener_usuario(1), this.indice, this.verdaderoRango, this.id_destinatario);
-
-    //this.consultarNotificacion(this.dataService.obtener_usuario(1), 0, 6, this.id_destinatario);
-  // this.registrosTotales = this.dataService.numeroRegistrosTabla(this.dataService.obtener_usuario(1), "notificaciones")
-
-   
-
-  
+    this.consultarNotificacion(this.dataService.obtener_usuario(3), this.id_destinatario);
   }
 
+  pageChanged(event: any) {
+    // Determinar la acción del paginator
+    if (event.previousPageIndex < event.pageIndex) {
+      // Se avanzó a la siguiente página
+      this.paginador_adelante();
+    } else if (event.previousPageIndex > event.pageIndex) {
+      // Se retrocedió a la página anterior
+      this.paginador_atras();
+    }
+  }
 
 
   paginador_atras() {
@@ -57,6 +65,10 @@ export class ConsultarNotificacionesComponent {
       this.indice = this.indice - this.verdaderoRango;
       this.cont--;
     }
+
+    this.notificaciones1.forEach(notif => {
+      notif.visualizacion = 0; // Cambiar la propiedad "estado" a 0 para cada objeto
+    })
   }
 
   paginador_adelante() {
@@ -64,60 +76,58 @@ export class ConsultarNotificacionesComponent {
       this.indice = this.indice + this.verdaderoRango;
       this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
       this.cont++;
-     // this.consultarNotificacion
-    } 
-    
+
+    }
   }
 
-  onChange(event: any){ 
 
-      const selectedValue = event.target.value;
-    
-      this.id_destinatario=selectedValue;
-     // console.log(this.id_destinatario);
 
-     this.consultarNotificacion(this.dataService.obtener_usuario(1), 0, 100, this.id_destinatario);
+
+  onChange(event: any) {
+
+    const selectedValue = event.target.value;
+
+
+    this.id_destinatario = selectedValue;
+    // console.log(this.id_destinatario);
+
+    this.consultarNotificacion(this.dataService.obtener_usuario(3), this.id_destinatario);
   }
-  
 
-  consultarNotificacion(idFraccionamiento: any, indice: number, verdaderoRango: number, id_destinatario: number) {
-    this.NotificacionesService.consultarNotificacion(idFraccionamiento, 0, 100, id_destinatario).subscribe((notificaciones: Notificaciones[]) => {
-      //  console.log("notificaciones: ", valor);
-        this.notificaciones = notificaciones;
-        this.indice = 0;
-        this.verdaderoRango = 6;
-        this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
 
-      });
+  consultarNotificacion(idFraccionamiento: number, id_destinatario: number) {
+
+    this.loadingService.show()
+
+    this.NotificacionesService.consultarNotificacion(idFraccionamiento, id_destinatario).subscribe((notificaciones: Notificaciones[]) => {
+
+
+
+      this.mostrarGrid = true;
+      this.loadingService.hide()
+
+      this.notificaciones = notificaciones;
+      this.indice = 0;
+      this.verdaderoRango = 6;
+      this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
+
+    });
   }
 
 
 
 
   agregarNotificacion(formulario: any): void {
-    //const idFraccionamiento = parseInt(formulario.fraccionamiento);
-    const idFraccionamiento = this.id_fraccionamineto;
-    //console.log(idFraccionamiento);
-    const tipo = formulario.tipo;
-    console.log("tipo"+  tipo);
-    let destinatarioId=0;
-    if(tipo=='general'){
-    destinatarioId=0;
-    }else if(tipo=='individual'){
-      destinatarioId = parseInt(formulario.destinatario.split(' - ')[0]);
-    }else{
-      return;
+
+
+    if (formulario.tipo == 'general') {
+      formulario.destinatario = 0;
     }
-    //console.log(destinatarioId);
-    const asunto = formulario.asunto;
-    //console.log(asunto); 
-    const mensaje = formulario.mensaje;
-    //console.log(mensaje);
- 
-    this.NotificacionesService.agregarNotificacion(idFraccionamiento, tipo, destinatarioId, asunto, mensaje)
+
+    this.NotificacionesService.agregarNotificacion(this.dataService.obtener_usuario(3), formulario.tipo, formulario.destinatario, formulario.asunto, formulario.mensaje)
       .subscribe(
         (respuesta: string) => {
-          this.respuestaNotificacion =respuesta;
+          this.respuestaNotificacion = respuesta;
           console.log('Respuesta:', respuesta);
           Swal.fire({
             title: 'Notificacion agregada correctamente',
@@ -135,36 +145,66 @@ export class ConsultarNotificacionesComponent {
             icon: 'error',
             confirmButtonText: 'Aceptar'
           });
-        
+
         }
       );
-   }
+  }
 
 
 
 
 
+  consultarUsuarios(){
 
 
-/*
 
-  actualizarNotificaciones(): void {
-    this.notificaciones = []; // Vaciar el arreglo antes de cargar nuevas notificaciones
+    Swal.fire({
 
-    if (this.tipoSeleccionado === 'General') {
-      this.idUsuario = 0;
-    } else {
-      // Asignar el ID de usuario correspondiente a la sesión (puedes ajustarlo según tu lógica de inicio de sesión)
-      // this.idUsuario = ...;
-      this.idUsuario = 1;
+      title: 'Cargando datos',
+      html: 'por favor espere',
+      didOpen: () => {
+
+        Swal.showLoading();
+
+      }
+    });
+
+
+    this.dataService.fetchDataUsers(this.dataService.obtener_usuario(3)).subscribe((usuarios: usuarios[]) => {
+      Swal.close();
+      clearInterval(10);
+
+      this.mostrarDestinatario = true;
+      this.usuarios = usuarios;
+
+      console.log(this.usuarios)
+
+    });
+
+  }
+
+
+
+
+  /*
+
+    actualizarNotificaciones(): void {
+      this.notificaciones = []; // Vaciar el arreglo antes de cargar nuevas notificaciones
+
+      if (this.tipoSeleccionado === 'General') {
+        this.idUsuario = 0;
+      } else {
+        // Asignar el ID de usuario correspondiente a la sesión (puedes ajustarlo según tu lógica de inicio de sesión)
+        // this.idUsuario = ...;
+        this.idUsuario = 1;
+      }
     }
-  }
 
-  filtrarPorTipo(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    this.tipoSeleccionado = target.value;
-    this.actualizarNotificaciones();
-  }
-  */
+    filtrarPorTipo(event: Event): void {
+      const target = event.target as HTMLSelectElement;
+      this.tipoSeleccionado = target.value;
+      this.actualizarNotificaciones();
+    }
+    */
 
 }

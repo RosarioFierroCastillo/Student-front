@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { deuda } from '../modelos/deudas';
 import { ComprobanteService } from './comprobante.service';
-
+ 
 @Component({
   selector: 'app-ingresos-ordinarios',
   templateUrl: './ingresos-ordinarios.component.html',
@@ -31,10 +31,8 @@ export class IngresosOrdinariosComponent {
   id_deuda:number=0;
   id_deudor:number=0;
 
-  tipo_pago:string='';
 
-
-
+  
 
 constructor(private dataService:DataService,private deudaService:DeudaService,private personasService:PersonasService,public router: Router, private comprobanteService:ComprobanteService){}
 ngOnInit(): void{
@@ -72,7 +70,7 @@ onChangeUsuario(event: any) {
      this.deudasDelUsuario = deudasUsuario
       console.log('deudas del usuario', deudasUsuario);
       if(this.deudasDelUsuario.length!=0){
-        //this.onChangeDeuda({ target: { selectedIndex: 0 } });
+        this.onChangeDeuda({ target: { selectedIndex: 0 } });
       }else{
         this.id_deuda=0;
         this.monto = 0;
@@ -88,7 +86,7 @@ onChangeUsuario(event: any) {
           confirmButtonText: 'Aceptar'
         });
       }
-
+     
     },
     (error) => {
       // Manejo de errores
@@ -103,7 +101,7 @@ onChangeUsuario(event: any) {
 }
 
 onChangeDeuda(event: any) {
-  const selectedIndex = event.target.selectedIndex -1;
+  const selectedIndex = event.target.selectedIndex;
   const deudaSeleccionada = this.deudasDelUsuario[selectedIndex];
   this.id_deuda=deudaSeleccionada.id_deuda;
 
@@ -111,7 +109,7 @@ onChangeDeuda(event: any) {
   this.fecha_corte = formatDate(deudaSeleccionada.proximo_pago, 'yyyy-MM-dd', 'en-US');
   this.periodicidad = deudaSeleccionada.periodicidad;
   this.recargo=deudaSeleccionada.recargo;
-
+ 
   // Calcular la fecha del próximo pago sumando la periodicidad a la fecha de vencimiento
   const proximoPago = new Date(deudaSeleccionada.proximo_pago); // Convertir a objeto Date
   proximoPago.setDate(proximoPago.getDate() + this.periodicidad); // Sumar la periodicidad en días
@@ -125,13 +123,13 @@ onChangeDeuda(event: any) {
   // Verificar si los días de atraso son mayores que los días de gracia y agregar recargo
   if (this.diasAtraso > deudaSeleccionada.dias_gracia) {
     // Agregar el recargo al monto de la deuda
-
+    
     this.total = deudaSeleccionada.monto + deudaSeleccionada.recargo ; // Agregar el valor de lote al recargo
-
+  
   }else{
     this.total=deudaSeleccionada.monto
   }
-
+ 
 
 }
 
@@ -140,12 +138,10 @@ pagarDeudaOrdinaria() {
   const idDeuda = this.id_deuda; // Reemplaza con el ID de la deuda correspondiente
   const idFraccionamiento = this.dataService.obtener_usuario(3); // Reemplaza con el ID del fraccionamiento correspondiente
   const proximoPago = this.fechaProximoPago; // Reemplaza con la fecha deseada en el formato correcto
-  const monto= 0;
-  const tipo_pago='asd';
 
   if(this.archivoSeleccionado){
-
-    this.deudaService.pagarDeudaOrdinaria(idDeudor, idDeuda, idFraccionamiento, proximoPago,this.archivoSeleccionado, monto, tipo_pago).subscribe(
+ 
+    this.deudaService.pagarDeudaOrdinaria(idDeudor, idDeuda, idFraccionamiento, proximoPago,this.archivoSeleccionado).subscribe(
       (respuesta) => {
         if (respuesta) {
           console.log('La deuda ha sido pagada exitosamente');
@@ -181,7 +177,7 @@ pagarDeudaOrdinaria() {
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
-
+        
       }
     );
   }else{
@@ -191,9 +187,9 @@ pagarDeudaOrdinaria() {
       icon: 'error',
       confirmButtonText: 'Aceptar'
     });
-
+    
   }
-
+  
 }
 
 
@@ -204,7 +200,7 @@ onChangeOption(event:any){
   const selectedValue = event.target.value;
 
   if (selectedValue === 'ordinario') {
-
+    
   } else if (selectedValue === 'extraordinario') {
     this.router.navigate(['./PanelTesorero/IngresosExtraordinarios']);
   }
@@ -218,7 +214,7 @@ onChangeOption(event:any){
 imagenSeleccionada: any; // Variable para mostrar la imagen seleccionada en la interfaz
   archivoSeleccionado: File | null = null;
   imagenEnBytes: Uint8Array | null = null;
-
+  
 
   handleInputFile(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -242,8 +238,8 @@ imagenSeleccionada: any; // Variable para mostrar la imagen seleccionada en la i
     }
     input.value = ''; // Limpiar el input de tipo file
   }
-
-
-
-
+  
+  
+  
+  
 }

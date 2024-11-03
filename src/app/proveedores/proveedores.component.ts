@@ -3,9 +3,11 @@ import { ProveedoresService } from './proveedores.service';
 import { Proveedor } from './proveedor.model';
 import { DataService } from '../data.service';
 import Swal from 'sweetalert2'
+import { LoadingService } from '../loading-spinner/loading-spinner.service';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 @Component({
   selector: 'app-proveedores',
-  templateUrl: './proveedores.component.html', 
+  templateUrl: './proveedores.component.html',
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent {
@@ -13,8 +15,9 @@ export class ProveedoresComponent {
   respuestaProveedores: string | null = null;
   proveedores: Proveedor[] = [];
   id_proveedor:number=0;
-  
-  constructor(private ProveedoresService: ProveedoresService, private dataservice:DataService) {}
+  mostrarGrid: boolean = false;
+
+  constructor(private http: HttpClient,private ProveedoresService: ProveedoresService, private dataservice:DataService, private loadingService: LoadingService) {}
 
   ngOnInit(): void {
     this.proveedorModel.idFraccionamiento=this.dataservice.obtener_usuario(3);
@@ -31,7 +34,7 @@ export class ProveedoresComponent {
     const tipo = formulario.tipo;
     const direccion = formulario.direccion;
     const funcion = formulario.funcion;
-  
+
     this.ProveedoresService.agregarProveedor(idFraccionamiento,nombre,apellidoPaterno,apellidoMaterno,telefono,tipo,direccion,funcion
       ).subscribe(
       (respuesta: boolean) => {
@@ -45,14 +48,19 @@ export class ProveedoresComponent {
       }
     );
     this.limpiarCampos();
-    
+
   }
 
 
   cargarProveedores(idFraccionamiento: number): void {
-    this.ProveedoresService.consultarProveedores(idFraccionamiento).subscribe(
+    this.loadingService.show();
+    this.ProveedoresService.consultarProveedores(this.dataservice.obtener_usuario(3)).subscribe(
       (data: Proveedor[]) => {
         this.proveedores = data;
+        this.mostrarGrid = true;
+        this.loadingService.hide();
+
+
       },
       (error) => {
         console.error('Error al obtener proveedores:', error);
@@ -67,13 +75,13 @@ export class ProveedoresComponent {
   }
 
   eliminarProveedor(idProveedor: number): void {
-    const idFraccionamiento = this.dataservice.obtener_usuario(3); 
-  
+    const idFraccionamiento = this.dataservice.obtener_usuario(3);
+
     this.ProveedoresService.eliminarProveedor(idFraccionamiento, idProveedor).subscribe(
       (respuesta: boolean) => {
         console.log('Respuesta:', respuesta);
         //this.respuestaProveedores=respuesta;
-        this.cargarProveedores(idFraccionamiento); 
+        this.cargarProveedores(idFraccionamiento);
 
         Swal.fire({
           title: 'Proveedor eliminado correctamente',
@@ -90,14 +98,14 @@ export class ProveedoresComponent {
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
-        
+
       }
     );
     this.cargarProveedores(this.dataservice.obtener_usuario(3));
   }
 
   actualizarProveedor(formulario: any): void {
-    const idFraccionamiento = this.dataservice.obtener_usuario(3); 
+    const idFraccionamiento = this.dataservice.obtener_usuario(3);
     const nombre = formulario.nombre;
     const apellidoPaterno = formulario.apellido_Paterno;
     const apellidoMaterno = formulario.apellido_Paterno;
@@ -120,8 +128,8 @@ export class ProveedoresComponent {
               icon: 'success',
               confirmButtonText: 'Aceptar'
             });
-            
-            
+
+
           } else {
             console.error('Error al actualizar proveedor');
             Swal.fire({
@@ -130,7 +138,7 @@ export class ProveedoresComponent {
               icon: 'error',
               confirmButtonText: 'Aceptar'
             });
-            
+
           }
         },
         (error) => {
@@ -147,7 +155,7 @@ export class ProveedoresComponent {
 
 
 
-  //Cargar los datos del proveedor seleccionado 
+  //Cargar los datos del proveedor seleccionado
   proveedorModel = {
     idFraccionamiento: '',
     nombre: '',
@@ -161,9 +169,9 @@ export class ProveedoresComponent {
   @ViewChild('proveedorForm', { static: false }) proveedorForm!: ElementRef<HTMLFormElement>;
 
   cargarDatosProveedor(proveedorSeleccionado: Proveedor) {
-   
+
     this.proveedorModel = {
-      idFraccionamiento: String(proveedorSeleccionado.id_fraccionamiento),
+      idFraccionamiento: String(this.dataservice.obtener_usuario(3)),
       nombre: proveedorSeleccionado.nombre,
       apellido_Paterno: proveedorSeleccionado.apellido_paterno,
       apellido_Materno: proveedorSeleccionado.apellido_materno,
@@ -189,8 +197,28 @@ export class ProveedoresComponent {
     };
   }
 
+  apiUrl:string = 'http://159.54.141.160/Reportes/Reporte_Proveedores';
+  reporteProveedores(){
+    this.loadingService.show();
 
-  
+
+    this.http.get(`${this.apiUrl}?id_fraccionamiento=${this.dataservice.obtener_usuario(3)}`, { responseType: 'blob' })
+    .subscribe(blob => {
+      this.loadingService.hide();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `reporte_ProveedoresFraccionamiento_${this.dataservice.obtener_usuario(3)}.pdf`; // Nombre del archivo a descargar
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al descargar el reporte:', error);
+    });
+}
+
+
+
 }
 
 

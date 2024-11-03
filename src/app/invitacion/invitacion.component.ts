@@ -10,7 +10,7 @@ import { Usuario } from './usuario.model';
 import Swal from 'sweetalert2'
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient, HttpParams} from '@angular/common/http';
-import { Personas } from '../cuenta/personas.model';
+import { Personas } from '../modelos/personas';
 import { NgModule } from '@angular/core';
 
 
@@ -89,7 +89,7 @@ export class InvitacionComponent {
               text: 'Error al consultar los datos de la invitacion. Contacte a su administrador',
               icon: 'error',
               confirmButtonText: 'Aceptar'
-            });
+            })
           }
         );
       }
@@ -157,7 +157,7 @@ export class InvitacionComponent {
 
       console.log("params: ",usuario)
 
-      let direccion = "https://localhost:44397/api/Usuarios/Agregar_Usuario";
+      let direccion = "http://159.54.141.160/api/Usuarios/Agregar_Usuario";
 
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(

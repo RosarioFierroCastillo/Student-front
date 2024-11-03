@@ -11,7 +11,7 @@ export class DeudaService {
   constructor(private http:HttpClient) { }
 
 
-  private apiUrl = 'https://localhost:44397/api/Deudas';
+  private apiUrl = 'http://159.54.141.160/api/Deudas';
 
   consultarDeudoresOridinarios(idFraccionamiento: number,idUsuario:number): Observable<Deudores[]> {
     const url = `${this.apiUrl}/Consultar_DeudoresOrdinarios?id_fraccionamiento=${idFraccionamiento}&id_usuario=${idUsuario}`;
@@ -26,7 +26,7 @@ export class DeudaService {
   }
 
 
-  pagarDeudaOrdinaria(idDeudor: number, idDeuda: number, idFraccionamiento: number, proximoPago: string, file: File, monto:number, tipo_pago: string): Observable<boolean> {
+  pagarDeudaOrdinaria(idDeudor: number, idDeuda: number, idFraccionamiento: number, proximoPago: string, file: File): Observable<boolean> {
     const url = `${this.apiUrl}/Pagar_DeudaOrdinaria`;
 
     // Crear un objeto FormData para enviar datos y el archivo
@@ -36,13 +36,11 @@ export class DeudaService {
     formData.append('id_fraccionamiento', idFraccionamiento.toString());
     formData.append('proximo_pago', proximoPago);
     formData.append('file', file);
-    formData.append('monto', monto.toString());
-    formData.append('tipo_pago', tipo_pago);
 
     return this.http.post<boolean>(url, formData);
   }
 
-  pagarDeudaExtraordinaria(idDeudor: number, idDeuda: number, idFraccionamiento: number, proximoPago: string, file: File, tipo_pago: string, monto: any): Observable<boolean> {
+  pagarDeudaExtraordinaria(recargo: any, idDeudor: number, idDeuda: number, idFraccionamiento: number, proximoPago: string, file: File, tipo_pago: string, monto: any, monto_pendiente: any): Observable<boolean> {
     const url = `${this.apiUrl}/Pagar_DeudaExtraordinaria`;
 
     // Crear un objeto FormData para enviar datos y el archivo
@@ -51,10 +49,14 @@ export class DeudaService {
     formData.append('id_deuda', idDeuda.toString());
     formData.append('id_fraccionamiento', idFraccionamiento.toString());
     formData.append('proximo_pago', proximoPago);
-    formData.append('file', file);
+    formData.append('file', 'n');
     formData.append('tipo_pago', tipo_pago.toString());
     formData.append('monto', monto);
+    formData.append('monto_pendiente', monto_pendiente);
+    formData.append('recargo', recargo);
 
+
+    console.log("formData: ", formData)
     return this.http.post<boolean>(url, formData);
   }
 

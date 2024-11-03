@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { fraccionamiento, fraccionamientos } from "../modelos/fraccionamientos";
 import { usuario, usuarios } from "../modelos/usuarios"
 import { Router } from "@angular/router";
-import { UsuariosComponent } from '../usuarios/usuarios.component';
+//import { UsuariosComponent } from '../usuarios/usuarios.component';
 import * as $ from "jquery";
 import Swal from 'sweetalert2'
 import { timeInterval } from 'rxjs';
@@ -125,7 +125,7 @@ constructor(private router:Router, private http: HttpClient, private dataService
   }
   //Busca personas por fraccionamiento
   fetchDataPersonasFraccionamiento(id_fraccionamiento: any, id_administrador: any){
-    this.dataService.fetchDataPersonasFraccionamiento(id_fraccionamiento,id_administrador).subscribe((usuarios: usuarios[]) => {
+    this.dataService.fetchDataUsers(id_fraccionamiento).subscribe((usuarios: usuarios[]) => {
       console.log("usuarios:", usuarios);
       this.usuarios = usuarios;
     });
@@ -234,7 +234,7 @@ constructor(private router:Router, private http: HttpClient, private dataService
 
       console.log("params: ",params)
 
-      let direccion = "https://localhost:44397/api/Usuario_lote/Agregar_inquilino";
+      let direccion = "http://159.54.141.160/api/Usuario_lote/Agregar_inquilino";
 
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(
@@ -283,7 +283,7 @@ constructor(private router:Router, private http: HttpClient, private dataService
     }
 
     eliminarAcuerdo(id_usuario_lote: any, codigo_acceso: any) {
-      return this.http.delete(`https://localhost:44397/api/Usuario_lote/Eliminar_inquilino?id_lote=${id_usuario_lote}&codigo_acceso=${codigo_acceso}`,{ responseType: 'text' });
+      return this.http.delete(`http://159.54.141.160/api/Usuario_lote/Eliminar_inquilino?id_lote=${id_usuario_lote}&codigo_acceso=${codigo_acceso}`,{ responseType: 'text' });
     }
 
 

@@ -47,7 +47,7 @@ export class ConsultarDeudasComponent {
     });
   }
   fetchDataDeudasExtra(id_tesorero: any) {
-    this.dataService.fetchDataDeudasExtra(id_tesorero).subscribe((deudas: deudas[]) => {
+    this.dataService.fetchDataDeudasExtra(id_tesorero,1).subscribe((deudas: deudas[]) => {
       console.log(deudas);
       this.deudas = deudas;
     });
@@ -74,15 +74,16 @@ export class ConsultarDeudasComponent {
   }
 
   delete(id_deudas: any){
-    return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+    return this.http.delete("http://159.54.134.179/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
       () => {
         this.fetchDataDeudas(this.dataService.obtener_usuario(1));
 
       })
 
   }
+  
   deleteExtra(id_deudas: any){
-    return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+    return this.http.delete("http://159.54.134.179/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
       () => {
         this.fetchDataDeudasExtra(this.dataService.obtener_usuario(1));
 

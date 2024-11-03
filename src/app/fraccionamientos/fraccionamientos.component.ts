@@ -1,11 +1,14 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import {  controladores, controlador, fraccionamientos, fraccionamiento } from "../modelos/fraccionamientos"
+import { controladores, controlador, fraccionamientos, fraccionamiento } from "../modelos/fraccionamientos"
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as $ from "jquery";
+import { LoadingService } from '../loading-spinner/loading-spinner.service';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -14,174 +17,289 @@ import * as $ from "jquery";
   styleUrls: ['./fraccionamientos.component.css']
 })
 
-export class FraccionamientosComponent{
+export class FraccionamientosComponent {
 
-
+  showHelp: boolean = false;
 
   httpclient: any;
   UserGroup: FormGroup;
   controladores: controladores[] = [];
-  controlador =new controlador();
+  controlador = new controlador();
   fraccionamientos: fraccionamientos[] = [];
-  fraccionamiento =new fraccionamiento();
+  fraccionamiento = new fraccionamiento();
+  octetos: string[] = [];
 
+  editar: boolean = false;
 
-title = 'AngularHttpRequest';
-row: any;
-home: any;
-id_fracc: any;
-cont: any;
-
-
-constructor(private http: HttpClient, private dataService: DataService, private fb: FormBuilder){
-
-
-this.UserGroup = this.fb.group({
-     user: ['', Validators.required],
-     password: ['', Validators.required],
-     port: ['', Validators.required],
-     ip: ['', Validators.required]
-
-   })
-}
-
-
-
-ngOnInit(): void {
-  this.fetchDataHikvision(this.dataService.obtener_usuario(1));
-
-
-  $(function myFunction() {
-    console.log("si entra")
-    var x = <HTMLVideoElement>document.getElementById("informacion");
-    var y = <HTMLVideoElement>document.getElementById("controlador");
-    if (x.style.display === "block") {
-        x.style.display = "none";
-        y.style.display = "block";
-    } else {
-        x.style.display = "block";
-        y.style.display = "none";
-    }
-  });
-
-
-
-}
-
-//displayedcolumns: string[] = ['nombre', 'direccion', 'coordenadas', 'id_tesorero', 'dia_pago'];
+  nombreControlador: string = this.dataService.obtener_usuario(10);
+  ipControlador: string = this.dataService.obtener_usuario(12);
 
 
 
 
-onRowClicked(fraccionamiento: any){
-  this.id_fracc = fraccionamiento['id_fraccionamiento'];
-}
-
-edit(controladores: {
-  user: any;
-  password: any;
-  ip: any;
-  port: any;
-}){
-  this.controlador.user= controladores.user;
-  this.controlador.password= controladores.password;
-  this.controlador.ip= controladores.ip;
-  this.controlador.port= controladores.port;
+  title = 'AngularHttpRequest';
+  row: any;
+  home: any;
+  id_fracc: any;
+  cont: any;
 
 
-}
+  constructor(private http: HttpClient, private dataService: DataService, private fb: FormBuilder, private loadingService: LoadingService) {
 
-fetchDataHikvision(id_administrador: any) {
-  this.dataService.fetchDataHikvision(id_administrador).subscribe((controladores: controladores[]) => {
-    console.log(controladores);
-    this.controladores = controladores;
-  });
-}
-/*
-fetchData(id_administrador: any) {
-  this.dataService.fetchData(id_administrador).subscribe((fraccionamientos: fraccionamientos[]) => {
-    console.log(fraccionamientos);
-    this.fraccionamientos = fraccionamientos;
-  });
-}
 
-/*
-Consultar_fraccionamiento(id_administrador:number):Observable<controladores[]>{
-  let direccion = "https://localhost:44397/Fraccionamientos/Consultar_Fraccionamiento?id_fraccionamiento="+ id_administrador;
-  return this.http.get<controladores[]>(direccion);
-}
-*/
-Agregar_fraccionamiento(controladores: {
-  id_controlador: any;
-  id_fraccionamiento: any;
-  user: any;
-  password: any;
-  port: any;
-  ip: any;}){
+    this.UserGroup = this.fb.group({
+      id_controlador: ['', Validators.required],
+      modelo: ['', Validators.required],
+      nombre: ['', Validators.required],
+      user: ['', Validators.required],
+      password: ['', Validators.required],
+      port: ['', Validators.required],
+      oct1: ['', Validators.required],
+      oct2: ['', Validators.required],
+      oct3: ['', Validators.required],
+      oct4: ['', Validators.required]
 
-  console.log(controladores);
-  controladores.id_fraccionamiento=this.dataService.obtener_usuario(1);
-  //console.log("id_usuario: "+this.dataService.obtener_usuario(1));
-  const headers = new HttpHeaders({'myHeader': 'procademy'});
-  this.http.post(
-    "https://localhost:44397/Hikvision/Agregar_Hikvision?id_controlador=1&id_fraccionamiento="+controladores.id_fraccionamiento
-    +"&user="+controladores.user+
-    "&password="+controladores.password+
-    "&port="+controladores.port+
-    "&ip="+controladores.ip, {headers: headers})
-    .subscribe((res) => {
-      console.log(res);
-      this.ngOnInit();
+    })
+  }
+
+
+
+  ngOnInit(): void {
+    this.fetchDataHikvision(this.dataService.obtener_usuario(1));
+    this.cambiarColorBoton();
+    document.addEventListener('DOMContentLoaded', function () {
+      // Aquí puedes inicializar cosas si es necesario
     });
+
+
+  }
+
+
+  async Actualizar_Estado(): Promise<boolean> {
+    const url = `http://159.54.141.160/Hikvision/Actualizar_Estado?id_controlador=${this.controlador.id_controlador}&id_fraccionamiento=${this.dataService.obtener_usuario(3)}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        Swal.fire({
+          title: 'Controlador actualizado',
+          text: '',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+        this.fetchDataHikvision(this.dataService.obtener_usuario(3))
+        return response.ok; // Devuelve true si la respuesta es exitosa
+    } catch {
+        return false; // Devuelve false en caso de error
+    }
+}
+
+
+  cambiarColorBoton(): void {
+    const boton = document.getElementById("conexion");
+    if (boton) {
+      if (!this.dataService.obtener_usuario(9)) {
+        boton.classList.add("button-rojo");
+        boton.classList.remove("button-verde");
+      } else {
+        boton.classList.add("button-verde");
+        boton.classList.remove("button-rojo");
+      }
+    }
+  }
+
+  onRowClicked(fraccionamiento: any) {
+    this.id_fracc = fraccionamiento['id_fraccionamiento'];
+  }
+
+  edit(controladores: {
+    id_controlador: any;
+    nombre: any;
+    user: any;
+    password: any;
+    ip: any;
+    port: any;
+  }) {
+    this.controlador.id_controlador = controladores.id_controlador;
+    this.controlador.nombre = controladores.nombre;
+    this.controlador.user = controladores.user;
+    this.controlador.password = controladores.password;
+
+    if(controladores.port=="null"){
+      controladores.port="0";
+    }
+
+    this.controlador.port = controladores.port;
+    this.octetos = (controladores.ip).split('.');
+
+    this.editar = true;
+
+    this.controlador.oct1 = this.octetos[0];
+    this.controlador.oct2 = this.octetos[1];
+    this.controlador.oct3 = this.octetos[2];
+    this.controlador.oct4 = this.octetos[3];
+    console.log(this.controlador.oct1)
+
+    const divElement = document.getElementById('modal') as HTMLInputElement;
+
+    if (divElement !== null ) {
+      divElement.checked = true;
+
+    }
+/*
+    const divElement = document.getElementById('#modal-background');
+    const divElement1 = document.getElementById('#modal');
+      if (divElement !== null && divElement1 !== null) {
+        divElement.style.display = 'block';
+        divElement1.style.display = 'block';
+
+      }
+*/
+
+
+  }
+
+  limpiar(){
+    this.UserGroup.reset();
+  }
+
+
+  actualizarHikvision(formValues: any): void {
+
+    console.log(formValues)
+
+    this.dataService.actualizarHikvision(formValues)
+      .subscribe(
+        (res: any) => {
+
+          this.fetchDataHikvision(this.dataService.obtener_usuario(1))
+
+            Swal.fire({
+              title: 'Controlador actualizado',
+              text: '',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            });
+
+
+        },
+        (error) => {
+          console.error('Error en la solicitud:', error);
+          Swal.fire({
+            title: 'Error en la consulta',
+            text: 'Consulte al administrador',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      );
+
+      this.editar = false;
+  }
+
+
+
+  fetchDataHikvision(id_administrador: any) {
+
+    this.loadingService.show()
+
+    this.dataService.fetchDataHikvision(id_administrador).subscribe((controladores: controladores[]) => {
+
+      //  this.mostrarGrid = true;
+      this.loadingService.hide()
+      this.controladores = controladores;
+
+      this.controladores[0].nombre += " (habilitado)";
+
+
+      console.log(controladores);
+    });
+  }
+
+  Agregar_fraccionamiento(controladores: {
+    nombre: any
+    id_controlador: any;
+    id_fraccionamiento: any;
+    modelo: any;
+    user: any;
+    password: any;
+    port: any;
+    oct1: any;
+    oct2: any;
+    oct3: any;
+    oct4: any;
+    ip: any;
+  }) {
+
+    console.log(controladores);
+    //controladores.id_fraccionamiento = this.dataService.obtener_usuario(1);
+    //console.log("id_usuario: "+this.dataService.obtener_usuario(1));
+    const headers = new HttpHeaders({ 'myHeader': 'procademy' });
+    this.http.post(
+      "http://159.54.141.160/Hikvision/Agregar_Hikvision?" +
+      "nombre=" + controladores.nombre +
+      "&id_fraccionamiento=" + this.dataService.obtener_usuario(1) +
+      "&user=" + controladores.user +
+      "&password=" + controladores.password +
+      "&port=" + controladores.port +
+      "&ip=" + controladores.oct1 + "." + controladores.oct2 + "." + controladores.oct3 + "." + controladores.oct4,
+      { headers: headers })
+      .subscribe((res) => {
+        console.log(res);
+        Swal.fire(
+          'Controlador agregado',
+          'El controlador ha sido agregado.',
+          'success'
+        );
+
+        this.ngOnInit();
+      });
 
     this.controladores.push(this.UserGroup.value);
     this.UserGroup.reset();
 
-}
-/*
-  Actualizar_fraccionamiento(products: {nombre: string, direccion: string, coordenadas: string, id_administrador: number, id_tesorero: number, dia_pago: number}){
-
-    const params = {
-      nombre: products.nombre,
-      direccion: products.direccion,
-      coordenadas: products.coordenadas,
-      id_tesorero: 0,
-      id_fraccionamiento: this.id_fracc,
-      id_administrador: this.dataService.obtener_usuario(1),
-      dia_pago: products.dia_pago
-
-      };
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-       'Content-Type':  'application/json'
-      })
-    };
-
-    console.log("actualizar: ",params)
-
-    return this.http.put("https://localhost:44397/Fraccionamientos/Actualizar_Fraccionamiento", params).subscribe(
-      (_response) => {
-        this.ngOnInit();
-        this.UserGroup.reset();
-
-      }
-    )
-
   }
 
-*/
-/*
-  delete(fraccionamiento: any){
-    return this.http.delete("https://localhost:44397/Fraccionamientos/Eliminar_Fraccionamiento?id_fraccionamiento="+this.id_fracc).subscribe(
-      () => {
-        this.fetchData(this.dataService.obtener_usuario(1))
-        console.log("hola");
 
 
-      })
+
+  Eliminar_fraccionamiento(id_controlador: any) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Deseas eliminar el controlador "${this.nombreControlador}"? los cambios no se podrán revertir`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dataService.eliminarControlador(id_controlador).subscribe({
+          next: () => {
+            Swal.fire(
+              'Eliminado!',
+              'El controlador ha sido eliminado.',
+              'success'
+            );
+            location.reload()
+            // Opcional: Actualiza la lista o realiza otras acciones después de eliminar
+          },
+          error: (err) => {
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el controlador.',
+              'error'
+            );
+          }
+        });
+      }
+    });
 
 
-}
- */
+  }
 }

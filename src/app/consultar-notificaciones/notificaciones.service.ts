@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Notificaciones } from './notificaciones.model';
+import { Notificaciones } from '../modelos/notificaciones';
 import { Observable } from 'rxjs';
+import { Personas } from '../modelos/personas';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class NotificacionesService {
 
 
 
-  private apiUrl = 'https://localhost:44397/Notificaciones/'; // URL base de la API
+  private apiUrl = 'http://159.54.141.160/Notificaciones2/'; // URL base de la API
 
   constructor(private http: HttpClient) {}
 
@@ -24,8 +25,8 @@ export class NotificacionesService {
     return this.http.get<Notificaciones[]>(url);
   }
 
-  consultarNotificacion(idFraccionamiento: number, indice: number, rango: number, id_destinatario: number): Observable<Notificaciones[]> {
-    const url = `${this.apiUrl}Consultar_Notificaciones?id_fraccionamiento=${idFraccionamiento}&indice=${indice}&rango=${rango}&id_destinatario=${id_destinatario}`;
+  consultarNotificacion(idFraccionamiento: number, id_destinatario: number): Observable<Notificaciones[]> {
+    const url = `${this.apiUrl}Consultar_Notificaciones?id_fraccionamiento=${idFraccionamiento}&id_destinatario=${id_destinatario}`;
     //console.log("HOLAAAAA")
     return this.http.get<Notificaciones[]>(url);
   }
@@ -34,6 +35,7 @@ export class NotificacionesService {
     const url = `${this.apiUrl}consultar_Notificacion?id_fraccionamiento=${idFraccionamiento}`;
     return this.http.get<Notificaciones[]>(url);
   }
+
 
 
 }

@@ -9,6 +9,9 @@ import { DatePipe } from '@angular/common'
 import { PersonasService } from '../ingresos-extraordinarios/personas.service';
 import { Deudores } from '../ingresos-extraordinarios/deudores.model';
 import Swal from 'sweetalert2';
+import { LoadingService } from '../loading-spinner/loading-spinner.service';
+//import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-deudores',
@@ -18,10 +21,21 @@ import Swal from 'sweetalert2';
 export class DeudoresComponent {
   httpclient: any;
   deudores: deudores[] = [];
+
   deudor =new deudor();
   filtroDeudores:'' | undefined;
 
   Deudores_totales:Deudores[]=[];
+  Deudores1: Deudores[] = [];
+
+  indice: number = 0;
+  verdaderoRango: number = 6;
+  cont: number = 1;
+
+  MostrarPanel: boolean = false;
+
+  itemsPerPageLabel = 'Elementos por página';
+
 
 
   ngOnInit(){
@@ -29,13 +43,67 @@ export class DeudoresComponent {
     this.ConsultarDeudores();
   }
 
-  constructor(private http: HttpClient, private dataService: DataService, private fb: FormBuilder,private personasService:PersonasService){}
+
+  constructor(private http: HttpClient, private dataService: DataService, private fb: FormBuilder,private personasService:PersonasService, private loadingService: LoadingService){}
+
+
+  pageChanged(event: any) {
+    // Determinar la acción del paginator
+    if (event.previousPageIndex < event.pageIndex) {
+      // Se avanzó a la siguiente página
+      this.paginador_adelante();
+    } else if (event.previousPageIndex > event.pageIndex) {
+      // Se retrocedió a la página anterior
+      this.paginador_atras();
+    }
+  }
+
+
+  // fetchDataDeudores() {
+  //   this.dataService.fetchDataDeudores(this.dataService.obtener_usuario(3)).subscribe((deudores: deudores[]) => {
+  //     console.log(deudores);
+  //     this.deudores = deudores;
+  //   });
+  // }
+
+
+  paginador_atras() {
+
+    if (this.indice - this.verdaderoRango >= 0) {
+
+      this.Deudores1 = this.Deudores_totales.slice(this.indice - this.verdaderoRango, this.indice);
+      this.indice = this.indice - this.verdaderoRango;
+      this.cont--;
+    }
+  }
+
+  paginador_adelante() {
+    if (this.Deudores_totales.length - (this.indice + this.verdaderoRango) > 0) {
+      this.indice = this.indice + this.verdaderoRango;
+      this.Deudores1 = this.Deudores_totales.slice(this.indice, this.indice + this.verdaderoRango);
+      this.cont++;
+     // this.consultarNotificacion
+    }
+
+  }
 
   ConsultarDeudores(){
-    this.personasService.consultarDeudoresOrdinarios(this.dataService.obtener_usuario(3)).subscribe(
+
+    this.loadingService.show();
+
+    this.personasService.consultarDeudores(this.dataService.obtener_usuario(3)).subscribe(
       (deudasUsuario: Deudores[]) => {
+
+
        this.Deudores_totales = deudasUsuario
+       this.indice=0;
+       this.verdaderoRango=6;
+       this.Deudores1 = this.Deudores_totales.slice(this.indice, this.indice + this.verdaderoRango);
         console.log('deudas de todos los  usuarios', this.Deudores_totales);
+
+        this.loadingService.hide();
+        this.MostrarPanel = true;
+        /*
         if(this.Deudores_totales.length!=0){
 
         }else{
@@ -44,9 +112,9 @@ export class DeudoresComponent {
             text: '',
             icon: 'warning',
             confirmButtonText: 'Aceptar'
-          }); 
-        } 
-       
+          });
+        }
+       */
       },
       (error) => {
         // Manejo de errores
@@ -59,7 +127,7 @@ export class DeudoresComponent {
     this.dataService.restringir_acceso(id_deuda).subscribe((deudores: deudores[]) => {
       console.log(deudores);
       this.deudores = deudores;
-    }); 
+    });
   }
 
   calcularDiasRetraso(proximoPago: string): number {
@@ -72,8 +140,28 @@ export class DeudoresComponent {
   }
 
   delete(id_deuda:any){
-    
+
   }
 
-  
+
+  apiUrl:string = 'http://159.54.141.160/Reportes/Reporte_Deudores';
+  reporteDedudores(){
+    this.loadingService.show();
+
+
+    this.http.get(`${this.apiUrl}?id_fraccionamiento=${this.dataService.obtener_usuario(3)}`, { responseType: 'blob' })
+    .subscribe(blob => {
+      this.loadingService.hide();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `reporte_DeudoresFraccionamiento_${this.dataService.obtener_usuario(3)}.pdf`; // Nombre del archivo a descargar
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al descargar el reporte:', error);
+    });
 }
+  }
+

@@ -79,6 +79,7 @@ export class InicioSesionComponent {
 
     $(function () {
 
+
       $('#login-form-link').click(function (e) {
         $("#login-form").delay(100).fadeIn(100);
         $("#register-form").fadeOut(100);
@@ -130,17 +131,6 @@ export class InicioSesionComponent {
         }
 
         localStorage.setItem("data", JSON.stringify(sesions[0]));
-
-
-
-
-
-    this.data.consultarDeudasPorCobrar().subscribe((graficas) => {
-      if (graficas.length > 0) {
-        console.log(graficas[0].novariables);
-        console.log(graficas[0]);
-
-        localStorage.setItem("graficas", JSON.stringify(graficas[0]));
       } else {
         Swal.fire({
           title: 'Error en inicio de sesion',
@@ -152,15 +142,27 @@ export class InicioSesionComponent {
     });
 
 
-      } else {
-        Swal.fire({
-          title: 'Error en inicio de sesion',
-          text: 'Correo o contraseña incorrectos',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    });
+
+
+
+    // this.data.consultarDeudasPorCobrar(0).subscribe((graficas) => {
+    //   if (graficas.length > 0) {
+    //     console.log(graficas[0].novariables);
+    //     console.log(graficas[0]);
+
+
+    //     localStorage.setItem("graficas", JSON.stringify(graficas[0]));
+
+
+    //   } else {
+    //     Swal.fire({
+    //       title: 'Error en inicio de sesion',
+    //       text: 'Correo o contraseña incorrectos',
+    //       icon: 'error',
+    //       confirmButtonText: 'Aceptar'
+    //     });
+    //   }
+    // });
   }
 
 agregar_administrador(sesion: {
@@ -179,7 +181,7 @@ agregar_administrador(sesion: {
 
   if(sesion.password == sesion.ppassword){
 
-    let direccion = "https://localhost:44397/api/Personas/Agregar_Administrador?nombre="+sesion.username+"&correo="+sesion.correo+"&contrasenia="+sesion.password+"&town="+sesion.town;
+    let direccion = "http://159.54.141.160/api/Personas/Agregar_Administrador?nombre="+sesion.username+"&correo="+sesion.correo+"&contrasenia="+sesion.password+"&town="+sesion.town;
 
     const headers = new HttpHeaders({'myHeader': 'procademy'});
     this.http.post(direccion, sesion, { headers: headers }).subscribe(

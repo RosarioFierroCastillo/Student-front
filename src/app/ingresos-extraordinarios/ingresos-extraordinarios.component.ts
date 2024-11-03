@@ -165,14 +165,14 @@ pagarDeudaExtraordinaria(montoDeudaExtra: any) {
 
   if(montoDeudaExtra<monto){
     this.tipo_pago = "abono";
-    montoDeudaExtra = monto - montoDeudaExtra;
+   // montoDeudaExtra = monto - montoDeudaExtra;
   }
   else{
     this.tipo_pago = "liquidacion";
   }
 
   if(this.archivoSeleccionado){
-    this.deudaService.pagarDeudaExtraordinaria(idDeudor, idDeuda, idFraccionamiento, proximoPago,this.archivoSeleccionado, this.tipo_pago, montoDeudaExtra).subscribe(
+    this.deudaService.pagarDeudaExtraordinaria(10,idDeudor, idDeuda, idFraccionamiento, proximoPago,this.archivoSeleccionado, this.tipo_pago, montoDeudaExtra, montoDeudaExtra).subscribe(
       (respuesta) => {
         if (respuesta) {
           Swal.fire({

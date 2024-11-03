@@ -45,7 +45,7 @@ export class PropiedadesComponent {
   onSelect(id_fraccionamiento: any) {
     console.log(id_fraccionamiento);
     // this.id_fraccionamiento = id_fraccionamiento;
-    this.fetchDataPersonasFraccionamiento(id_fraccionamiento, this.dataService.obtener_usuario(1))
+    this.fetchDataPersonasFraccionamiento(this.dataService.obtener_usuario(1))
     // this.ubigeo.getProvincias(code); // con esto ya hemos obtenido las provincias del departamento seleccionado, ahora solo falta ponerlo en la plantilla html.
   }
 
@@ -67,7 +67,7 @@ export class PropiedadesComponent {
   }
 
   AbrirrMenu(lote: any) {
-    this.fetchDataPersonasFraccionamiento(lote.id_fraccionamiento, this.dataService.obtener_usuario(1))
+    this.fetchDataPersonasFraccionamiento(this.dataService.obtener_usuario(1))
     this.fetchDataPersonasLote(lote.id_lote);
     console.log("lote: ", lote.id_lote)
     this.AbrirMenu = true;
@@ -77,7 +77,7 @@ export class PropiedadesComponent {
     //  this.fetchDataUsers(this.dataService.obtener_usuario(1));
     this.fetchData(this.dataService.obtener_usuario(1));
     this.fetchDataPropiedades(this.dataService.obtener_usuario(1));
-    this.fetchDataPersonasFraccionamiento(0, 0)
+    this.fetchDataPersonasFraccionamiento(this.dataService.obtener_usuario(1))
     this.fetchDataLastUser1(),
       this.dataService.fetchDataUsers(this.dataService.obtener_usuario(1)).subscribe((usuarios: usuarios[]) => {
         this.usuarios = usuarios;
@@ -226,8 +226,8 @@ export class PropiedadesComponent {
           .subscribe(
             response => {
               console.log('Success:', response);
-              this.correoService.Enviar_Correo(correo, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
-             // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
+              this.correoService.Enviar_Correo(correo, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://localhost:4200/Invitacion?token=" + token);
+             // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://localhost:4200/Invitacion?token=" + token);
               Swal.fire({
                 title: 'Invitacion enviada correctamente',
                 text: '',
@@ -271,7 +271,7 @@ export class PropiedadesComponent {
         //  Codigo_acceso: "123"
       };
       console.log("PARAMSS: ", params)
-      let direccion = "https://localhost:44397/api/Usuarios/Agregar_Usuario";
+      let direccion = "http://159.54.141.160/api/Usuarios/Agregar_Usuario";
 
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(
@@ -361,8 +361,8 @@ export class PropiedadesComponent {
           .subscribe(
             response => {
               console.log('Success:', response);
-              this.correoService.Enviar_Correo(correo, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
-             // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
+              this.correoService.Enviar_Correo(correo, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://localhost:4200/Invitacion?token=" + token);
+             // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://localhost:4200/Invitacion?token=" + token);
               Swal.fire({
                 title: 'Invitacion enviada correctamente',
                 text: '',
@@ -407,7 +407,7 @@ export class PropiedadesComponent {
         //  Codigo_acceso: "123"
       };
       console.log(params)
-      let direccion = "https://localhost:44397/api/Usuarios/Agregar_Usuario";
+      let direccion = "http://159.54.141.160/api/Usuarios/Agregar_Usuario";
 
       const headers = new HttpHeaders({ 'myHeader': 'procademy' });
       this.http.post(
@@ -481,7 +481,7 @@ export class PropiedadesComponent {
 
     console.log("params: ", params)
 
-    let direccion = "https://localhost:44397/api/Usuario_lote/Agregar_inquilino";
+    let direccion = "http://159.54.141.160/api/Usuario_lote/Agregar_inquilino";
 
     const headers = new HttpHeaders({ 'myHeader': 'procademy' });
     this.http.post(
@@ -511,8 +511,8 @@ export class PropiedadesComponent {
     });
   }
   //Busca personas por fraccionamiento
-  fetchDataPersonasFraccionamiento(id_fraccionamiento: any, id_administrador: any) {
-    this.dataService.fetchDataPersonasFraccionamiento(id_fraccionamiento, id_administrador).subscribe((usuarios: usuarios[]) => {
+  fetchDataPersonasFraccionamiento(id_fraccionamiento: any) {
+    this.dataService.fetchDataUsers(id_fraccionamiento).subscribe((usuarios: usuarios[]) => {
       console.log("usuarios:", usuarios);
       this.usuarios = usuarios;
     });
@@ -582,7 +582,7 @@ export class PropiedadesComponent {
 
     console.log("params: ", params)
 
-    let direccion = "https://localhost:44397/Propiedades/Agregar_Propiedad";
+    let direccion = "http://159.54.141.160/Propiedades/Agregar_Propiedad";
 
     const headers = new HttpHeaders({ 'myHeader': 'procademy' });
     this.http.post(
@@ -617,7 +617,7 @@ export class PropiedadesComponent {
 
 
   delete(id_lote: any) {
-    return this.http.delete("https://localhost:44397/Propiedades/Eliminar_Propiedad?id_lote=" + id_lote).subscribe(
+    return this.http.delete("http://159.54.141.160/Propiedades/Eliminar_Propiedad?id_lote=" + id_lote).subscribe(
       () => {
         this.fetchDataPropiedades(this.dataService.obtener_usuario(1))
         console.log("hola");
@@ -628,7 +628,7 @@ export class PropiedadesComponent {
 
 
   delete_user(id_usuario_lote: any) {
-    return this.http.delete("https://localhost:44397/api/Usuario_lote/Eliminar_inquilino?id_lote=" + id_usuario_lote).subscribe(
+    return this.http.delete("http://159.54.141.160/api/Usuario_lote/Eliminar_inquilino?id_lote=" + id_usuario_lote).subscribe(
       () => {
         console.log("eliminado", this.id_lote)
         this.fetchDataPersonasLote(this.id_lote);
@@ -668,7 +668,7 @@ export class PropiedadesComponent {
 
     console.log("actualizar: ", params)
 
-    return this.http.put("https://localhost:44397/Propiedades/Actualizar_Propiedad", params).subscribe(
+    return this.http.put("http://159.54.141.160/Propiedades/Actualizar_Propiedad", params).subscribe(
       (_response) => {
         console.log("actualiza", params)
         this.ngOnInit();

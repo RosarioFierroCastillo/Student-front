@@ -4,81 +4,54 @@ import {MediaMatcher} from '@angular/cdk/layout'
 import { DataService } from '../data.service'
 import { ImagenService } from '../panel-principal-admin/imagen.service';
 import { Router } from "@angular/router";
+import { NotificacionesService } from '../consultar-notificaciones/notificaciones.service';
+import { Notificaciones } from '../modelos/notificaciones';
 
 @Component({
   selector: 'app-panel-principal-tesorero',
   templateUrl: './panel-principal-tesorero.component.html',
-  styleUrls: ['./panel-principal-tesorero.component.css']
+  styleUrls: ['../panel-principal.css']
 })
 export class PanelPrincipalTesoreroComponent {
   imagen: any;
-
-
+  
+  indice: number = 0;
+  verdaderoRango: number = 6;
+  cont: number = 1;
+  registrosTotales: number = 0;
+  notificaciones1: Notificaciones[] = [];
+  notificaciones: Notificaciones[] = [];
+  id_destinatario: number = 2;
   mobileQuery: MediaQueryList;
 
-  //fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-
-
-   //{name:'Salir',route:'Home', icon:"exit_to_app"}
-
-   // <font-awesome-icon icon="right-from-bracket" />
-
-   /*
-   fillerNav=[
-    {name:"Deudas", route:"", icon:"border_color",children:[
-     {name:"Agregar Deudas", route:"Deudas", icon:"border_color"},
-     {name:'Consultar Deudas', route:'ConsultarDeudas', icon:'border_color'},
-    ]},
-    {name:"Deudores", route:"Deudores", icon:"report_problem"},
-    {name:"Egresos", route:"Egresos", icon:"call_made"},
-    {name:"Ingresos", route:"Egresos", icon:"call_made",children:[
-      {name:"Ingresos Extraordinarios",route:"IngresosExtraordinarios", icon:"call_received"},
-    {name:"Ingresos Ordinarios",route:"IngresosOrdinarios", icon:"call_received"},
-    ]},
-
-    {name:'Proveedores',route:"Proveedores", icon:"store_mall_directory"},
-    {name:'Configuracion',route:'Settings',icon:'settings'},
-
-
-  ]
-*/
-/*
-  fillerNav=[
-    {name:"Deudas", route:"", icon:"border_color",children:[
-     {name:"Agregar Deudas", route:"Deudas", icon:"border_color"},
-     {name:'Consultar Deudas', route:'ConsultarDeudas', icon:'border_color'},
-    ]},
-    {name:"Deudores", route:"Deudores", icon:"report_problem"},
-    {name:"Egresos", route:"Egresos", icon:"call_made"},
-    {name:"Ingresos", route:"Egresos", icon:"call_received",children:[
-      {name:"Ingresos Extraordinarios",route:"IngresosExtraordinarios", icon:"call_received"},
-    {name:"Ingresos Ordinarios",route:"IngresosOrdinarios", icon:"call_received"},
-    ]},
-    {name:'Proveedores',route:"Proveedores", icon:"store_mall_directory"},
-    {name:'Usuarios',route:"Usuarios", icon:"supervised_user_circle", children: [
-      {name:"Consultar", route:"ConsultarUsuariosTesorero", icon:"class"}
-    ]},
-    {name:'Configuracion',route:'Settings',icon:'settings'},
-    {name:"Consultar", route:"ConsultarUsuariosTesorero", icon:"class"}
-
-  ]
-*/
 
 fillerNav=[
-  {name:"Deudas", route:"", icon:"border_color",children:[
-   {name:"Agregar Deudas", route:"Deudas", icon:"border_color"},
-   {name:'Consultar Deudas', route:'ConsultarDeudas', icon:'border_color'},
-  ]},
+  /*
+  {name:"Deudas", route:"", icon:"list_alt",children:[
+   {name:"Agregar Deudas", route:"Deudas", icon:""},
+   {name:'Consultar Deudas', route:'ConsultarDeudas', icon:''},
+  ]},*/
+  {name:'Deudas', route:'Deudas', icon:'list_alt'},
+  {name:"Movimientos", route:"", icon:"border_color",children:[
+    {name:"Ingresos", route:"Ingresos", icon:""},
+    {name:"Egresos", route:"Egresos", icon:""}
+   ]},   
   {name:"Deudores", route:"Deudores", icon:"report_problem"},
-  {name:"Egresos", route:"Egresos", icon:"call_made"},
+ /* {name:"Egresos", route:"Egresos", icon:"call_received"},
+  {name:"Ingresoss", route:"Ingresos", icon:"call_made"},
   {name:"Ingresos", route:"Egresos", icon:"call_received",children:[
     {name:"Ingresos Extraordinarios",route:"IngresosExtraordinarios", icon:"call_received"},
-  {name:"Ingresos Ordinarios",route:"IngresosOrdinarios", icon:"call_received"},
+    {name:"Ingresos Ordinarios",route:"IngresosOrdinarios", icon:"call_received"},
   ]},
-
+  */
   {name:'Proveedores',route:"Proveedores", icon:"store_mall_directory"},
-  // {name:'Consultar',route:"ConsultarUsuariosTesorero", icon:"user"},
-  {name:'Configuracion',route:'Settings',icon:'settings'},
+  {name:'Usuarios',route:"Usuarios", icon:"supervised_user_circle"}
+]
+
+fillerNav1 = [
+  { name: "Configuracion", route: "Configuracion", icon: "settings" },
+  { name: "Salir", route: "../", icon: "exit_to_app" },
+
 ]
 
 
@@ -101,16 +74,16 @@ fillerNav=[
 Nav: any;
 usuario: any;
 
+    
 
-
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private data: DataService, private imagenService: ImagenService,private router:Router) {
+  constructor(private NotificacionesService: NotificacionesService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private data: DataService, private imagenService: ImagenService,private router:Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
+   
   }
 
-
+ 
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -125,7 +98,7 @@ usuario: any;
 
 
 
-  imagenURL: string = './assets/usuario.png';
+  imagenURL: string = '../assets/usuario.png';
   Cargar_Imagen(id_persona: number){
     const id_Pago = 3; //  ID correspondiente
     this.imagenService.obtenerImagenPorId(id_persona).subscribe(
@@ -144,7 +117,7 @@ usuario: any;
       this.imagenURL = reader.result as string;
     }, false);
 
-    if (image) {
+    if (image) { 
       reader.readAsDataURL(image);
     }
   }
@@ -158,5 +131,24 @@ usuario: any;
       this.submenuAbierto = index; // Abre el nuevo submenu
     }
   }
+
+
+  
+  consultarNotificacion(idFraccionamiento: any, indice: number, verdaderoRango: number, id_destinatario: number) {
+
+
+    this.NotificacionesService.consultarNotificacion(idFraccionamiento, id_destinatario).subscribe((notificaciones: Notificaciones[]) => {
+
+      
+      this.notificaciones = notificaciones;
+      this.indice = 0;
+      this.verdaderoRango = 6;
+      this.notificaciones1 = this.notificaciones.slice(this.indice, this.indice + this.verdaderoRango);
+      console.log(this.notificaciones1)
+
+    });
+  }
+
+
 
 }

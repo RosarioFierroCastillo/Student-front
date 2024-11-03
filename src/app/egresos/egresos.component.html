@@ -1,157 +1,157 @@
-
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
 <body>
+  <app-loading-spinner></app-loading-spinner>
+  <div>
+    <h2 class="titulo">Gestión de egresos</h2>
+    <p id="descripcion">Registra tus egresos y toma el control de tus finanzas. </p>
+  </div>
 
-    <div>
-        <h2 class="titulo">Egresos</h2>
-        <p id="descripcion">Gestiona tus movimientos financieros y manten a flote tu comunidad. </p>
-    </div>
+  <hr>
 
-    <hr>
+  <div class="contenedor" *ngIf="mostrarGrid">
 
+    <form id="buscar">
+      <input type="text" id="tbuscar" class="form-control" name="filtrar" placeholder="buscar">
 
-    <div class="contenedor1">
-        <div id="buscar">
-
-            <input type="text" name="filtrar" placeholder="buscar">
-
-
-            <label for="modal" class="boton">Agregar</label>
-
-
-
-        </div>
-
-        <div class="contenedor2">
-
-            <table class="table" width="100%">
-                <thead>
-                    <tr>
-                      <th scope="col">ID Egreso</th>
-                      <th scope="col">Concepto</th>
-                      <th scope="col">Descripción</th>
-                      <th scope="col">Proveedor</th>
-                      <th scope="col">Monto</th>
-                      <th scope="col">Fecha</th>
-                      <th scope="col">Editar</th>
-                      <th scope="col">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let egreso of egresos">
-                    <td>{{ egreso.id_egreso }}</td>
-                    <td>{{ egreso.concepto }}</td>
-                    <td>{{ egreso.descripcion }}</td>
-                    <td>{{ egreso.proveedor }}</td>
-                    <td>{{ egreso.monto }}</td>
-                    <td>{{ egreso.fecha }}</td>
-                    <td>
-                      <button (click)="seleccionarEgreso(egreso)" class="botones-tabla">seleccionar</button>
-                    </td>
-                    <td>
-                      <button (click)="eliminarEgreso(egreso.id_egreso)" class="botones-tabla">Eliminar</button>
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
+      <div id="botones">
+        <button id="sum-button" (click)="reporteEgresos()">
+          <mat-icon style="font-weight: bolder;">assessment</mat-icon>
+        </button>
 
 
-        </div>
+        <label for="modal" class="boton">Agregar</label>
+      </div>
 
-        <div class="pages">
+    </form>
 
-            <p>Filas por página</p> <input type="number" id="pageNumber" class="page">
+    <div class="contenedor2" *ngIf="this.egresos.length>0; else noencontrado">
 
-            <button class="boton-verde" (click)="paginador_atras()">&lt;</button>
-            <p style="padding-top: 20px; "> {{cont}} - 5 </p>
-            <button class="boton-verde" (click)="paginador_adelante()">&gt;</button>
-
-        </div>
-
-
-
-        <!-------                              MODAL                          -->
-
-
-        <input type="checkbox" id="modal">
-
-        <label for="modal" class="modal-background"></label>
-''
-            <div class="modal">
-                <div class="modal-header">
-                    <h3>Agregar notificación</h3>
-
-                    <label for="modal">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAdVBMVEUAAABNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0N3NIOAAAAJnRSTlMAAQIDBAUGBwgRFRYZGiEjQ3l7hYaqtLm8vsDFx87a4uvv8fP1+bbY9ZEAAAB8SURBVBhXXY5LFoJAAMOCIP4VBRXEv5j7H9HFDOizu2TRFljedgCQHeocWHVaAWStXnKyl2oVWI+kd1XLvFV1D7Ng3qrWKYMZ+MdEhk3gbhw59KvlH0eTnf2mgiRwvQ7NW6aqNmncukKhnvo/zzlQ2PR/HgsAJkncH6XwAcr0FUY5BVeFAAAAAElFTkSuQmCC"
-                            width="16" height="16" alt="">
-                    </label>
-
-
-
-                </div>
-
-
-                <div class="form">
-
-                    <!-- Formulario para agregar un nuevo acuerdo -->
-
-                    <form id="formCrear" class="Formulario" #egresoForm="ngForm" (ngSubmit)="agregarEgreso()">
-                      <label for="fraccionamiento">Fraccionamiento:</label>
-                      <input type="text" id="fraccionamiento" name="fraccionamiento" [(ngModel)]="id_fraccionamiento" required disabled>
-
-                      <select id="proveedor" name="proveedor" [(ngModel)]="egresoModel.proveedor" required ngModel>
-                        <option value="" disabled selected>-- Seleccione un proveedor --</option>
-
-                        <option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">{{proveedor.id_proveedor}}-{{ proveedor.nombre }}</option>
-                      </select>
-
-                      <input type="number" id="monto" name="monto" [(ngModel)]="egresoModel.monto" required placeholder="monto">
-
-                      <input type="text" id="concepto" name="concepto" [(ngModel)]="egresoModel.concepto" required placeholder="concepto">
-
-                      <input type="text" class="textb" id="fechaEgreso" name="fechaEgreso"
-                      required ngModel [(ngModel)]="egresoModel.fecha"
-                      placeholder="fecha de egreso" onfocus="(this.type='date')" />
-
-
-
-                      <textarea id="descripcion" name="descripcion" [(ngModel)]="egresoModel.descripcion" required placeholder="descripción"></textarea>
-
-                      <div class="botones-container">
-                        <button type="submit" class="boton-verde">Agregar</button>
-                        <button (click)="actualizarEgreso()" type="button" class="boton-verde">Actualizar</button>
-                      </div>
-                    </form>
-
-                </div>
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-        <!---                               FINAL MODAL                                  -->
+      <table id="example" class="table">
+        <thead>
+          <tr>
+            <th>ID Egreso</th>
+            <th>Concepto</th>
+            <th>Descripción</th>
+            <th>Proveedor</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let egreso of egresos">
+            <td>{{ egreso.id_egreso }}</td>
+            <td>{{ egreso.concepto }}</td>
+            <td>{{ egreso.descripcion }}</td>
+            <td>{{ egreso.proveedor }}</td>
+            <td>{{ egreso.monto }}</td>
+            <td>{{ egreso.fecha }}</td>
+            <td>
+              <label for="modal" (click)="seleccionarEgreso(egreso)" style="margin-left: 10px;">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+              </label>
+            </td>
+            <td>
+              <label (click)="eliminarEgreso(egreso.id_egreso)" style="margin-left: 20px;">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="clear"></mat-icon>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
     </div>
 
 
+    <ng-template #noencontrado>
+      <div class="div-noen">
+          <img class="noencontrado" src="./notfound.png" alt="hola">
+
+      </div>
+
+  </ng-template>
+    <!--------------------------FINAL MODAL ------------------------------------------------>
+
+
+
+    <input type="checkbox" id="modal">
+
+    <label for="modal" class="modal-background"></label>
+
+
+
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Agregar nuevo egreso</h3>
+
+        <label for="modal">
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAdVBMVEUAAABNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0N3NIOAAAAJnRSTlMAAQIDBAUGBwgRFRYZGiEjQ3l7hYaqtLm8vsDFx87a4uvv8fP1+bbY9ZEAAAB8SURBVBhXXY5LFoJAAMOCIP4VBRXEv5j7H9HFDOizu2TRFljedgCQHeocWHVaAWStXnKyl2oVWI+kd1XLvFV1D7Ng3qrWKYMZ+MdEhk3gbhw59KvlH0eTnf2mgiRwvQ7NW6aqNmncukKhnvo/zzlQ2PR/HgsAJkncH6XwAcr0FUY5BVeFAAAAAElFTkSuQmCC"
+            width="16" height="16" alt="">
+        </label>
+
+
+
+      </div>
+
+      <div class="form">
+
+        <form id="formCrear" class="Formulario" #egresoForm="ngForm" (ngSubmit)="agregarEgreso()">
+
+          <p>
+
+            <select id="proveedor" name="proveedor" [(ngModel)]="egresoModel.proveedor" required>
+              <option value="" disabled selected>-- Selecciona un proveedor --</option>
+              <option value="na">sin proveedor</option>
+              <option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">{{proveedor.id_proveedor}}-{{
+                proveedor.nombre }}</option>
+            </select>
+
+          </p>
+          <p>
+            <input type="text" id="monto" name="monto" [(ngModel)]="egresoModel.monto" required ngModel
+              placeholder="Monto (MXN)" />
+          </p>
+          <p>
+            <input type="text" id="concepto" name="concepto" [(ngModel)]="egresoModel.concepto" required
+              placeholder="Concepto">
+
+          </p>
+          <p>
+            <input type="text" class="textb" id="fechaEgreso" name="fechaEgreso" [(ngModel)]="egresoModel.fecha"
+              required ngModel placeholder="Fecha de egreso" onfocus="(this.type='date')" />
+          </p>
+          <p>
+            <textarea name="descripcion" [(ngModel)]="egresoModel.descripcion" required
+              placeholder="Descripción"></textarea>
+
+          </p>
+
+          <div style="padding-right: 340px; display: flex;">
+            <button type="submit" class="boton" style="min-width: 100px;">Agregar</button>
+            <button (click)="actualizarEgreso()" type="button" class="boton" style="min-width: 100px;">Actualizar</button>
+          </div>
+
+
+
+
+        </form>
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
 </body>
-
-
-
-
-
-
-
-

@@ -5,6 +5,8 @@ import { Proveedor } from '../proveedores/proveedor.model';
 import { ProveedoresService } from '../proveedores/proveedores.service';
 import { DataService } from '../data.service';
 import Swal from 'sweetalert2'
+import { LoadingService } from '../loading-spinner/loading-spinner.service';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-egresos',
@@ -15,22 +17,19 @@ export class EgresosComponent {
   id_fraccionamiento: number=0;
   proveedores: Proveedor[]=[];
   egresos: Egresos[]=[];
-  egresos1: Egresos[]=[];
   idEgreso: number=0;
-  indice: number = 0;
-  verdaderoRango: number = 6;
-  cont: number = 1;
+  mostrarGrid: boolean = false;
   //
   egresoModel: Egresos = {
     id_egreso: 0,
     concepto: '',
     descripcion: '',
     proveedor: '',
-    monto: 0,
+    monto: '',
     fecha: ''
   };
   //
-  constructor(private egresoService:EgresosService, private proveedoresService:ProveedoresService, private dataService:DataService){ }
+  constructor(private http: HttpClient,private egresoService:EgresosService, private proveedoresService:ProveedoresService, private dataService:DataService, private loadingService: LoadingService){ }
 
   ngOnInit():void{
     this.id_fraccionamiento=this.dataService.obtener_usuario(3);
@@ -39,32 +38,17 @@ export class EgresosComponent {
 
   }
 
-
-  paginador_atras() {
-
-    if (this.indice - this.verdaderoRango >= 0) {
-      this.egresos1 = this.egresos.slice(this.indice - this.verdaderoRango, this.indice);
-      this.indice = this.indice - this.verdaderoRango;
-      this.cont--;
-    }
-  }
-
-  paginador_adelante() {
-    if (this.egresos.length - (this.indice + this.verdaderoRango) > 0) {
-      this.indice = this.indice + this.verdaderoRango;
-      this.egresos1 = this.egresos.slice(this.indice, this.indice + this.verdaderoRango);
-      this.cont++;
-     // this.consultarNotificacion
-    }
-
-  }
-
-
   consultarEgresos(idFraccionamiento: number) {
+
+    this.loadingService.show();
+
     this.egresoService.consultarEgresos(idFraccionamiento).subscribe(
       (data: Egresos[]) => {
         console.log('Egresos consultados:', data);
         this.egresos=data;
+
+        this.mostrarGrid = true;
+        this.loadingService.hide();
       },
       (error) => {
         console.error('Error al consultar egresos:', error);
@@ -82,7 +66,7 @@ export class EgresosComponent {
   agregarEgreso() {
     const { concepto, descripcion, proveedor, monto,fecha } = this.egresoModel;
 
-    this.egresoService.agregarEgreso(this.id_fraccionamiento, concepto, descripcion, proveedor, monto, fecha).subscribe(
+    this.egresoService.agregarEgreso(this.dataService.obtener_usuario(3), concepto, descripcion, proveedor, monto, fecha).subscribe(
       (result: boolean) => {
         if (result) {
           console.log('Egreso agregado correctamente');
@@ -190,9 +174,13 @@ export class EgresosComponent {
 
   //metodo para cargar proveedores del fraccionamienti
   cargarProveedores(): void {
+
     this.proveedoresService.consultarProveedores(this.id_fraccionamiento).subscribe(
       (data: Proveedor[]) => {
         this.proveedores = data;
+
+
+
       },
       (error) => {
         console.error('Error al obtener proveedores:', error);
@@ -230,4 +218,27 @@ export class EgresosComponent {
     const partesFecha = fecha.split(' ')[0].split('/');
     return `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
   }
+
+  apiUrl:string = 'http://159.54.141.160/Reportes/Reporte_Egresos';
+  reporteEgresos(){
+    this.loadingService.show();
+
+
+    this.http.get(`${this.apiUrl}?id_fraccionamiento=${this.dataService.obtener_usuario(3)}`, { responseType: 'blob' })
+    .subscribe(blob => {
+      this.loadingService.hide();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `reporte_EgresosFraccionamiento_${this.dataService.obtener_usuario(3)}.pdf`; // Nombre del archivo a descargar
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al descargar el reporte:', error);
+    });
+}
+
+
+
 }

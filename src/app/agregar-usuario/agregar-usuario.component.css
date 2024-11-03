@@ -216,6 +216,8 @@ input[type="checkbox"]:checked ~ .modal-background {
     display: none;
     z-index: 9998;
 }
+
+
 .modal {
     position: fixed;
     top: 0;
@@ -281,6 +283,11 @@ form{
 }
 
 #formCrear{
+  position: absolute;
+  left: 25px;
+}
+
+#formCrear1{
   position: absolute;
   left: 25px;
 }
@@ -353,6 +360,67 @@ background-repeat: no-repeat;
   padding-top: 10px;
 
 }
+
+
+#habilitar{
+  background-color: #446e20;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  height: 40px;
+  font-weight: normal;
+  width: 100px;
+  text-align: center;
+
+  border-color: #242434;
+  border-radius: 5px;
+  margin-right: 40px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-left: 20px;
+
+}
+
+#deshabilitar{
+  background-color: #7e6715;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  height: 40px;
+  font-weight: normal;
+  width: 100px;
+  text-align: center;
+
+  border-color: #242434;
+  border-radius: 5px;
+  margin-right: 40px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+
+}
+
+#borrar{
+  background-color: #ae3010;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  height: 40px;
+  font-weight: normal;
+  width: 100px;
+  text-align: center;
+
+  border-color: #242434;
+  border-radius: 5px;
+  margin-right: 40px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-left: 25px;
+
+}
+
+
+
 
 @media screen and (max-width: 930px) {
 
@@ -591,6 +659,25 @@ width: 600px;
 	display: block;
 }
 
+.acceso{
+  display: flex;
+  gap: 10px;
+  margin-right: 50px;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  border: 1px solid #d1c6c6; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.acceso label {
+  cursor: pointer; /* Cambia el cursor para indicar que el label es interactivo */
+}
+
+
 
 .modal-background {
 	width: 100%;
@@ -611,7 +698,7 @@ width: 600px;
     margin: auto;
     display: none;
     width: 500px;
-    height: 250px;
+    height: 480px;
     background-color: #fff;
     box-sizing: border-box;
     z-index: 9999;
@@ -683,11 +770,8 @@ form{
 
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-left: 140px;
-  margin-top: 40px;
-
-
-
+  margin-left: 45px;
+  margin-top: 270px;
 
 }
 
@@ -698,4 +782,15 @@ form{
 }
 
 
+.pages {
+  display: flex;
+   justify-content: center;
+   position: absolute;
+   top: 80%;
+   
+   left: 40%;
+ }
 
+ mat-paginator{
+  background-color: transparent;
+ }
