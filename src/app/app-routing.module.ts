@@ -159,7 +159,9 @@ const routes: Routes = [
   {
     path: 'PanelUser', component: PanelPrincipalUserComponent,
     children: [
-      { path: 'PanelUsuarios', component: HomeUsuariosComponent },
+      { path: 'PanelUsuarios', component: HomeUsuariosComponent,children:[
+        { path: 'AccesoPuerta', component: AccesoPuertaComponent },
+      ] },
       { path: 'Notificaciones_usuarios', component: NotificacionesUsuariosComponent },
       { path: 'MisDeudas', component: MisDeudasComponent },
       { path: 'Proveedores_usuarios', component: ProveedoresUsuariosComponent },

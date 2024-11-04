@@ -6,7 +6,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0; 
+    left: 0;
     right: 0;
     background-image: url("src/assets/fondo.jpg");
     background-position: center center;
@@ -14,21 +14,21 @@
   }
 
 
-  
+
   img{
     color: aliceblue;
   }
   .mat-toolbar{
   /*  background-color: #768650;  */
-   background-color: #575d43; 
+   background-color: #575d43;
   }
-  
+
   .example-is-mobile .example-toolbar {
     position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
     z-index: 2;
   }
-  
+
 button{
     margin-top: 90px;
 }
@@ -37,15 +37,15 @@ button{
     margin-left: auto;
     margin-right: 1%;
   }
-  
+
   a h2.example-app-name {
    /* margin-left: auto; */
     color:aliceblue;
     margin-top: 0px;
     margin-bottom: 0px;
-  
+
   }
-  
+
   a h6{
     font-size: 16px;
     text-align: center;
@@ -53,44 +53,44 @@ button{
     color:aliceblue;
     line-height: 2%;
   }
-  
+
   img{
     margin-bottom: 13px;
   }
-  
+
   #usuario{
     padding-top: 10px;
     margin-right: 2%;
   }
-  
+
   .example-sidenav-container {
     /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
        causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
     flex: 1;
     color: white;
-    
+
   }
-  
+
   .example-is-mobile .example-sidenav-container {
     /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }
-  
+
   mat-sidenav{
     background-color: #b2d4a1;
-    color: white; 
+    color: white;
   }
-  
+
   .opciones{
     color: white;
   }
-  
+
   #logo{
     height: 70px;
     width: 150px;
   }
-  
+
 
 
 
@@ -119,7 +119,7 @@ section {
 }
 
 .footer-distributed {
-  background-color: #BDC1B5; 
+  background-color: #33383b;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;
@@ -129,14 +129,14 @@ section {
   position: absolute;
   top:  95%;
   padding-top: 50px;
-  
- 
+
+
 }
 
 .footer-distributed .footer-left p {
   color: rgb(4, 8, 69);
   font-size: 14px;
- 
+
 }
 /* Footer links */
 

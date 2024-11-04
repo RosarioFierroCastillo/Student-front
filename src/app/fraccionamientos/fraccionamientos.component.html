@@ -1,7 +1,7 @@
 <body>
 
   <app-loading-spinner></app-loading-spinner>
-  
+
   <div class="top">
     <h2 class="titulo">Controlador</h2>
     <p id="descripcion">Un sistema de control de accesos es aquel que gestiona la entrada y salida de usuarios de un
@@ -10,7 +10,7 @@
 
   </div>
 
- 
+
   <div class="sidenav">
 
     <p> <label for="modal" class="boton-agregar" style="font-weight: 900;" (click)="limpiar()">+</label> Agregar nuevo controlador</p>
@@ -25,7 +25,7 @@
       </ul>
     </div>
 
-  </div> 
+  </div>
 
 
 
@@ -35,11 +35,11 @@
       <button id="conexion" style="display: inline-block;"></button><p style="display: inline-block;"> conectado a {{nombreControlador}} con {{ipControlador}}</p>
     </label>
 
-    <img src="controlador.png" alt="description" id="img-controlador">
+      <img src="./assets/controlador.png" alt="description" id="img-controlador">
 
     <p id="mensaje-bienvenida">¡Bienvenido al panel de controladores! selecciona o agrega un nuevo controlador</p>
 
- 
+
   </div>
 
 
@@ -56,7 +56,7 @@
 
   <div class="modal">
     <div class="modal-header">
-      <h3>Agregar controlador</h3> 
+      <h3>Agregar controlador</h3>
 
       <label for="modal">
         <img
@@ -65,7 +65,7 @@
       </label>
 
 
- 
+
     </div>
 
 
@@ -77,16 +77,16 @@
 
         <input style="display: none;" [(ngModel)]="controlador.id_controlador" formControlName="id_controlador" name="id_controlador">
 
-        <select class="modelo-controlador" 
+        <select class="modelo-controlador"
           style="width: 270px; height: 30px; text-align: center;" name="modelo">
           <option value="0" disabled selected>--Selecciona un modelo de controlador--</option>
           <option value="">hikvision ds-k2602</option>
         </select>
- 
+
         <a [href]="'mailto:destinatario@example.com?subject='" style="font-size: smaller;" id="enviar_correo">
           El modelo de mi controlador no se encuentra en la lista
         </a>
- 
+
         <div class="help-container">
 
           <input type="text" formControlName="nombre" name="nombre"
@@ -113,7 +113,7 @@
         </div>
 
 
-       
+
 
         <input type="number" id="port" formControlName="port" name="port" [(ngModel)]="controlador.port" min="1" max="65535" oninput="validity.valid||(value='');"
           placeholder="puerto">
@@ -126,7 +126,7 @@
         <input type="text" id="password" formControlName="password" name="password" [(ngModel)]="controlador.password"
           placeholder="contraseña">
 
-       
+
 
         <div class="botones-container" *ngIf="!editar">
           <button class="boton" (click)="Agregar_fraccionamiento(form.value)" onclick="myFunction()">Agregar</button>

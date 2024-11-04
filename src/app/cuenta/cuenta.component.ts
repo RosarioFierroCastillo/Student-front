@@ -234,8 +234,8 @@ export class CuentaComponent {
 
         console.log(this.fecha_nacimiento);
 
-        // this.comunidad=this.dataService.obtener_usuario(5);
-        this.comunidad = "villa fontana";
+         this.comunidad=this.dataService.obtener_usuario(5);
+        //this.comunidad = "villa fontana";
 
         this.correo = personas[0].correo
 

@@ -5,6 +5,7 @@ import { DataService } from '../data.service';
 import Swal from 'sweetalert2'
 import { LoadingService } from '../loading-spinner/loading-spinner.service';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+
 @Component({
   selector: 'app-proveedores',
   templateUrl: './proveedores.component.html',

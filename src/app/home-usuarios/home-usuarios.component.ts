@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Injectable, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 //import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
-import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { DataService } from '../data.service'
 import { AccesoPuertaService } from '../acceso-puerta/acceso-puerta.service';
@@ -10,7 +9,9 @@ import { AccesoPuertaService } from '../acceso-puerta/acceso-puerta.service';
 import { LoadingService } from '../loading-spinner/loading-spinner.service';
 //import { PasarelaService } from '../paypal/paypal.service';
 //import { paypal } from '../modelos/paypal';
-
+import * as QRCode from 'qrcode';
+import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -22,24 +23,36 @@ import { LoadingService } from '../loading-spinner/loading-spinner.service';
 export class HomeUsuariosComponent {
 
 
-  @ViewChild('codigoQR') codigoQR!: ElementRef<HTMLImageElement>;
+ // @ViewChild('codigoQR') codigoQR!: ElementRef<HTMLImageElement>;
 
   //paypal: paypal[] = [];
   total_deuda: number = 0;
  hikvision: string = this.dataservice.obtener_usuario(13);
+ token:string='';
+ enlaceConstruido:string ='';
+ qrCodeDataUrl: string = '';
 
 
-  constructor(private http: HttpClient, private dataservice: DataService, public userService:AccesoPuertaService, private loadingService: LoadingService/*, private pasarelaService: PasarelaService*/) {
+  constructor(private http: HttpClient, private dataservice: DataService, public userService:AccesoPuertaService, private loadingService: LoadingService,public accesoPuerta:AccesoPuertaService/*, private pasarelaService: PasarelaService*/) {
 
   }
   visible: boolean = false;
   nombre: any = this.dataservice.obtener_usuario(8);
   mes: any = "";
-
+  isBlocked: boolean = false;
 
   ngOnInit(): void {
 
-    this.generarCodigoQR();
+    if(this.dataservice.obtener_usuario(13) == 'permitido'){
+      this.isBlocked=false;
+      this.ObtenerToken();
+    }else{
+      this.isBlocked=true;
+      //this.mostrarMensajeBloqueo();
+    }
+
+    console.log("blocked: ", this.isBlocked)
+
     this.mes = this.dataservice.mesActual();
     this.consultarTotalDeuda(this.dataservice.obtener_usuario(1)); // Reemplaza 1 con el id_persona que necesites
 
@@ -115,23 +128,73 @@ export class HomeUsuariosComponent {
   userId: string ='';
 
 
-  async generarCodigoQR() {
 
 
 
-    this.ObtenerToken();
-    const response = await fetch(this.urlCodigoQR);
-    const blob = await response.blob();
-    this.urlCodigoQR = URL.createObjectURL(blob);
-    // Mostrar la imagen después de generar el código QR
-    const imgElement = this.codigoQR.nativeElement;
 
 
-    imgElement.style.display = 'block';
+  generarToken() {
+    if(this.dataservice.obtener_usuario(15) == 'deshabilitado'){
+      this.isBlocked=true;
+    }else{
+      this.isBlocked=false;
+      //this.mostrarMensajeBloqueo();
+      return;
+    }
+
+      this.accesoPuerta.generarToken(this.dataservice.obtener_usuario(1)).subscribe(
+        (token: string) => {
+          this.token=token;
+          this.construirQr();
+        },
+        (error) => {
+
+          console.error('Error al generar token', error);
+        }
+      );
+
+
+  }
+
+
+  ObtenerToken():boolean{
+    this.accesoPuerta.consultarToken(this.dataservice.obtener_usuario(1)).subscribe(
+      (token: string) => {
+        this.token=token;
+        console.log("El token obtenido essssssssssssssss:", this.token);
+        this.construirQr();
+        return true;
+      },
+      (error) => {
+
+        console.error('Error al obtener o no tenia ningun token generado', error);
+        return false;
+      }
+    );
+    return false;
+  }
+
+
+  construirQr(){
+    this.enlaceConstruido=`http://159.54.141.160/Student/PaseTemporal?token=${this.token}`;
+    QRCode.toDataURL(this.enlaceConstruido, (err: any, url: string) => {
+      if (err) {
+        console.error('Error generando el QR:', err);
+        return;
+      }
+      this.qrCodeDataUrl = url;
+    });
   }
 
   descargarCodigoQR() {
-    fetch(this.urlCodigoQR)
+    if(this.dataservice.obtener_usuario(13) == 'permitido'){
+      this.isBlocked=false;
+    }else{
+      this.isBlocked=true;
+      //this.mostrarMensajeBloqueo();
+      return;
+    }
+    fetch(this.qrCodeDataUrl)
     .then(response => response.blob())
     .then(blob => {
       const url = URL.createObjectURL(blob);
@@ -150,20 +213,18 @@ export class HomeUsuariosComponent {
   }
 
 
-
-  ObtenerToken(){
-    // this.userId = '1'; // Reemplaza con el ID del usuario
-    // this.userService.getToken().subscribe(
-    //   (token: string) => {
-    //     // Una vez obtenido el correo electrónico, generamos el código QR
-    //     const url = `https://api.qrserver.com/v1/create-qr-code/?data=${token}&size=150x150`;
-    //     this.urlCodigoQR = url;
-    //   },
-    //   (error) => {
-
-    //     console.error('Error al obtener el correo electrónico:', error);
-    //   }
-    // );
-  }
-
+  mostrarMensajeBloqueo() {
+    if (this.isBlocked) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Sección bloqueada',
+            text: 'Esta sección está temporalmente inhabilitada. Por favor, intenta más tarde.',
+            showConfirmButton: true, // Mostrar botón de aceptar
+            confirmButtonText: 'Aceptar', // Texto del botón
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        });
+    }
+}
 }

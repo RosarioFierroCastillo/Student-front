@@ -1,17 +1,17 @@
- 
+
 body {
 
 
   background-color: #f2f3f4;
   margin: 0%;
   background-position: center center;
- 
+
 
 }
 
 .contenedor1 {
-  display: flexbox; 
-  margin: 0%; 
+  display: flexbox;
+  margin: 0%;
 
 }
 
@@ -31,13 +31,35 @@ border: 0px;
 }
 
 
+.overlay {
+  position: absolute; /* Permite superponer el div sobre el contenedor */
+
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex; /* Para centrar el texto */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  color: white; /* Color del texto */
+  font-size: 1em; /* Tamaño del texto */
+  border-radius: 10px; /* Opcional: Para que coincida con el contenedor */
+
+  top: 170px;
+  height: 640px;
+  width: 450px;
+  margin-left: 57%;
+
+  padding-top: 80px;
+  padding-left: 15px;
+  z-index: 10;
+}
+
+
 #header{
   height: 100px;
   border: 0;
   padding-top: 20px;
   padding-left: 50px;
- 
- 
+
+
  }
 
 .form-group > #asunto{
@@ -45,7 +67,7 @@ border: 0px;
   border-bottom:1px solid #757575;
   border-radius: 0%;
   width: 270px !important;
-  
+
 
 }
 
@@ -59,7 +81,7 @@ textarea{
 
 
 .asunto{
-  padding-left: 20px; 
+  padding-left: 20px;
 }
 
 
@@ -68,7 +90,7 @@ textarea{
   border-radius: 5px;
   width: 350px;
   height: 40px;
-  outline: 0; 
+  outline: 0;
   padding-left: 20px;
   margin-left: 50px;
 
@@ -172,7 +194,7 @@ mat-icon:hover {
 .notification.ng-enter-active, .notification.ng-leave-active {
   opacity: 1;
 }
- 
+
 
 #buscar {
   position: absolute;
@@ -257,7 +279,7 @@ table {
   margin: auto;
 
   border-collapse: collapse;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pages {
@@ -265,7 +287,7 @@ table {
    justify-content: center;
    position: absolute;
    top: 80%;
-   
+
    left: 40%;
  }
 
@@ -391,26 +413,26 @@ ng-template{
   background-image: url("./no-en1.jpg");
 
 
-  
+
 }
   */
 
 .div-noen {
 
- 
+
 
 
   display: flex;
   justify-content: center; /* Centra los elementos horizontalmente */
   align-items: center; /* Centra los elementos verticalmente */
-  
+
 }
 
 .noencontrado{
 
 
 left: 10%;
- 
+
 }
 
 
@@ -464,7 +486,7 @@ left: 10%;
 
 
 @media screen and (max-width: 700px) {
- 
+
   thead tr {
     position: absolute;
     top: -9999px;
@@ -486,7 +508,7 @@ left: 10%;
 
 
         /* Ajusta el ancho de la celda para que ocupe el 100% del ancho de la pantalla */
-     
+
         /* Elimina el padding izquierdo para que el contenido comience desde el borde izquierdo */
         padding-left: 0;
   }
@@ -510,7 +532,7 @@ left: 10%;
   }
 
 
-  
+
 #buscar {
 
   display: flex;
@@ -521,7 +543,7 @@ left: 10%;
 #buscar1, .boton{
   display: none;
 }
- 
+
 input{
   margin-left: 20%;
 }
@@ -537,7 +559,7 @@ thead{
 .asunto{
   width: 30%;
 }
-} 
+}
 
 
 

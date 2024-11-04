@@ -63,6 +63,7 @@ export class InvitacionComponent {
     //this.generarInvitacion("fierro_ross@live.com.mx",15);
   }
 
+  nombre_fraccionamiento:string='';
   obtenerDatosInvitacion(){
     this.route.queryParams.subscribe(params => {
       const token = params['token']; // Obtiene el token de la URL
@@ -76,6 +77,7 @@ export class InvitacionComponent {
               this.UserGroup.patchValue({id_fraccionamiento: this.invitacion[0].id_fraccionamiento});
               this.UserGroup.patchValue({id_lote: 'ID del lote: '+this.invitacion[0].lote});
               this.UserGroup.patchValue({tipo_usuario:this.invitacion[0].tipo_usuario});
+              this.nombre_fraccionamiento=this.invitacion[0].nombre_fraccionamiento;
 
             } else {
               console.log(this.invitacion);
@@ -149,6 +151,7 @@ export class InvitacionComponent {
         id_fraccionamiento: this.invitacion[0].id_fraccionamiento,
         id_administrador: this.invitacion[0].id_fraccionamiento,
         id_lote: 1,
+        codigo_acceso:this.nombre_fraccionamiento,
         hikvision: "permitido"
 
         //  Intercomunicador: 123,

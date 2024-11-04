@@ -17,14 +17,15 @@
 <div class="container">
     <h2 class="titulo">Generar Invitación</h2>
 
-    <div class="generar-container">
-        <button class="green-button" (click)="generarToken()">Generar</button>
-    </div>
+
 
     <div class="qr-container">
+      <p class="advertencia">Comparte solamente con la persona que necesita acceso. No compartas este código con desconocidos.</p>
         <img [src]="qrCodeDataUrl" alt="Presiona el Botón de Arriba para generar el código" #codigoQR>
+        <div class="generar-container">
+          <button class="green-button" (click)="generarToken()">Generar</button>
+      </div>
 
-        <p class="advertencia">Comparte solamente con la persona que necesita acceso. No compartas este código con desconocidos.</p>
 
         <button class="download-button" (click)="descargarCodigoQR()">Descargar</button>
     </div>
