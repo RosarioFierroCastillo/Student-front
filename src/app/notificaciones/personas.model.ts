@@ -10,6 +10,7 @@ export class Personas {
   intercomunicador: string;
   codigo_acceso: string;
   correo: string;
+  fecha:string;
 
   constructor(
     id_persona: number,
@@ -22,7 +23,8 @@ export class Personas {
     lote: number,
     intercomunicador: string,
     codigo_acceso: string,
-    correo: string
+    correo: string,
+    fecha:string,
   ) {
     this.id_persona = id_persona;
     this.nombre = nombre;
@@ -35,6 +37,7 @@ export class Personas {
     this.intercomunicador = intercomunicador;
     this.codigo_acceso = codigo_acceso;
     this.correo = correo;
+    this.fecha=fecha;
   }
 }
 

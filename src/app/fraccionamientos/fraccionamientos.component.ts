@@ -76,7 +76,7 @@ export class FraccionamientosComponent {
 
 
   async Actualizar_Estado(): Promise<boolean> {
-    const url = `http://159.54.141.160/Hikvision/Actualizar_Estado?id_controlador=${this.controlador.id_controlador}&id_fraccionamiento=${this.dataService.obtener_usuario(3)}`;
+    const url = `https://localhost:44397/Hikvision/Actualizar_Estado?id_controlador=${this.controlador.id_controlador}&id_fraccionamiento=${this.dataService.obtener_usuario(3)}`;
 
     try {
         const response = await fetch(url, {
@@ -240,7 +240,7 @@ export class FraccionamientosComponent {
     //console.log("id_usuario: "+this.dataService.obtener_usuario(1));
     const headers = new HttpHeaders({ 'myHeader': 'procademy' });
     this.http.post(
-      "http://159.54.141.160/Hikvision/Agregar_Hikvision?" +
+      "https://localhost:44397/Hikvision/Agregar_Hikvision?" +
       "nombre=" + controladores.nombre +
       "&id_fraccionamiento=" + this.dataService.obtener_usuario(1) +
       "&user=" + controladores.user +

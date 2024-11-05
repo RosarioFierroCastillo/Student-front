@@ -131,7 +131,7 @@ agregar_deuda(deudas: {monto: number, nombre: string, descripcion: string, dias_
 
   const headers = new HttpHeaders({'myHeader': 'procademy'});
   this.http.post(
-   "http://159.54.141.160/api/Deudas/Agregar_Deuda",
+   "https://localhost:44397/api/Deudas/Agregar_Deuda",
     deudas, {headers: headers})
     .subscribe((res) => {
       console.log(res);
@@ -193,7 +193,7 @@ actualizar_deuda(
 
   console.log("actualizar: ",params)
 
-  return this.http.put("http://159.54.141.160/api/Deudas/Actualizar_Deuda", params).subscribe(
+  return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
     (_response) => {
       console.log("actualiza",params)
       this.ngOnInit();
@@ -206,7 +206,7 @@ actualizar_deuda(
 
 
 delete(id_deudas: any){
-  return this.http.delete("http://159.54.141.160/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+  return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
     () => {
       this.fetchDataDeudas(this.dataService.obtener_usuario(1));
 
@@ -234,7 +234,7 @@ delete(id_deudas: any){
   console.log(this.fechaCorte_extra);
   const headers = new HttpHeaders({'myHeader': 'procademy'});
   this.http.post(
-   "http://159.54.141.160/api/Deudas/Agregar_DeudaExtra",
+   "https://localhost:44397/api/Deudas/Agregar_DeudaExtra",
     deudas, {headers: headers})
     .subscribe((res) => {
       console.log(res);
@@ -276,7 +276,7 @@ actualizar_deudaExtra(
 
   console.log("actualizar: ",params)
 
-  return this.http.put("http://159.54.141.160/api/Deudas/Actualizar_Deuda", params).subscribe(
+  return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
     (_response) => {
       console.log("actualiza",params)
       this.ngOnInit();

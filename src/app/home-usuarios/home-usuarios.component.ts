@@ -60,7 +60,7 @@ export class HomeUsuariosComponent {
   }
 
   consultarTotalDeuda(id_persona: number): void {
-    const apiUrl = `http://159.54.141.160/api/Deudas/Consultar_TotalDeuda?id_persona=${id_persona}`;
+    const apiUrl = `https://localhost:44397/api/Deudas/Consultar_TotalDeuda?id_persona=${id_persona}`;
 
     this.http.get<number>(apiUrl).subscribe(
       (resultado) => {
@@ -176,7 +176,7 @@ export class HomeUsuariosComponent {
 
 
   construirQr(){
-    this.enlaceConstruido=`http://159.54.141.160/Student/PaseTemporal?token=${this.token}`;
+    this.enlaceConstruido=`https://localhost:44397/Student/PaseTemporal?token=${this.token}`;
     QRCode.toDataURL(this.enlaceConstruido, (err: any, url: string) => {
       if (err) {
         console.error('Error generando el QR:', err);

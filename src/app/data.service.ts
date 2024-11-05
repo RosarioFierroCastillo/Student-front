@@ -16,8 +16,8 @@ import { Personas } from './modelos/personas';
 export class DataService {
   sesion  = new sesion();
   baseUrl = `https://evaluacionesuas-001-site1.gtempurl.com/Fraccionamientos/Consultar_Fraccionamiento?id_administrador=`;
-  baseUrl1 = `http://159.54.141.160/api/Personas/Consultar_Persona?id_administrador=`;
-  baseUrl2 = `http://159.54.141.160/Propiedades/Consultar_Propiedades?id_administrador=`;
+  baseUrl1 = `https://localhost:44397/api/Personas/Consultar_Persona?id_administrador=`;
+  baseUrl2 = `https://localhost:44397/Propiedades/Consultar_Propiedades?id_administrador=`;
   date1: any;
   mes: any;
 
@@ -116,7 +116,7 @@ mesActual(): string {
   }
 
   fetchDataHikvision(id_administrador: any): Observable<controladores[]> {
-    return this.http.get<controladores[]>("http://159.54.141.160/Hikvision/Consultar_Hikvision?id_fraccionamiento="+id_administrador);
+    return this.http.get<controladores[]>("https://localhost:44397/Hikvision/Consultar_Hikvision?id_fraccionamiento="+id_administrador);
   }
 
   //consultar todas las personas que pertenecen a un fraccionamiento
@@ -125,12 +125,12 @@ mesActual(): string {
   }
 
   fetchDataLastUser(id_administrador: any): Observable<usuarios[]> {
-    return this.http.get<usuarios[]>("http://159.54.141.160/api/Personas/Consultar_Ultima_Persona?id_fraccionamiento="+id_administrador);
+    return this.http.get<usuarios[]>("https://localhost:44397/api/Personas/Consultar_Ultima_Persona?id_fraccionamiento="+id_administrador);
 
   }
 
   fetchDataUserPropierty(id_propietario: any): Observable<usuarios[]> {
-    return this.http.get<usuarios[]>("http://159.54.141.160/api/Personas/Consultar_Personas_Por_Lote?id_persona="+id_propietario);
+    return this.http.get<usuarios[]>("https://localhost:44397/api/Personas/Consultar_Personas_Por_Lote?id_persona="+id_propietario);
 
   }
 
@@ -140,57 +140,57 @@ mesActual(): string {
 
 
   fetchDataPersonasLote(id_lote: any): Observable<inquilinos[]> {
-    return this.http.get<inquilinos[]>('http://159.54.141.160/api/Usuario_lote/Consultar_inquilino?id_lote='+id_lote);
+    return this.http.get<inquilinos[]>('https://localhost:44397/api/Usuario_lote/Consultar_inquilino?id_lote='+id_lote);
   }
 
   fetchDataDeudas(id_tesorero: any): Observable<deudas[]> {
-    return this.http.get<deudas[]>('http://159.54.141.160/api/Deudas/Consultar_Deuda?id_tesorero='+id_tesorero);
+    return this.http.get<deudas[]>('https://localhost:44397/api/Deudas/Consultar_Deuda?id_tesorero='+id_tesorero);
   }
 
   fetchDataHistorialDeudas(id_fraccionamiento: any): Observable<historial[]> {
-    return this.http.get<historial[]>('http://159.54.141.160/api/Deudas/Consultar_HistorialDeudas?id_fraccionamiento='+id_fraccionamiento);
+    return this.http.get<historial[]>('https://localhost:44397/api/Deudas/Consultar_HistorialDeudas?id_fraccionamiento='+id_fraccionamiento);
   }
 /*
   fetchDataDeudasExtra(id_tesorero: any): Observable<deudas[]> {
-    return this.http.get<deudas[]>('http://159.54.141.160/api/Deudas/Consultar_DeudaExtra?id_tesorero='+id_tesorero);
+    return this.http.get<deudas[]>('https://localhost:44397/api/Deudas/Consultar_DeudaExtra?id_tesorero='+id_tesorero);
   }
 */
 
 actualizarHikvision( f: any): Observable<fraccionamientos[]> {
 
 
-  const url = "http://159.54.141.160/Hikvision/Actualizar_Hikvision?id_controlador="+f.id_controlador+"&nombre="+f.nombre+"&user="+f.user+"&password="+f.password+"&port="+f.port+"&ip="+f.oct1+"."+f.oct2+"."+f.oct3+"."+f.oct4;
+  const url = "https://localhost:44397/Hikvision/Actualizar_Hikvision?id_controlador="+f.id_controlador+"&nombre="+f.nombre+"&user="+f.user+"&password="+f.password+"&port="+f.port+"&ip="+f.oct1+"."+f.oct2+"."+f.oct3+"."+f.oct4;
   return this.http.put<fraccionamientos[]>(url,{});
 
 }
 
 fetchDataDeudasExtra(id_tesorero: any, tipo_deuda: any): Observable<deudas[]> {
-  return this.http.get<deudas[]>('http://159.54.141.160/api/Deudas/Consultar_Deuda?id_tesorero=' + id_tesorero + "&tipo_deuda=" + tipo_deuda);
+  return this.http.get<deudas[]>('https://localhost:44397/api/Deudas/Consultar_Deuda?id_tesorero=' + id_tesorero + "&tipo_deuda=" + tipo_deuda);
 }
 
   fetchDataDeudores(): Observable<deudores[]> {
-    return this.http.get<deudores[]>('http://159.54.141.160/api/Deudas_Usuario/Consultar_Deudores');
+    return this.http.get<deudores[]>('https://localhost:44397/api/Deudas_Usuario/Consultar_Deudores');
   }
 
   restringir_acceso(id_deuda: any): Observable<deudores[]> {
-    return this.http.get<deudores[]>('http://159.54.141.160/api/Deudas_Usuario/Restringir_acceso?id_deuda='+id_deuda);
+    return this.http.get<deudores[]>('https://localhost:44397/api/Deudas_Usuario/Restringir_acceso?id_deuda='+id_deuda);
   }
 
   consultarPersonaIndividual(id_usuario:number): Observable<Personas[]>{
-    return this.http.get<Personas[]>(`http://159.54.141.160/api/Personas/Consultar_PersonaIndividual?id_persona=${id_usuario}`);
+    return this.http.get<Personas[]>(`https://localhost:44397/api/Personas/Consultar_PersonaIndividual?id_persona=${id_usuario}`);
   }
 
   consultarCorreo(id_persona:number): Observable<Personas[]>{
-    return this.http.get<Personas[]>(`http://159.54.141.160/api/Personas/Obtener_Correo_Persona?id_persona=${id_persona}`);
+    return this.http.get<Personas[]>(`https://localhost:44397/api/Personas/Obtener_Correo_Persona?id_persona=${id_persona}`);
   }
 
   iniciar_sesion1(sesion: {username: string, password:string}):Observable<sesions[]>{
-  let direccion = "http://159.54.141.160/Sesion/Iniciar_Sesion?correo="+sesion.username+"&contrasenia="+sesion.password;
+  let direccion = "https://localhost:44397/Sesion/Iniciar_Sesion?correo="+sesion.username+"&contrasenia="+sesion.password;
   return this.http.get<sesions[]>(direccion);
   }
 
   async numeroRegistrosTabla(id_fraccionamiento: number, tabla: string){
-    let direccion = "http://159.54.141.160/api/ControllerGlobal/Calcular_Registros?id_fraccionamiento="+id_fraccionamiento+"&tabla="+tabla;
+    let direccion = "https://localhost:44397/api/ControllerGlobal/Calcular_Registros?id_fraccionamiento="+id_fraccionamiento+"&tabla="+tabla;
 
     const response = await this.http.get(direccion).toPromise();
     return response as any; // Assuming the response is an object
@@ -198,29 +198,29 @@ fetchDataDeudasExtra(id_tesorero: any, tipo_deuda: any): Observable<deudas[]> {
   }
 
   consultarDeudasPorCobrar(mes: any):Observable<graficas[]>{
-    let direccion = `http://159.54.141.160/api/Graficos/Consultar_DeudasPorCobrar?id_fraccionamiento=${this.obtener_usuario(1)}&fecha_inicio=${this.obtenerPrimerDiaDelMesActual(mes)}&fecha_final=${this.ultimoDiaDelMesActual(mes)}`;
+    let direccion = `https://localhost:44397/api/Graficos/Consultar_DeudasPorCobrar?id_fraccionamiento=${this.obtener_usuario(1)}&fecha_inicio=${this.obtenerPrimerDiaDelMesActual(mes)}&fecha_final=${this.ultimoDiaDelMesActual(mes)}`;
     console.log(direccion)
     return this.http.get<graficas[]>(direccion);
   }
 
   consultarEntradas(mes: any):Observable<entradas[]>{
-    let direccion = `http://159.54.141.160/api/Graficos/Consultar_Entradas?fecha_inicio=${this.obtenerPrimerDiaDelMesActual(mes)}&fecha_final=${this.ultimoDiaDelMesActual(mes)}`;
-    console.log("verr: ",`http://159.54.141.160/api/Graficos/Consultar_Entradas?fecha_inicio=${this.obtenerPrimerDiaDelMesActual(mes)}&fecha_final=${this.ultimoDiaDelMesActual(mes)}`)
+    let direccion = `https://localhost:44397/api/Graficos/Consultar_Entradas?fecha_inicio=${this.obtenerPrimerDiaDelMesActual(mes)}&fecha_final=${this.ultimoDiaDelMesActual(mes)}`;
+    console.log("verr: ",`https://localhost:44397/api/Graficos/Consultar_Entradas?fecha_inicio=${this.obtenerPrimerDiaDelMesActual(mes)}&fecha_final=${this.ultimoDiaDelMesActual(mes)}`)
     return this.http.get<entradas[]>(direccion);
   }
 
   actualizar_apariencia(dark_mode: number) {
-    return this.http.get(`http://159.54.141.160/Sesion/Actualizar_apariencia?id_persona=${this.obtener_usuario(1)}&dark_mode=${dark_mode}`);
+    return this.http.get(`https://localhost:44397/Sesion/Actualizar_apariencia?id_persona=${this.obtener_usuario(1)}&dark_mode=${dark_mode}`);
   }
 
   eliminarControlador(id_controlador: number): Observable<any> {
-    const url = `http://159.54.141.160/Hikvision/Eliminar_Hikvision?id_controlador=`+id_controlador;
+    const url = `https://localhost:44397/Hikvision/Eliminar_Hikvision?id_controlador=`+id_controlador;
     return this.http.delete(url);
   }
 
 /*
   conexion_hikvision(user: string, password: string, port: string, ip: string){
-  let direccion = "http://159.54.141.160/Sesion/Conexion_Hikvision?ip="+this.obtener_usuario(9)+"&password="+this.obtener_usuario(11)+"&port="+this.obtener_usuario(10)+"&user="+this.obtener_usuario(12);
+  let direccion = "https://localhost:44397/Sesion/Conexion_Hikvision?ip="+this.obtener_usuario(9)+"&password="+this.obtener_usuario(11)+"&port="+this.obtener_usuario(10)+"&user="+this.obtener_usuario(12);
   return this.http.get<boolean>(direccion);
   }
 
