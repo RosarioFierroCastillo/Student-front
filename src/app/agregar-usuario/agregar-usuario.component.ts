@@ -145,8 +145,8 @@ export class AgregarUsuarioComponent {
         .subscribe(
           response => {
             console.log('Success:', response);
-            this.correoService.Enviar_Correo(correo_invitado, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397/Student/Invitacion?token=" + token);
-            // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n https://localhost:44397:4200/Invitacion?token=" + token);
+            this.correoService.Enviar_Correo(correo_invitado, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://159.54.141.160/Student/Invitacion?token=" + token);
+            // this.enviarCorreo(correoElectronico, "haz sido invitado por tu administrador para unirte a una comunidad en linea\n por favor termina tu registro en el siguiente link: \n http://159.54.141.160:4200/Invitacion?token=" + token);
             Swal.fire({
               title: 'Invitacion enviada correctamente',
               text: '',
@@ -202,7 +202,7 @@ export class AgregarUsuarioComponent {
           //  Codigo_acceso: "123"
         };
 
-        let direccion = "https://localhost:44397/api/Usuarios/Agregar_Usuario";
+        let direccion = "http://159.54.141.160/api/Usuarios/Agregar_Usuario";
 
         const headers = new HttpHeaders({ 'myHeader': 'procademy' });
         this.http.post(
@@ -230,7 +230,7 @@ export class AgregarUsuarioComponent {
 
       this.id_fracc = this.id_usuario;
 
-      return this.http.get("https://localhost:44397/api/Usuario_lote/RestrictedUser?id_usuario=" + this.id_fracc).subscribe(
+      return this.http.get("http://159.54.141.160/api/Usuario_lote/RestrictedUser?id_usuario=" + this.id_fracc + "&id_fraccionamiento="+this.dataService.obtener_usuario(3)).subscribe(
         () => {
 
           Swal.fire({
@@ -267,7 +267,7 @@ export class AgregarUsuarioComponent {
       this.id_fracc = this.id_usuario;
       console.log(this.id_usuario);
 
-      return this.http.delete("https://localhost:44397/api/Usuario_lote/Eliminar_inquilino?id_persona=" + this.id_fracc).subscribe(
+      return this.http.delete("http://159.54.141.160/api/Usuario_lote/Eliminar_inquilino?id_usuario=" + this.id_fracc+"&id_fraccionamiento=" + this.dataService.obtener_usuario(3)).subscribe(
         () => {
 
           Swal.fire({
@@ -304,7 +304,7 @@ export class AgregarUsuarioComponent {
       this.id_fracc = this.id_usuario;
 
 
-      return this.http.get("https://localhost:44397/api/Usuario_lote/EnableUser?id_usuario=" + this.id_fracc).subscribe(
+      return this.http.get(`http://159.54.141.160/api/Usuario_lote/EnableUser?id_usuario=${this.id_usuario}&id_fraccionamiento=${this.dataService.obtener_usuario(3)}`).subscribe(
         () => {
           Swal.fire({
             title: 'Usuario agregado correctamente',
@@ -392,7 +392,7 @@ export class AgregarUsuarioComponent {
       console.log("params  ", params);
 
 
-      return this.http.put("https://localhost:44397/api/Personas/Actualizar_Persona_Admi", params).subscribe(
+      return this.http.put("http://159.54.141.160/api/Personas/Actualizar_Persona_Admi", params).subscribe(
         (_response) => {
 
           Swal.fire({
@@ -414,7 +414,7 @@ export class AgregarUsuarioComponent {
 
 
           console.log("hola");
-          console.log("https://localhost:44397/api/Personas/Actualizar_Persona", params);
+          console.log("http://159.54.141.160/api/Personas/Actualizar_Persona", params);
 
 
           this.ngOnInit();
@@ -432,7 +432,7 @@ export class AgregarUsuarioComponent {
       this.tesorero = 'tesorero';
 
 
-      return this.http.put("https://localhost:44397/api/Personas/Actualizar_TipoUsuario?tipo_usuario=" + this.tesorero + "&id_persona=" + this.id_fracc, this.id_fracc).subscribe(
+      return this.http.put("http://159.54.141.160/api/Personas/Actualizar_TipoUsuario?tipo_usuario=" + this.tesorero + "&id_persona=" + this.id_fracc, this.id_fracc).subscribe(
         () => {
           Swal.fire({
             title: 'Tesorero',

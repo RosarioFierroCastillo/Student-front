@@ -9,10 +9,10 @@ export class AccesoPuertaService {
 
   constructor(private http: HttpClient) {}
 
-  //https://localhost:44397/Usuarios/Generar_Token
-  //https://localhost:44397/Usuarios/Consultar_Correo?id_persona=${userId}
+  //http://159.54.141.160/Usuarios/Generar_Token
+  //http://159.54.141.160/Usuarios/Consultar_Correo?id_persona=${userId}
 
-  apiUrl:string ='https://localhost:44397/api/Whatsapp/';
+  apiUrl:string ='http://159.54.141.160/api/Whatsapp/';
   generarToken(idUsuario: number): Observable<string> {
     const url = `${this.apiUrl}Generar_Token?idUsuario=${idUsuario}`;
 

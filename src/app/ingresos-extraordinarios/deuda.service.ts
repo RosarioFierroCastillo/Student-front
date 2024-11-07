@@ -11,7 +11,7 @@ export class DeudaService {
   constructor(private http:HttpClient) { }
 
 
-  private apiUrl = 'https://localhost:44397/api/Deudas';
+  private apiUrl = 'http://159.54.141.160/api/Deudas';
 
   consultarDeudoresOridinarios(idFraccionamiento: number,idUsuario:number): Observable<Deudores[]> {
     const url = `${this.apiUrl}/Consultar_DeudoresOrdinarios?id_fraccionamiento=${idFraccionamiento}&id_usuario=${idUsuario}`;

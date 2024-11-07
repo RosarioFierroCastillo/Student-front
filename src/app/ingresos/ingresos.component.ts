@@ -336,7 +336,7 @@ export class IngresosComponent {
 
     console.log("actualizar: ", params)
 
-    return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
+    return this.http.put("http://159.54.141.160/api/Deudas/Actualizar_Deuda", params).subscribe(
       (_response) => {
         console.log("actualiza", params)
         this.ngOnInit();
@@ -351,7 +351,7 @@ export class IngresosComponent {
 
   /*
   delete(id_deudas: any){
-    return this.http.delete("https://localhost:44397/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
+    return this.http.delete("http://159.54.141.160/api/Deudas/Eliminar_Deuda?id_deudas="+id_deudas).subscribe(
       () => {
         this.consultarHistorialDeudas(this.dataService.obtener_usuario(3));
 
@@ -390,7 +390,7 @@ export class IngresosComponent {
 
     console.log("actualizar: ", params)
 
-    return this.http.put("https://localhost:44397/api/Deudas/Actualizar_Deuda", params).subscribe(
+    return this.http.put("http://159.54.141.160/api/Deudas/Actualizar_Deuda", params).subscribe(
       (_response) => {
         console.log("actualiza", params)
         this.ngOnInit();
@@ -481,7 +481,7 @@ export class IngresosComponent {
 
   async Generar_Recibo(id_deuda: number): Promise<void> {
     try {
-        const response = await fetch(`https://localhost:44397/api/Deudas/GenerarRecibo?id_deuda=${id_deuda}`);
+        const response = await fetch(`http://159.54.141.160/api/Deudas/GenerarRecibo?id_deuda=${id_deuda}`);
         if (response.ok) {
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
@@ -596,7 +596,7 @@ export class IngresosComponent {
     input.value = ''; // Limpiar el input de tipo file
   }
 
-  apiUrl:string = 'https://localhost:44397/Reportes/Reporte_IngresosDeudas';
+  apiUrl:string = 'http://159.54.141.160/Reportes/Reporte_IngresosDeudas';
   reporteIngresos(){
     this.loadingService.show();
 

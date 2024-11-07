@@ -252,7 +252,7 @@ token:string='';
   }
 
   construirQr(){
-    this.enlaceConstruido=`https://localhost:44397/Student/PaseTemporal?token=${this.token}`;
+    this.enlaceConstruido=`http://159.54.141.160/Student/PaseTemporal?token=${this.token}`;
     QRCode.toDataURL(this.enlaceConstruido, (err: any, url: string) => {
       if (err) {
         console.error('Error generando el QR:', err);

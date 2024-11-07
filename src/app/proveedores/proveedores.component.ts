@@ -198,7 +198,7 @@ export class ProveedoresComponent {
     };
   }
 
-  apiUrl:string = 'https://localhost:44397/Reportes/Reporte_Proveedores';
+  apiUrl:string = 'http://159.54.141.160/Reportes/Reporte_Proveedores';
   reporteProveedores(){
     this.loadingService.show();
 
