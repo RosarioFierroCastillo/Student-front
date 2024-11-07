@@ -18,121 +18,90 @@
 
     <div id="header">
         <h2 class="titulo">¡Hola de nuevo, {{nombre}}!</h2>
-        <p id="descripcion">Te mostramos un resúmen del mes de {{mes}}</p>
-
-
-
+        <p id="descripcion">Te mostramos información que te puede ser util </p>
 
     </div>
 
     <hr>
 
-
-    <div style="padding-left: 5%;">
-
-
-
-
-
-        <div class="contenedor1">
-
-
-
-            <div id="buscar">
-
-                <div id="columna1">
-                    <label style="color: rgb(97, 94, 94); font-size: small;">
-                        Tu total a pagar es de:
-                    </label>
-
-                    <h2>${{ total_deuda }}</h2>
-                </div>
-
-                <div id="columna2">
-                    <p>Pagar en línea con: </p>
-                    <button (click)="createPayment(200)" id="paypal-button"><img id="paypal" src="./pay.png"></button>
-
-
-
-
-
-
-
-                </div>
-
-
-
-                <div id="columna2">
-                    <p>Información de pago: </p>
-
-                    <div>
-                        <label>Karina Aidee Galaviz Burgos</label>
-                        <label id="labelToCopy">1234123412341234 <img id="spei" src="./spei.png">
-
-                            <button (click)=" copyLabelContent()"
-                                style="background: none; border: none; font-size: 20px; "><i
-                                    class="fa-regular fa-copy"></i></button>
-
-                        </label>
-
-                        <div class="notification" *ngIf="visible==true">
-                            texto copiado
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-
-
-
-
-            </div>
-
-            <div class="contenedor2">
-
-                    <label style="color: rgb(97, 94, 94); font-size: small;">
-                        últimos movimientos
-                    </label>
-
-            </div>
-        </div>
-
-
-
-
-
-        <div *ngIf="isBlocked != true" class="contenedor3">
-            <label style="color: rgb(97, 94, 94); font-size: small;">
-                Generar y compartir código de uso único
-            </label>
-
-            <div class="generar-container">
-                <button class="green-button" (click)="generarToken()">Generar</button>
-            </div>
-
-            <div class="qr-container">
-                <img [src]="qrCodeDataUrl" alt="Presiona el Botón de Arriba para generar el código" #codigoQR>
-
-                <p class="advertencia">Comparte solamente con la persona que necesita acceso. No compartas este código con desconocidos.</p>
-
-                <button class="download-button" (click)="descargarCodigoQR()">Descargar</button>
-            </div>
-
-
-        </div>
-
-        <div *ngIf="isBlocked == true" class="overlay">
-                <p class="bloqueado-mensaje">Esta sección se encuentra temporalmente bloqueada por el administrador de la comunidad, comunicate con él para más información</p>
-        </div>
-
-
-
-
-
-
+    <div class="carousel">
+      <div class="carousel-images">
+        <img src="assets/fondo.jpg" alt="Imagen 1">
+        <img src="assets/janover.png" alt="Imagen 2">
+        <img src="assets/hanover2.png" alt="Imagen 3">
+      </div>
     </div>
+
+
+    <div class="contenedor2">
+
+      <table class="table" width="70%">
+          <thead>
+              <tr>
+                  <th scope="col" width="200px" style="font: 1em sans-serif;">Asunto</th>
+                  <th scope="col">Detalles</th>
+                  <th scope="col" style="text-align:center;width:200px;">Fecha</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr mat-row matRowDef="columns: displayedcolumns;"
+            *ngFor="let notificacion of notificaciones1">
+            <td style="font: 1em sans-serif; font-size: 8;">{{ notificacion.asunto }}</td>
+            <td style="font-size: 8;">{{ notificacion.mensaje }}</td>
+            <td id="td-view" style="text-align:center;">
+                {{ notificacion.fecha }}
+            </td>
+        </tr>
+
+          </tbody>
+      </table>
+  </div>
+
+  <div class="container">
+    <h2 class="titulo" style="margin-left: 210px;">Generar Invitación</h2>
+
+
+
+    <div class="qr-container">
+      <p class="advertencia">Comparte solamente con la persona que necesita acceso. No compartas este código con desconocidos.</p>
+        <img [src]="qrCodeDataUrl" alt="Presiona el Botón de Arriba para generar el código" #codigoQR>
+        <div class="generar-container">
+          <button class="green-button" (click)="generarToken()">Generar</button>
+      </div>
+
+
+        <!-- <button class="download-button" (click)="descargarCodigoQR()">Descargar</button> -->
+    </div>
+
+    <!-- Overlay de bloqueo -->
+    <!-- <div class="overlay" *ngIf="isBlocked">
+        <p class="bloqueado-mensaje">Esta sección se encuentra temporalmente bloqueada por el administrador de la comunidad, comunicate con él para más información</p>
+    </div> -->
+</div>
+
+
+
+
+
+  <!-- <div class="custom-contenedor-deudas">
+    <h2 style="text-align: center;">Deudas</h2>
+    <table class="custom-table" width="100%">
+        <thead>
+            <tr>
+                <th>Nombre de Deuda</th>
+                <th>Monto</th>
+                <th>Próxima fecha de pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let deudor of getDeudasOrdenadas(); let i = index">
+                <td>{{ deudor.nombre_deuda }}</td>
+                <td>${{ deudor.monto }} MXN</td>
+                <td>{{ calcularProximoPago(deudor.proximo_pago, deudor.periodicidad) }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
 
 
 

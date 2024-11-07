@@ -96,7 +96,7 @@ export class PanelPrincipalUserComponent {
         $(this).find('ul').toggle();
       });
     });
-    
+
 
   }
 
@@ -138,13 +138,13 @@ export class PanelPrincipalUserComponent {
 
 
 
-  
+
   consultarNotificacion(idFraccionamiento: any, indice: number, verdaderoRango: number, id_destinatario: number) {
 
 
     this.NotificacionesService.consultarNotificacion(idFraccionamiento, id_destinatario).subscribe((notificaciones: Notificaciones[]) => {
 
-      
+
       this.notificaciones = notificaciones;
       this.indice = 0;
       this.verdaderoRango = 6;

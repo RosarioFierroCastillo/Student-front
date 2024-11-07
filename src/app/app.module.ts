@@ -85,7 +85,8 @@ import {provideStorage, getStorage} from '@angular/fire/storage'
 import { provideFirebaseApp, initializeApp} from '@angular/fire/app';
 
 import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
-
+import { HomeUsuarios2Component } from './home-usuarios2/home-usuarios2.component';
+import { HomeUsuariosComponent } from './home-usuarios/home-usuarios.component';
 
 
 @NgModule({
@@ -142,7 +143,8 @@ import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
     GruposComponent,
     EditarCuentaComponent,
     PaseTemporalComponent,
-   // HomeUsuariosComponent
+    HomeUsuarios2Component,
+    HomeUsuariosComponent
 
 
   ],

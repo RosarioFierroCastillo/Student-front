@@ -4,7 +4,7 @@
 
 <body>
 
-    
+
     <app-loading-spinner></app-loading-spinner>
 
     <div>
@@ -44,7 +44,7 @@
 
         </div>
 
-        <div class="contenedor2" *ngIf="this.notificaciones1.length>0; else noencontrado"> 
+        <div class="contenedor2" *ngIf="this.notificaciones1.length>0; else noencontrado">
 
             <table class="table" width="100%">
                 <thead>
@@ -55,7 +55,7 @@
                         <th scope="col">Detalles</th>
                         <th scope="col">Destinatario</th>
                         <th scope="col" style="text-align:center;width:200px;">
-                            Acciones y ver más
+                            Fecha
                         </th>
                     </tr>
                 </thead>
@@ -70,9 +70,7 @@
                         <td>{{ notificacion.destinatario }}</td>
                         <td id="td-view">
 
-                            <button type="button" id="view-button">
-                                <mat-icon style="font-size:medium;">visibility</mat-icon>
-                            </button>
+                            {{notificacion.fecha}}
 
                         </td>
                     </tr>
@@ -91,7 +89,7 @@
         <ng-template #noencontrado>
             <div class="div-noen">
                 <img class="noencontrado" src="./notfound.png" alt="hola">
-     
+
             </div>
 
         </ng-template>
@@ -146,7 +144,7 @@
                             </option>
                         </select>
                     </div>
-                    
+
 
 
 

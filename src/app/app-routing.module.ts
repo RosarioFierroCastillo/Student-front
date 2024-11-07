@@ -48,6 +48,9 @@ import { HomeUsuariosComponent } from './home-usuarios/home-usuarios.component'
 
 import { PaseTemporalComponent } from './pase-temporal/pase-temporal.component';
 
+import { HomeUsuarios2Component } from './home-usuarios2/home-usuarios2.component';
+
+
 const routes: Routes = [
   // {path:'Home', component:HomeComponent},
   //{path:'Acuerdos', component:AcuerdosComponent},

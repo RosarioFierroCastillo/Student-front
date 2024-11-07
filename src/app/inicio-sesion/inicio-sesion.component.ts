@@ -125,7 +125,14 @@ export class InicioSesionComponent {
         } else if (this.Tipo_usuario === "tesorero") {
           this.router.navigate(['PanelTesorero']);
         } else if (this.Tipo_usuario === "propietario" || this.Tipo_usuario === "arrendatario" || this.Tipo_usuario === "usuario") {
-          this.router.navigate(['PanelUser']);
+          //this.router.navigate(['PanelUser']);
+
+          this.router.navigate(['/PanelUser']).then(() => {
+            setTimeout(() => {
+              this.router.navigate(['PanelUser/PanelUsuarios']);
+            }, 700);
+          });
+
         } else {
           console.log("Tipo de usuario desconocido");
         }
